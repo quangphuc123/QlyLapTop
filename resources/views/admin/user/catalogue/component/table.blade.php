@@ -5,58 +5,50 @@
                  <th>
                      <input type="checkbox" value="" id="checkAll" class="input-checkox">
                  </th>
-                 <th class="text-center">Họ tên</th>
-                 <th class="text-center">Email</th>
-                 <th class="text-center">Số điện thoại</th>
-                 <th class="text-center">Địa Chỉ</th>
-                 <th class="text-center">Tình trạng</th>
-                 <th class="text-center">Tùy chỉnh</th>
+                 <th class="text-center">Tên nhóm tài khoản</th>
+                 <th class="text-center">Tổng số tài khoản</th>
+                 <th class="text-center">Mô tả chức năng nhóm tài khoản</th>
+                 <th class="text-center">Trạng thái </th>
+                 <th class="text-center">Tùy chỉnh </th>
              </tr>
          </thead>
          <tbody>
-             @if (@isset($users) && is_object($users))
-                 @foreach ($users as $user)
+             @if (@isset($userCatalogues) && is_object($userCatalogues))
+                 @foreach ($userCatalogues as $userCatalogue)
                      <tr>
                          <td>
-                             <input type="checkbox" value="{{ $user->id }}" class="input-checkox checkBoxItem">
+                             <input type="checkbox" value="{{ $userCatalogue->id }}" class="input-checkox checkBoxItem">
                          </td>
                          <td>
                              <div class="info-item name">
-                                 {{ $user->name }}
+                                 {{ $userCatalogue->name }}
                              </div>
                          </td>
                          <td>
-                             <div class="info-item email">
-                                 {{ $user->email }}
-                             </div>
-                         </td>
+                            <div class="text-center">
+                                {{ $userCatalogue->users_count }} tài khoản
+                            </div>
+                        </td>
                          <td>
-                             <div class="info-item phone">
-                                 {{ $user->phone }}
+                             <div class="info-item name">
+                                 {{ $userCatalogue->description }}
                              </div>
                          </td>
-                         <td>
-                             <div class="address-item address">
-                                 {{ $user->address }}
-                             </div>
-
-                         </td>
-                         <td class="text-center js-switch-{{ $user->id }}">
-                             <input type="checkbox" value="{{ $user->publish }}"
-                             class="js-switch status"
-                                 data-field="publish"
-                                 data-model="User" {{ $user->publish == 1 ? 'checked' : ' ' }}
-                                 data-modelId = "{{ $user->id }}" />
+                         <td class="text-center js-switch-{{ $userCatalogue->id }}">
+                             <input type="checkbox" value="{{ $userCatalogue->publish }}" class="js-switch status"
+                                 data-field="publish" data-model="UserCatalogue"
+                                 {{ $userCatalogue->publish == 2 ? 'checked' : ' ' }}
+                                 data-modelId = "{{ $userCatalogue->id }}" />
                          </td>
                          <td class="text-center">
-                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success"><i
+                             <a href="{{ route('user.catalogue.edit', $userCatalogue->id) }}" class="btn btn-success"><i
                                      class="fa fa-edit"></i></a>
-                             <a href="{{ route('user.delete', $user->id) }}" class="btn btn-danger"><i
-                                     class="fa fa-trash"></i></a>
+                             <a href="{{ route('user.catalogue.delete', $userCatalogue->id) }}"
+                                 class="btn btn-danger"><i class="fa fa-trash"></i></a>
                          </td>
                      </tr>
                  @endforeach
              @endif
          </tbody>
      </table>
-     {{ $users->Links('pagination::bootstrap-4') }}
+     {{ $userCatalogues->Links('pagination::bootstrap-4') }}

@@ -9,12 +9,12 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <h5>{{ $config['seo']['index']['table'] }}</h5>
-                                @include('admin.user.user.component.toolbox')
+                                @include('admin.dashboard.component.toolbox',['model'=>'UserCatalogue'])
                             </div>
 
                             <div class="ibox-content">
-                                @include('admin.user.user.component.filter')
-                                @include('admin.user.user.component.table')
+                                @include('admin.user.catalogue.component.filter')
+                                @include('admin.user.catalogue.component.table')
                             </div>
                         </div>
                     </div>

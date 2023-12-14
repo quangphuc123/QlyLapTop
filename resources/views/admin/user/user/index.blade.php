@@ -9,7 +9,7 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <h5>{{ $config['seo']['index']['table'] }}</h5>
-                                @include('admin.user.user.component.toolbox')
+                                @include('admin.dashboard.component.toolbox',['model'=>'User'])
                             </div>
 
                             <div class="ibox-content">

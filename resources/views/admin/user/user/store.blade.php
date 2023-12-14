@@ -53,7 +53,12 @@
                             </div>
                         </div>
                         @php
-                            $userCatalogue = ['----- Chọn Nhóm Tài Khoản -----', '----- Admin -----', '----- Nhân Viên -----', '----- Khách Hàng -----'];
+                            $userCatalogue = [
+                                '----- Chọn Nhóm Tài Khoản -----',
+                                '----- Admin -----',
+                                '----- Nhân Viên -----',
+                                '----- Khách Hàng -----'
+                            ];
                         @endphp
                         <div class="row mb15">
                             <div class="col-lg-6">

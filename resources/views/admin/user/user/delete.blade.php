@@ -1,6 +1,6 @@
 @include('admin.dashboard.component.breadcrumb', ['title' => $config['seo']['create']['title']])
 
-<form action="{{ route('user.destroy',$user->id) }}" method="post" class="box">
+<form action="{{ route('user.destroy', $user->id) }}" method="post" class="box">
     @csrf
     @method('DELETE')
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -9,7 +9,8 @@
                 <div class="panel-head">
                     <div class="panel-title">Thông tin chung</div>
                     <div class="panel-description">
-                        <p>- Bạn đang muốn xóa tài khoản có Email: {{ $user->email }}</p>
+                        <p>- Bạn đang muốn xóa tài khoản có Email: <span class="text-danger">{{ $user->email }}</span>
+                        </p>
                         <p>- Không thể khôi phục tài khoản sau khi xóa. Bạn chắc chắn muốn thực hiện chức năng này?</p>
                     </div>
                 </div>

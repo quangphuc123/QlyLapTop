@@ -3,36 +3,32 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserCatalogueRequest;
 use Illuminate\Http\Request;
 
-use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
-use App\Services\Interfaces\UserServiceInterface as UserService;
-use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
-use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
+use App\Services\Interfaces\UserCatalogueServiceInterface as UserCatalogueService;
+use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
 
-
-class UsersController extends Controller
+class UserCatalogueController extends Controller
 {
 
-    protected $userService;
-    protected $provinceRepository;
-    protected $userRepository;
+    protected $userCatalogueService;
+    protected $userCatalogueRepository;
 
     public function __construct(
-        UserService $userService,
-        ProvinceRepository $provinceRepository,
-        UserRepository $userRepository,
+        UserCatalogueService $userCatalogueService,
+        UserCatalogueRepository $userCatalogueRepository,
     ) {
-        $this->userService = $userService;
-        $this->provinceRepository = $provinceRepository;
-        $this->userRepository = $userRepository;
+        $this->userCatalogueService = $userCatalogueService;
+        $this->userCatalogueRepository = $userCatalogueRepository;
     }
 
     public function index(Request $request)
     {
-        $users = $this->userService->paginate($request);
+
+        $userCatalogues = $this->userCatalogueService->paginate($request);
 
         $config = [
             'js' => [
@@ -44,32 +40,20 @@ class UsersController extends Controller
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             ]
         ];
-        $config['seo'] = config('apps.user');
+        $config['seo'] = config('apps.usercatalogue');
         $template = 'admin.user.catalogue.index';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'users'
+                'userCatalogues'
             )
         );
     }
     public function create()
     {
-
-        $provinces = $this->provinceRepository->all();
-        $config = [
-            'css' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-            ],
-            'js' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                'backend\library\location.js',
-            ],
-        ];
-
-        $config['seo'] = config('apps.user');
+        $config['seo'] = config('apps.usercatalogue');
         $config['method'] = 'create';
         $template = 'admin.user.catalogue.store';
         return view(
@@ -77,34 +61,22 @@ class UsersController extends Controller
             compact(
                 'template',
                 'config',
-                'provinces',
             )
         );
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserCatalogueRequest $request)
     {
-        if ($this->userService->create($request)) {
-            return redirect()->route('user.index')->with('success', 'Thêm mới thành công!!');
+        if ($this->userCatalogueService->create($request)) {
+            return redirect()->route('user.catalogue.index')->with('success', 'Thêm mới thành công!!');
         }
         return redirect()->route('dashboard.index')->with('error', 'Thêm mới không thành công!! Vui lòng thử lại');
     }
 
     public function edit($id)
     {
-        $user = $this->userRepository->findById($id);
-        $provinces = $this->provinceRepository->all();
-        $config = [
-            'css' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-            ],
-            'js' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                'backend\library\location.js',
-            ],
-        ];
-
-        $config['seo'] = config('apps.user');
+        $userCatalogue = $this->userCatalogueRepository->findById($id);
+        $config['seo'] = config('apps.usercatalogue');
         $config['method'] = 'edit';
         $template = 'admin.user.catalogue.store';
         return view(
@@ -112,15 +84,14 @@ class UsersController extends Controller
             compact(
                 'template',
                 'config',
-                'provinces',
-                'user',
+                'userCatalogue',
             )
         );
     }
-    public function update($id, UpdateUserRequest $request)
+    public function update($id, StoreUserCatalogueRequest $request)
     {
-        if ($this->userService->update($id, $request)) {
-            return redirect()->route('user.index')
+        if ($this->userCatalogueService->update($id, $request)) {
+            return redirect()->route('user.catalogue.index')
                 ->with('success', 'Cập nhật thành công!!');
         }
         return redirect()->route('dashboard.index')
@@ -129,27 +100,26 @@ class UsersController extends Controller
 
     public function delete($id)
     {
-        $config['seo'] = config('apps.user');
-
-        $user = $this->userRepository->findById($id);
+        $config['seo'] = config('apps.usercatalogue');
+        $userCatalogue = $this->userCatalogueRepository->findById($id);
         $template = 'admin.user.catalogue.delete';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'user',
+                'userCatalogue',
             )
         );
     }
 
     public function destroy($id)
     {
-        if ($this->userService->destroy($id)) {
-            return redirect()->route('user.index')
-                ->with('success', 'Xóa tài khoản thành công');
+        if ($this->userCatalogueService->destroy($id)) {
+            return redirect()->route('user.catalogue.index')
+                ->with('success', 'Xóa nhóm tài khoản thành công');
         }
         return redirect()->route('dashboard.index')
-            ->with('error', 'Xóa tài khoản không thành công');
+            ->with('error', 'Xóa nhóm tài khoản không thành công');
     }
 }

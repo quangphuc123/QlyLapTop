@@ -19,14 +19,12 @@
             <div class="action">
                 <div class="uk-flex uk-flex-middle">
                     @php
-                        $publishArray = ['Không hoạt động', 'Hoạt động'];
                         $publish = request('publish') ?: old('publish');
                     @endphp
                     <select name="publish" id="" class="form-control mr10 setupSelect2 ">
-                        <option value="-1" selected="selected">Chọn tình trạng tài khoản</option>
-                        @foreach ($publishArray as $key => $val)
-                            <option {{ $publish == $key ? 'selected' : '' }}
-                            value="{{ $key }}">{{ $val }}</option>
+                        @foreach (config('apps.general.publish') as $key => $val)
+                            <option {{ $publish == $key ? 'selected' : '' }} value="{{ $key }}">
+                                {{ $val }}</option>
                         @endforeach
                     </select>
                     <select name="user_catalogue_id" id="" class="form-control mr10 setupSelect2 ">

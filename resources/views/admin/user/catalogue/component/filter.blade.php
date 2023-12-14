@@ -1,8 +1,8 @@
-<form action="{{ route('user.index') }}">
+<form action="{{ route('user.catalogue.index') }}">
     <div class="filter-wrapper ">
         <div class="uk-flex uk-flex-middle uk-flex-space-between">
             <div class="perpage">
-                @php
+                {{-- @php
                     $perpage = request('perpage') ?: old('perpage');
                 @endphp
                 <div class="uk-flex uk-flex-middle uk-flex-space-between">
@@ -13,27 +13,20 @@
                             </option>
                         @endfor
                     </select>
-                </div>
+                </div> --}}
             </div>
 
             <div class="action">
                 <div class="uk-flex uk-flex-middle">
                     @php
-                        $publishArray = ['Không hoạt động', 'Hoạt động'];
                         $publish = request('publish') ?: old('publish');
                     @endphp
                     <select name="publish" id="" class="form-control mr10 setupSelect2 ">
-                        <option value="-1" selected="selected">Chọn tình trạng tài khoản</option>
-                        @foreach ($publishArray as $key => $val)
-                            <option {{ $publish == $key ? 'selected' : '' }}
-                            value="{{ $key }}">{{ $val }}</option>
+                        @foreach (config('apps.general.publish') as $key => $val)
+                            <option {{ $publish == $key ? 'selected' : '' }} value="{{ $key }}">
+                                {{ $val }}</option>
                         @endforeach
                     </select>
-                    <select name="user_catalogue_id" id="" class="form-control mr10 setupSelect2 ">
-                        <option value="0" selected="selected">Chọn Nhóm thành viên</option>
-                        <option value="1">Quản Trị Viên</option>
-                    </select>
-
                     <div class="uk-search uk-flex uk-flex-middle mr10">
                         <div class="input-group">
                             <input type="text" name="keyword" value="{{ request('keyword') ?: old('keyword') }}"
@@ -46,8 +39,8 @@
                             </span>
                         </div>
                     </div>
-                    <a href="{{ route('user.create') }}" class="btn btn-danger">
-                        <i class="fa fa-plus mr5"></i>Thêm mới tài khoản
+                    <a href="{{ route('user.catalogue.create') }}" class="btn btn-danger">
+                        <i class="fa fa-plus mr5"></i> Thêm mới nhóm tài khoản
                     </a>
                 </div>
             </div>

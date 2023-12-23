@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use App\Models\UserCatalogue;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\BaseRepository;
 
@@ -23,10 +24,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function pagination(
         array $column = ['*'],
         array $condition = [],
-        array $join = [],
-        array $extend = [],
         int $perpage = 1,
-        array $relation = []
+        array $extend = [],
+        array $oderBy = ['id','DESC'],
+        array $join = [],
+        array $relations = [],
     ) {
         $query = $this->model->select($column)
             ->where(function ($query) use ($condition) {
@@ -42,7 +44,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                     $query->where('publish', '=', $condition['publish']);
                 }
                 return $query;
-            });
+            })->with('user_catalogues');
+
         if (!empty($join)) {
             $query->join(...$join);
         }

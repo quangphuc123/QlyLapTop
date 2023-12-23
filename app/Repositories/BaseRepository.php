@@ -19,39 +19,34 @@ class BaseRepository implements BaseRepositoryInterface
     ) {
         $this->model = $model;
     }
+    public function pagination(
+        array $column = ['*'],
+        array $condition = [],
+        int $perpage = 1,
+        array $extend = [],
+        array $oderBy = ['id','DESC'],
+        array $join = [],
+        array $relations = [],
+        array $rawQuery = [],
+    ) {
+        $query = $this->model->select($column);
+        return $query->keyword($condition['keyword'] ?? null)
+                ->publish($condition['publish'] ?? null)
+                ->relationCount($relations ?? null)
+                ->CustomWhere($condition['where'] ?? null)
+                ->CustomWhereRaw($rawQuery['whereRaw'] ?? null)
+                ->CustomJoin($join ?? null)
+                ->CustomGroupBy($extend['groupBy'] ?? null)
+                ->CustomOderBy($oderBy ?? null)
+                ->paginate($perpage)
+                ->withQueryString()
+                ->withPath(env('APP_URL') . $extend['path']);
+    }
 
     public function create(array $payload = [])
     {
         $model = $this->model->create($payload);
         return $model->fresh();
-    }
-
-    public function pagination(
-        array $column = ['*'],
-        array $condition = [],
-        array $join = [],
-        array $extend = [],
-        int $perpage = 1,
-        array $relations = [],
-    ) {
-        $query = $this->model->select($column)
-            ->where(function ($query) use ($condition) {
-                if (isset($condition['keyword']) && !empty($condition['keyword'])) {
-                    $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%');
-                }
-                if (isset($condition['publish']) && $condition['publish'] != 0) {
-                    $query->where('publish', '=', $condition['publish']);
-                }
-                return $query;
-            });
-        if (isset($relations) && !empty($relations)) {
-            foreach ($relations as $relation)
-                $query->withCount($relation);
-        }
-        if (!empty($join)) {
-            $query->join(...$join);
-        }
-        return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }
 
     public function update(int $id = 0, array $payload = [])
@@ -63,6 +58,15 @@ class BaseRepository implements BaseRepositoryInterface
     public function updateByWhereIn($WhereInField = '', array $whereIn = [], array $payload = [])
     {
         return $this->model->whereIn($WhereInField, $whereIn)->update($payload);
+    }
+
+    public function updateByWhere($condition = [], array $payload = [])
+    {
+        $query = $this->model->newQuery();
+        foreach($condition as $key => $val){
+            $query->where($val[0], $val[1], $val[2]);
+        }
+        return $query->update($payload);
     }
 
     public function delete(int $id = 0)
@@ -86,5 +90,9 @@ class BaseRepository implements BaseRepositoryInterface
         array $relation = []
     ) {
         return $this->model->select($column)->with($relation)->findOrFail($modelId);
+    }
+
+    public function createPivot($model, array $payload = [], string $relation = ''){
+        return $model->{$relation}()->attach($model->id ,$payload);
     }
 }

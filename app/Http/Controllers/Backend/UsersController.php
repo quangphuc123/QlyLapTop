@@ -258,7 +258,9 @@ class UsersController extends Controller
         $profile->save();
         alert()->success('Chỉnh Sửa Tài Khoản', 'Thành Công');
         return redirect()->route('accountDetail');
-    private function configData()
+    }
+    
+    protected function configData()
     {
         return [
             'css' => [

@@ -22,7 +22,7 @@
         <div class="form-container sign-up-container">
             <form action="#" method="post">
                 @csrf
-                <h1>Tạo Tài Khoản</h1>
+                <h1>Đăng ký</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                     <a href="#" class="social"><i class="fa fa-google" aria-hidden="true"></i></a>

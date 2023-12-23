@@ -15,7 +15,6 @@
         }
 
         HT.select2 = () => {
-            console.log($('.setupSelect2').length);
             if ($('.setupSelect2').length) {
                 $('.setupSelect2').select2();
             }
@@ -39,7 +38,10 @@
                     data: option,
                     dataType: 'json',
                     success: function (res) {
-                        console.log(res)
+                        let inputValue = ((option.value == 1) ? 2 : 1)
+                        if (res.flag == true) {
+                            _this.val(inputValue)
+                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log('Lỗi: ' + textStatus + ' ' + errorThrown);
@@ -138,6 +140,11 @@
             }
         }
 
+        HT.sortui = () => {
+            $('#sortable').sortable();
+            $('#sortable').disableSelection();
+        }
+
         $(document).ready(function () {
             HT.switchery();
             HT.select2();
@@ -146,6 +153,7 @@
             HT.checkBoxItem();
             HT.allCheck();
             HT.changeStatusAll();
+            HT.sortui();
         });
     })(jQuery);
 

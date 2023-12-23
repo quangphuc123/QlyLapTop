@@ -1,3 +1,6 @@
+@php
+    $segment = request()->segment(1);
+@endphp
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
@@ -22,14 +25,21 @@
                     HS
                 </div>
             </li>
-            <li class="active">
-                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Quản lý tài khoản</span>
-                    <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                    <li><a href="{{ route('user.catalogue.index') }}">Quản lý nhóm tài khoản</a></li>
-                    <li><a href="{{ route('user.index') }}">Quản lý tài khoản</a></li>
-                </ul>
-            </li>
+            @foreach (__('sidebar.module') as $key => $val)
+                <li class="{{ in_array($segment, $val['name']) ? 'active' : '' }}">
+                    <a href=""><i class="{{ $val['icon'] }}"></i> <span
+                            class="nav-label">{{ $val['title'] }}</span>
+                        <span class="fa arrow"></span></a>
+                    @if (isset($val['subModule']))
+                        <ul class="nav nav-second-level">
+                            @foreach ($val['subModule'] as $module)
+                                <li><a href="{{ $module['route'] }}">{{ $module['title'] }}</a></li>
+                            @endforeach
+                        </ul>
+                    @endif
+
+                </li>
+            @endforeach
         </ul>
 
     </div>

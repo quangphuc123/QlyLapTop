@@ -33,9 +33,11 @@ class UserService implements UserServiceInterface
         $users = $this->userRepository->pagination(
             $this->paginateSelect(),
             $condition,
-            [],
+            $perPage,
             ['path' => 'user/index'],
-            $perPage
+
+            [],
+
         );
         return $users;
     }
@@ -44,6 +46,8 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token', 'send', 're_password']); //Lấy ra hết trừ 3 cái trên
+            if ($payload['birthday'] != null)
+                $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);
             $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);
             $payload['password'] = Hash::make($payload['password']);
             $user = $this->userRepository->create($payload);
@@ -63,7 +67,8 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token', 'send']); //Lấy ra hết trừ 2 cái trên
-            $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);
+            if ($payload['birthday'] != null)
+                $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);
             $user = $this->userRepository->update($id, $payload);
             DB::commit();
             return true;
@@ -117,7 +122,7 @@ class UserService implements UserServiceInterface
         try {
 
             $payload[$post['field']] = $post['value'];
-            $flag = $this->userRepository->updateByWhereIn('id',$post['id'],$payload);
+            $flag = $this->userRepository->updateByWhereIn('id', $post['id'], $payload);
 
             DB::commit();
             return true;
@@ -146,6 +151,7 @@ class UserService implements UserServiceInterface
             'phone',
             'address',
             'publish',
+            'user_catalogue_id',
         ];
     }
 }

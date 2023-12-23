@@ -18,6 +18,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    use HasFactory;
+    use SoftDeletes;
+    protected $table="users";
     protected $fillable = [
         'name',
         'email',

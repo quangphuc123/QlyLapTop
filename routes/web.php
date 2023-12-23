@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\UserCatalogueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashBoardController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,17 @@ use App\Http\Controllers\Ajax\DashboardController as AjaxDashBoardController;
 |
 */
 //FONTEND
-Route::get('/', function () {
-    return view('home-layout');
-});
+
+Route::get('/',[UsersController::class,'homePage'])->name('trang-chu');
+Route::get('login-register',[UsersController::class,'loginRegister'])->name('loginRegister')->middleware('guest');
+Route::post('xl-dang-ky',[UsersController::class,'xuLyDangKy'])->name('xl-dang-ky')->middleware('guest');
+Route::post('/',[UsersController::class,'xuLyDangNhap'])->name('xl-dang-nhap')->middleware('guest');
+Route::get('dang-xuat',[UsersController::class,'logOut'])->name('logOut')->middleware('auth');
+Route::get('thong-tin-tai-khoan',[UsersController::class,'accountDetail'])->name('accountDetail');
+Route::post('cap-nhat',[UsersController::class,'updateAccount'])->name('xl-cap-nhat');
+
+//Quên mật khẩu
+
 
 //BACKEND
 Route::get('dashboard/index', [DashboardController::class, 'index'])

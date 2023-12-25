@@ -23,6 +23,7 @@ return new class extends Migration
     {
         Schema::table('user_catalogues', function (Blueprint $table) {
             $table->dropColumn('publish');
+            $table->dropColumn('deleted_at');
         });
     }
 };

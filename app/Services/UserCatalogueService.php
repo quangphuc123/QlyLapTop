@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Services\Interfaces\UserCatalogueServiceInterface;
 use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
+use App\Repositories\Interfaces\PermissionRepositoryInterface as PermissionRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,20 +19,25 @@ use Illuminate\Support\Facades\Hash;
 class UserCatalogueService implements UserCatalogueServiceInterface
 {
     protected $userCatalogueRepository;
+    protected $permissionRepository;
     protected $userRepository;
 
     public function __construct(
         UserCatalogueRepository $userCatalogueRepository,
+        PermissionRepository $permissionRepository,
         UserRepository $userRepository
     ) {
         $this->userCatalogueRepository = $userCatalogueRepository;
+        $this->permissionRepository = $permissionRepository;
         $this->userRepository = $userRepository;
     }
 
     public function paginate($request)
     {
-        $condition['keyword'] = addslashes($request->input('keyword'));
-        $condition['publish'] = $request->integer('publish');
+        $condition = [
+            'keyword' => addslashes($request->input('keyword')),
+            'publish' => $request->integer('publish'),
+        ];
         $perPage = $request->integer('perpage');
         $userCatalogues = $this->userCatalogueRepository->pagination(
             $this->paginateSelect(),
@@ -83,6 +89,29 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         DB::beginTransaction();
         try {
             $user = $this->userCatalogueRepository->delete($id);
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // Log::error($e->getMessage());
+            echo $e->getMessage();
+            die();
+            return false;
+        }
+    }
+
+    public function setPermission($request){
+        // mục đích đưa đc dữ liệu vào bên trong bảng
+        DB::beginTransaction();
+        try {
+            $permissions = $request->input('permission');
+            if(count($permissions)){
+                foreach($permissions as $key => $val){
+                    $userCatalogue = $this->userCatalogueRepository->findById($key);
+                    $userCatalogue->permissions()->detach();
+                    $userCatalogue->permissions()->sync($val);
+                }
+            }
             DB::commit();
             return true;
         } catch (\Exception $e) {

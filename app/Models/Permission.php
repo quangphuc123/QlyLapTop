@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\QueryScopes;
 
 
-class UserCatalogue extends Model
+class Permission extends Model
 {
-    use HasFactory, SoftDeletes,QueryScopes;
+    use HasFactory,QueryScopes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,22 +18,17 @@ class UserCatalogue extends Model
      */
     protected $fillable = [
         'name',
-        'description',
-        'publish',
+        'canonical',
     ];
 
-    protected $table = 'user_catalogues';
+    protected $table = 'permissions';
 
-    public function users()
-    {
-        return $this->hasMany(User::class, 'user_catalogue_id', 'id');
-    }
-    public function permissions(){
+    public function user_catalogues(){
         return $this->belongsToMany(
-            Permission::class,
+            UserCatalogue::class,
                 'user_catalogue_permission',
+                'permission_id',
                 'user_catalogue_id',
-                'permission_id'
             );
     }
 }

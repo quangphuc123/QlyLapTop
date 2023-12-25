@@ -12,12 +12,12 @@ trait QueryScopes
     }
     public function scopePublish($query, $publish){
         if (!empty($publish)) {
-            $query->where('publish', '=', $$publish);
+            $query->where('publish', '=', $publish);
         }
         return $query;
     }
     public function scopeCustomWhere($query, $where = []){
-        if(count($where)){
+        if(!empty($where) && count($where)){
             foreach($where as $key => $val){
                 $query->where($val[0], $val[1], $val[2]);
             }

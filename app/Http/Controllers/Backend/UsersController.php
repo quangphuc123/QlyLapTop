@@ -32,6 +32,8 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
+        $this->authorize('modules', 'post.index');
+
         $users = $this->userService->paginate($request);
 
         $config = [
@@ -58,7 +60,7 @@ class UsersController extends Controller
     }
     public function create()
     {
-
+        $this->authorize('modules', 'post.create');
         $provinces = $this->provinceRepository->all();
         $config = $config = $this->configData();
 
@@ -85,6 +87,7 @@ class UsersController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('modules', 'post.update');
         $user = $this->userRepository->findById($id);
         $provinces = $this->provinceRepository->all();
         $config = $this->configData();
@@ -114,6 +117,7 @@ class UsersController extends Controller
 
     public function delete($id)
     {
+        $this->authorize('modules', 'post.destroy');
         $config['seo'] = config('apps.user');
 
         $user = $this->userRepository->findById($id);
@@ -137,6 +141,7 @@ class UsersController extends Controller
         return redirect()->route('dashboard.index')
             ->with('error', 'Xóa tài khoản không thành công');
     }
+
     private function configData()
     {
         return [

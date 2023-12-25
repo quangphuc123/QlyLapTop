@@ -3,30 +3,30 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreLanguageRequest;
-use App\Http\Requests\UpdateLanguageRequest;
+use App\Http\Requests\StorePermissionRequest;
+use App\Http\Requests\UpdatePermissionRequest;
 use Illuminate\Http\Request;
 
-use App\Services\Interfaces\LanguageServiceInterface as LanguageService;
-use App\Repositories\Interfaces\LanguageRepositoryInterface as LanguageRepository;
+use App\Services\Interfaces\PermissionServiceInterface as PermissionService;
+use App\Repositories\Interfaces\PermissionRepositoryInterface as PermissionRepository;
 
-class LanguageController extends Controller
+class PermissionController extends Controller
 {
-    protected $languageService;
-    protected $languageRepository;
+    protected $permissionService;
+    protected $permissionRepository;
 
     public function __construct(
-        LanguageService $languageService,
-        LanguageRepository $languageRepository,
+        PermissionService $permissionService,
+        PermissionRepository $permissionRepository,
     ) {
-        $this->languageService = $languageService;
-        $this->languageRepository = $languageRepository;
+        $this->permissionService = $permissionService;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function index(Request $request)
     {
-
-        $languages = $this->languageService->paginate($request);
+        $this->authorize('modules', 'permission.index');
+        $permissions = $this->permissionService->paginate($request);
 
         $config = [
             'js' => [
@@ -36,25 +36,27 @@ class LanguageController extends Controller
             'css' => [
                 'backend/css/plugins/switchery/switchery.css',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-            ]
+            ],
+            'model' => 'Permission',
         ];
-        $config['seo'] = config('apps.language');
-        $template = 'admin.language.index';
+        $config['seo'] = config('apps.permission');
+        $template = 'admin.permission.index';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'languages'
+                'permissions'
             )
         );
     }
     public function create()
     {
+        $this->authorize('modules', 'permission.create');
         $config = $this->configData();
-        $config['seo'] = config('apps.language');
+        $config['seo'] = config('apps.permission');
         $config['method'] = 'create';
-        $template = 'admin.language.store';
+        $template = 'admin.permission.store';
         return view(
             'admin.dashboard.admin-layout',
             compact(
@@ -64,34 +66,37 @@ class LanguageController extends Controller
         );
     }
 
-    public function store(StoreLanguageRequest $request)
+    public function store(StorePermissionRequest $request)
     {
-        if ($this->languageService->create($request)) {
-            return redirect()->route('language.index')->with('success', 'Thêm mới thành công!!');
+        if ($this->permissionService->create($request)) {
+            return redirect()->route('permission.index')->with('success', 'Thêm mới thành công!!');
         }
         return redirect()->route('dashboard.index')->with('error', 'Thêm mới không thành công!! Vui lòng thử lại');
     }
 
     public function edit($id)
     {
-        $language = $this->languageRepository->findById($id);
+        $this->authorize('modules', 'permission.update');
+
+        $permission = $this->permissionRepository->findById($id);
         $config = $this->configData();
-        $config['seo'] = config('apps.language');
+        $config['seo'] = config('apps.permission');
         $config['method'] = 'edit';
-        $template = 'admin.language.store';
+        $template = 'admin.permission.store';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'language',
+                'permission',
             )
         );
     }
-    public function update($id, UpdateLanguageRequest $request)
+    public function update($id, UpdatePermissionRequest $request)
     {
-        if ($this->languageService->update($id, $request)) {
-            return redirect()->route('language.index')
+
+        if ($this->permissionService->update($id, $request)) {
+            return redirect()->route('permission.index')
                 ->with('success', 'Cập nhật thành công!!');
         }
         return redirect()->route('dashboard.index')
@@ -100,23 +105,24 @@ class LanguageController extends Controller
 
     public function delete($id)
     {
-        $config['seo'] = config('apps.language');
-        $language = $this->languageRepository->findById($id);
-        $template = 'admin.language.delete';
+        $this->authorize('modules', 'permission.destroy');
+        $config['seo'] = config('apps.permission');
+        $permission = $this->permissionRepository->findById($id);
+        $template = 'admin.permission.delete';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'language',
+                'permission',
             )
         );
     }
 
     public function destroy($id)
     {
-        if ($this->languageService->destroy($id)) {
-            return redirect()->route('language.index')
+        if ($this->permissionService->destroy($id)) {
+            return redirect()->route('permission.index')
                 ->with('success', 'Xóa nhóm tài khoản thành công');
         }
         return redirect()->route('dashboard.index')
@@ -126,10 +132,7 @@ class LanguageController extends Controller
     private function configData()
     {
         return [
-            'js' => [
-                'backend/plugins/ckfinder_2/ckfinder.js',
-                'backend/library/finder.js',
-            ]
+
         ];
     }
 }

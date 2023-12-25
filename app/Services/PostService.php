@@ -86,7 +86,7 @@ class PostService extends BaseService implements PostServiceInterface
                 $this->updateLanguageForPost($post, $request);
                 $this->updateCatalogueForPost($post, $request);
                 $this->updateRouter(
-                    $postCatalogue, $request,$this->controllerName
+                    $post, $request,$this->controllerName
                 );
             }
 

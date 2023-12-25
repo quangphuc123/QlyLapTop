@@ -23,7 +23,7 @@ return [
         [
             'title' => 'Manage account groups',
             'icon' => 'fa fa-user',
-            'name' => ['user'],
+            'name' => ['user','permission'],
             'subModule' =>
             [
                 [
@@ -33,6 +33,10 @@ return [
                 [
                     'title' => 'Account Management',
                     'route' => 'user/index',
+                ],
+                [
+                    'title' => 'Permission',
+                    'route' => 'permission/index',
                 ],
             ],
         ],

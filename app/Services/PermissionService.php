@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Services\Interfaces\LanguageServiceInterface;
-use App\Repositories\Interfaces\LanguageRepositoryInterface as LanguageRepository;
+use App\Services\Interfaces\PermissionServiceInterface;
+use App\Repositories\Interfaces\PermissionRepositoryInterface as PermissionRepository;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -13,33 +13,33 @@ use Illuminate\Support\Facades\Hash;
 
 
 /**
- * Class LanguageService
+ * Class PermissionService
  * @package App\Services
  */
-class LanguageService implements LanguageServiceInterface
+class PermissionService implements PermissionServiceInterface
 {
-    protected $languageRepository;
+    protected $permissionRepository;
 
     public function __construct(
-        LanguageRepository $languageRepository,
+        PermissionRepository $permissionRepository,
     ) {
-        $this->languageRepository = $languageRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function paginate($request)
     {
-        $condition=[
+        $condition = [
             'keyword' => addslashes($request->input('keyword')),
             'publish' => $request->integer('publish'),
         ];
         $perPage = $request->integer('perpage');
-        $languages = $this->languageRepository->pagination(
+        $permissions = $this->permissionRepository->pagination(
             $this->paginateSelect(),
             $condition,
             $perPage,
-            ['path' => 'language/index'],
+            ['path' => 'permission/index'],
         );
-        return $languages;
+        return $permissions;
     }
     public function create($request)
     {
@@ -47,7 +47,7 @@ class LanguageService implements LanguageServiceInterface
         try {
             $payload = $request->except(['_token', 'send']); //Lấy ra hết trừ 3 cái trên
             $payload['user_id'] = Auth::id();
-            $language = $this->languageRepository->create($payload);
+            $permission = $this->permissionRepository->create($payload);
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -64,7 +64,7 @@ class LanguageService implements LanguageServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->except(['_token', 'send']); //Lấy ra hết trừ 2 cái trên
-            $language = $this->languageRepository->update($id, $payload);
+            $permission = $this->permissionRepository->update($id, $payload);
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -80,7 +80,7 @@ class LanguageService implements LanguageServiceInterface
     {
         DB::beginTransaction();
         try {
-            $language = $this->languageRepository->delete($id);
+            $permission = $this->permissionRepository->delete($id);
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -98,7 +98,7 @@ class LanguageService implements LanguageServiceInterface
         try {
 
             $payload[$post['field']] = (($post['value'] == 1) ? 2 : 1);
-            $language = $this->languageRepository->update($post['modelId'], $payload);
+            $permission = $this->permissionRepository->update($post['modelId'], $payload);
             // $this->changeUserStatus($post, $payload[$post['field']]);
 
             DB::commit();
@@ -112,35 +112,16 @@ class LanguageService implements LanguageServiceInterface
         }
     }
 
-    public function updateStatusAll($post)
-    {
-        DB::beginTransaction();
-        try {
-
-            $payload[$post['field']] = $post['value'];
-            $flag = $this->languageRepository->updateByWhereIn('id', $post['id'], $payload);
-            // $this->changeUserStatus($post, $post['value']);
-
-            DB::commit();
-            return true;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            // Log::error($e->getMessage());
-            echo $e->getMessage();
-            die();
-            return false;
-        }
-    }
 
     public function swicth($id){
         DB::beginTransaction();
         try {
-            $language = $this->languageRepository->update($id, ['current' => 1]);
+            $permission = $this->permissionRepository->update($id, ['current' => 1]);
             $payload = ['current' => 0,];
             $where = [
                 ['id', '!=', $id],
             ];
-            $this->languageRepository->updateByWhere($where, $payload);
+            $this->permissionRepository->updateByWhere($where, $payload);
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -158,8 +139,6 @@ class LanguageService implements LanguageServiceInterface
             'id',
             'name',
             'canonical',
-            'publish',
-            'image',
         ];
     }
 }

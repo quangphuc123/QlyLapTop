@@ -23,7 +23,7 @@ return [
         [
             'title' => ' 管理帐户组 ',
             'icon' => 'fa fa-user',
-            'name' => ['user'],
+            'name' => ['user','permission'],
             'subModule' =>
             [
                 [
@@ -33,6 +33,10 @@ return [
                 [
                     'title' => ' 帐户管理 ',
                     'route' => 'user/index',
+                ],
+                [
+                    'title' => '允许',
+                    'route' => 'permission/index',
                 ],
             ],
         ],

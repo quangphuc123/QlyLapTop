@@ -10,7 +10,7 @@
                     <select name="post_catalogue_id" id="" class="form-control setupSelect2">
                         @foreach ($dropdown as $key => $val)
                             <option
-                                {{ $key == old('post_catalogue_id', isset($post->post_catalogue_id) ? $post->parent_id : '') ? 'selected' : '' }}
+                                {{ $key == old('post_catalogue_id', isset($post->post_catalogue_id) ? $post->post_catalogue_id : '') ? 'selected' : '' }}
                                 value="{{ $key }}">{{ $val }}
                             </option>
                         @endforeach

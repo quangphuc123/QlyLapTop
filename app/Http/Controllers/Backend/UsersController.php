@@ -265,7 +265,6 @@ class UsersController extends Controller
         return redirect()->route('accountDetail');
     }
 
-<<<<<<< HEAD
     //Đổi mật khẩu
     public function changePassword(Request $request)
     {
@@ -287,10 +286,7 @@ class UsersController extends Controller
         return back()->with("status", "Mật khẩu đã được thay đổi");
     }
     
-    protected function configData()
-=======
     private function configData()
->>>>>>> de0e26ecd37d7a71e45bdb13191a82922a51948e
     {
         return [
             'css' => [

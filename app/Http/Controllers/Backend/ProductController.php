@@ -37,6 +37,7 @@ class ProductController extends Controller
     {
         // $this->authorize('modules', 'post.index');
         $products = $this->productService->paginate($request);
+        $productCatalogue = $this->productRepository->all();
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -55,7 +56,9 @@ class ProductController extends Controller
             compact(
                 'template',
                 'config',
-                'products'
+                'products',
+                'productCatalogue',
+
             )
         );
     }
@@ -91,6 +94,7 @@ class ProductController extends Controller
         $config = $this->configData();
         $config['seo'] = config('apps.product');
         $config['method'] = 'edit';
+        $album = json_decode($product->album);
         $template = 'admin.product.product.store';
         return view(
             'admin.dashboard.admin-layout',
@@ -99,6 +103,7 @@ class ProductController extends Controller
                 'config',
                 'product',
                 'productCatalogues',
+                'album',
             )
         );
     }

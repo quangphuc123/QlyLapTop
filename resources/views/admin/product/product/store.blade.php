@@ -27,6 +27,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-7">
                 <div class="ibox">
                     <div class="ibox-content">
@@ -74,19 +75,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb15">
-                                <div class="col-lg-6">
-                                    <div class="form-row">
-                                        <label for="" class="control-lable text-left">Ghi chú
-                                        </label>
-                                        <input type="text" name="description"
-                                            value="{{ old('description', $product->description ?? '') }}"
-                                            class="form-control" placeholder="" autocomplete="off">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-lable text-left">Giá Khuyến Mãi
@@ -98,79 +86,82 @@
                                         placeholder="" autocomplete="off">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                        </div>
+                        <div class="row mb15">
+                            <div class="col-lg-12">
                                 <div class="form-row">
-                                    <label for="" class="control-lable text-left">Ảnh sản phẩm
+                                    <label for="" class="control-lable text-left">Mô tả sản phẩm
                                     </label>
-                                    <span class="image img-cover image-target"><img
-                                            src="{{ old('image', $product->image ?? '') ? old('image', $product->image ?? '') : 'backend/img/no-img.png' }}"
-                                            alt="" style="width: 250px; height: 200px;"></span>
-                                    <input type="hidden" name="image"
-                                        value="{{ old('image', $product->image ?? '') }}"
-                                        class="form-control upload-image" placeholder="" autocomplete="off"
-                                        data-upload="Images">
+                                    <textarea name="description" class="form-control ck-editor" placeholder="" autocomplete="off" id="ckDescription"
+                                        data-height="150">{{ old('description', $product->description ?? '') }}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb15">
-
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    <label for="" class="control-lable">Ảnh sản phẩm
+                                    </label>
+                                    <div style="display: flex; justify-content: center; align-content: center">
+                                        <span class="image img-cover image-target"><img
+                                                src="{{ old('image', $product->image ?? '') ? old('image', $product->image ?? '') : 'backend/img/no-img.png' }}"
+                                                alt="" style="width: 250px; height: 220px;"></span>
+                                        <input type="hidden" name="image"
+                                            value="{{ old('image', $product->image ?? '') }}"
+                                            class="form-control upload-image" placeholder="" autocomplete="off"
+                                            data-upload="Images">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        {{-- <div class="ibox">
-                            <div class="ibox-title">
-                                <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                                    <h5>Ảnh mô tả sản phẩm</h5>
-                                    <div class="upload-album">
-                                        <a href="" class="upload-picture">Chọn hình</a>
-                                    </div>
+                        @php
+                            $gallery = isset($album) && count($album) ? $album : old('album');
+                        @endphp
+                        <div class="row mb15">
+                            <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                                <h5>Ảnh mô tả sản phẩm</h5>
+                                <div class="upload-album">
+                                    <a href="" class="upload-picture">Chọn hình</a>
                                 </div>
                             </div>
-                            <div class="ibox-content">
-                                @php
-                                    $gallery = isset($album) && count($album) ? $album : old('album');
-                                @endphp
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        @if (!isset($gallery) || count($gallery) == 0)
-                                            <div class="click-to-upload">
-                                                <div class="icon">
-                                                    <a href="" class="upload-picture">
-                                                        <img src="backend/img/svg.png"
-                                                            style="width: 50px; height: 50px; fill">
-                                                    </a>
-                                                </div>
-                                                <div class="small-text">
-                                                    Sử dụng nút chọn hình hoặc ấn vào đây để thêm hình ảnh
-                                                </div>
+                            <div class="col-lg-12">
+                                <div class="form-row">
+                                    @if (!isset($gallery) || count($gallery) == 0)
+                                        <div class="click-to-upload">
+                                            <div class="icon">
+                                                <a href="" class="upload-picture">
+                                                    <img src="backend/img/svg.png"
+                                                        style="width: 50px; height: 50px; fill">
+                                                </a>
                                             </div>
-                                        @endif
-                                        <div
-                                            class="upload-list {{ isset($gallery) && count($gallery) ? '' : 'hidden' }}">
-                                            <ul id="sortable" class="clearfix data-album sortui ui-sortable">
-                                                @if (isset($gallery) && count($gallery))
-                                                    @foreach ($gallery as $key => $val)
-                                                        <li class="ui-state-default">
-                                                            <div class="thumb">
-                                                                <span class="span image img-scaledown">
-                                                                    <img src="{{ $val }}"
-                                                                        alt="{{ $val }}">
-                                                                    <input type="hidden" name="album[]"
-                                                                        value="{{ $val }}">
-                                                                </span>
-                                                                <button class="delete-image"><i
-                                                                        class="fa fa-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                        </li>
-                                                    @endforeach
-                                                @endif
-                                            </ul>
+                                            <div class="small-text">
+                                                Sử dụng nút chọn hình hoặc ấn vào đây để thêm hình ảnh
+                                            </div>
                                         </div>
+                                    @endif
+                                    <div class="upload-list {{ isset($gallery) && count($gallery) ? '' : 'hidden' }}">
+                                        <ul id="sortable" class="clearfix data-album sortui ui-sortable">
+                                            @if (isset($gallery) && count($gallery))
+                                                @foreach ($gallery as $key => $val)
+                                                    <li class="ui-state-default">
+                                                        <div class="thumb">
+                                                            <span class="span image img-scaledown">
+                                                                <img src="{{ $val }}"
+                                                                    alt="{{ $val }}">
+                                                                <input type="hidden" name="album[]"
+                                                                    value="{{ $val }}">
+                                                            </span>
+                                                            <button class="delete-image"><i class="fa fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
-
+                        </div>
                     </div>
                 </div>
             </div>

@@ -90,7 +90,6 @@ class PostService extends BaseService implements PostServiceInterface
                     $post, $request,$this->controllerName
                 );
             }
-
             DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -112,7 +111,6 @@ class PostService extends BaseService implements PostServiceInterface
         $payload = $request->only($this->payload());
         $payload['album'] = $this->formatAlbum($request);
         return $this->postRepository->update($post->id, $payload);
-
     }
     private function updateLanguageForPost($post, $request){
         $payload = $request->only($this->payloadLanguage());

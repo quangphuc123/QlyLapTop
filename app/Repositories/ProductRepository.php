@@ -24,6 +24,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function productCodeExists($productcode){
         return Product::whereProductCode($productcode)->exists();
     }
+
     public function pagination(
         array $column = ['*'],
         array $condition = [],

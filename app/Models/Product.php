@@ -39,6 +39,7 @@ class Product extends Model
         'price',
         'sale_price',
         'product_code',
+        'album',
         'product_catalogue_id',
     ];
     public function product_catalogues()

@@ -52,14 +52,6 @@
                                 </div>
                             </div>
                         </div>
-                        @php
-                            $userCatalogue = [
-                                '----- Chọn Nhóm Tài Khoản -----',
-                                '----- Admin -----',
-                                '----- Nhân Viên -----',
-                                '----- Khách Hàng -----'
-                            ];
-                        @endphp
                         <div class="row mb15">
                             <div class="col-lg-6">
                                 <div class="form-row">
@@ -68,12 +60,13 @@
                                         </span>
                                     </label>
                                     <select name="user_catalogue_id" id="" class="form-control">
-                                        @foreach ($userCatalogue as $key => $item)
+                                        <option value="0">Chọn nhóm thành viên</option>
+                                        @foreach ($userCatalogues as $key => $item)
                                             <option
-                                                {{ $key == old('user_catalogue_id', isset($user->user_catalogue_id) ? $user->user_catalogue_id : '')
+                                                {{ $item->id == old('user_catalogue_id', isset($user->user_catalogue_id) ? $user->user_catalogue_id : '')
                                                     ? 'selected'
                                                     : '' }}
-                                                value="{{ $key }}">{{ $item }}
+                                                value="{{ $item->id }}">{{ $item->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -114,13 +107,15 @@
                                 </div>
                             </div>
                         @endif
-
                         <div class="row mb15">
                             <div class="col-lg-12">
                                 <div class="form-row">
                                     <label for="" class="control-lable text-left">Ảnh đại diện
                                     </label>
-                                    <input type="text" name="image" value="{{ old('image', $user->image ?? '') }}"
+                                    <span class="image img-cover image-target"><img
+                                            src="{{ old('image', $user->image ?? '') ? old('image', $user->image ?? '') : 'backend/img/no-img.png' }}"
+                                            alt="" style="width: 250px; height: 200px;"></span>
+                                    <input type="hidden" name="image" value="{{ old('image', $user->image ?? '') }}"
                                         class="form-control upload-image" placeholder="" autocomplete="off"
                                         data-upload="Images">
                                 </div>
@@ -130,9 +125,6 @@
                 </div>
             </div>
         </div>
-
-        <hr>
-
         <div class="row">
             <div class="col-lg-5">
                 <div class="panel-head">

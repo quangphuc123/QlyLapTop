@@ -60,6 +60,7 @@ class PostService extends BaseService implements PostServiceInterface
         DB::beginTransaction();
         try {
             $post = $this->createPost($request);
+            dd($post);
             if($post->id > 0){
                 $this->updateLanguageForPost($post, $request);
                 $this->updateCatalogueForPost($post, $request);
@@ -86,7 +87,7 @@ class PostService extends BaseService implements PostServiceInterface
                 $this->updateLanguageForPost($post, $request);
                 $this->updateCatalogueForPost($post, $request);
                 $this->updateRouter(
-                    $postCatalogue, $request,$this->controllerName
+                    $post, $request,$this->controllerName
                 );
             }
 
@@ -102,9 +103,9 @@ class PostService extends BaseService implements PostServiceInterface
     }
     private function createPost($request) {
         $payload = $request->only($this->payload());
-            $payload['album'] = $this->formatAlbum($request);
-            $payload['user_id'] = Auth::id();
-            $post = $this->postRepository->create($payload);
+        $payload['album'] = $this->formatAlbum($request);
+        $payload['user_id'] = Auth::id();
+        $post = $this->postRepository->create($payload);
             return $post;
     }
     private function uploadPost($post, $request){
@@ -116,18 +117,16 @@ class PostService extends BaseService implements PostServiceInterface
     private function updateLanguageForPost($post, $request){
         $payload = $request->only($this->payloadLanguage());
         $payload = $this->formatLanguagePayload($payload, $post->id);
-        $post->languages()->detach([$this->language, $post->id]);
+        $post->languages()->detach($this->language);
         return $this->postRepository->createPivot($post, $payload,'languages');
     }
     private function updateCatalogueForPost($post, $request){
-        // dd($post);
         $post->post_catalogues()->sync($this->catalogue($request));
     }
     private function formatLanguagePayload($payload, $postId){
         $payload['canonical'] = Str::slug( $payload['canonical']);
         $payload['language_id'] = $this->language;
         $payload['post_id'] = $postId;
-
         return $payload;
     }
     private function catalogue($request){

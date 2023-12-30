@@ -17,4 +17,7 @@ return [
     'edit'=>[
         'title'=>'Chỉnh sửa nhóm tài khoản'
     ],
+    'permission'=>[
+        'title'=>'Cấp quyền tài khoản'
+    ],
 ];

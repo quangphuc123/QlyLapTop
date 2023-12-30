@@ -28,8 +28,10 @@ class LanguageService implements LanguageServiceInterface
 
     public function paginate($request)
     {
-        $condition['keyword'] = addslashes($request->input('keyword'));
-        $condition['publish'] = $request->integer('publish');
+        $condition=[
+            'keyword' => addslashes($request->input('keyword')),
+            'publish' => $request->integer('publish'),
+        ];
         $perPage = $request->integer('perpage');
         $languages = $this->languageRepository->pagination(
             $this->paginateSelect(),

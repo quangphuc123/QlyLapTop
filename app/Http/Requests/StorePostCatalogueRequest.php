@@ -31,7 +31,7 @@ class StorePostCatalogueRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Bạn vui lòng nhập tên của ngôn ngữ',
+            'name.required' => 'Bạn vui lòng nhập tên của bài viết',
             'canonical.required' => 'Bạn vui lòng nhập đường dẫn',
             'canonical.unique' => 'Đường dẫn đã tồn tại, hãy chọn đường dẫn khác',
             // 'parent_id.gt' => 'Bạn chưa chọn danh mục cha',

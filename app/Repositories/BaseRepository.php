@@ -30,7 +30,8 @@ class BaseRepository implements BaseRepositoryInterface
         array $rawQuery = [],
     ) {
         $query = $this->model->select($column);
-        return $query->keyword($condition['keyword'] ?? null)
+        return $query
+                ->keyword($condition['keyword'] ?? null)
                 ->publish($condition['publish'] ?? null)
                 ->relationCount($relations ?? null)
                 ->CustomWhere($condition['where'] ?? null)
@@ -43,7 +44,7 @@ class BaseRepository implements BaseRepositoryInterface
                 ->withPath(env('APP_URL') . $extend['path']);
     }
 
-    public function create(array $payload = [])
+    public function create(array $payload)
     {
         $model = $this->model->create($payload);
         return $model->fresh();
@@ -80,9 +81,9 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->findById($id)->forceDelete();
     }
 
-    public function all()
+    public function all(array $relation=[])
     {
-        return $this->model->all();
+        return $this->model->with($relation)->get();
     }
 
     public function findById(

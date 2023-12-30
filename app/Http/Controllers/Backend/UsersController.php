@@ -15,9 +15,11 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Product;
 use RealRashid\SweetAlert\Facades\Aler;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 
 
 class UsersController extends Controller
@@ -151,7 +153,9 @@ class UsersController extends Controller
 
 
     public function homePage(){
-        return view('home-page');
+        //session()->flush('cart');
+        $lsProduct=Product::orderByDesc('id')->paginate(9);
+        return view('home-page',compact(['lsProduct']));
     }
 
 
@@ -256,8 +260,28 @@ class UsersController extends Controller
         }
         $profile->user_catalogue_id=$profile->user_catalogue_id;
         $profile->save();
-        alert()->success('Chỉnh Sửa Tài Khoản', 'Thành Công');
         return redirect()->route('accountDetail');
+    }
+
+    //Đổi mật khẩu
+    public function changePassword(Request $request)
+    {
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+            return back()->with("error", "Mật khẩu cũ không đúng");
+        }
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Mật khẩu đã được thay đổi");
     }
     
     protected function configData()

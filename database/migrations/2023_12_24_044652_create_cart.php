@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('post_language', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->double('total');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('post_language', function (Blueprint $table) {
-            $table->dropTimestamps();
-        });
+        Schema::dropIfExists('cart');
     }
 };

@@ -105,56 +105,8 @@
                                 <div class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
                                     <nav>
                                         <ul>
-                                            <li><a href="index.html">Trang chủ </a>
-                                                <ul class="sub-menu-style">
-                                                    <li><a href="index.html">Home version 1 </a></li>
-                                                    <li><a href="index-2.html">Home version 2</a></li>
-                                                    <li><a href="index-3.html">Home version 3</a></li>
-                                                    <li><a href="index-4.html">Home version 4</a></li>
-                                                    <li><a href="index-5.html">Home version 5</a></li>
-                                                    <li><a href="index-6.html">Home version 6</a></li>
-                                                    <li><a href="index-7.html">Home version 7</a></li>
-                                                    <li><a href="index-8.html">Home version 8</a></li>
-                                                    <li><a href="index-9.html">Home version 9</a></li>
-                                                    <li><a href="index-10.html">Home version 10</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="shop.html">Sản phẩm </a>
-                                                <ul class="mega-menu-style mega-menu-mrg-2">
-                                                    <li>
-                                                        <ul>
-                                                            <li>
-                                                                <a class="dropdown-title" href="#">Shop Layout</a>
-                                                                <ul>
-                                                                    <li><a href="~/shop/norda/shop.html">standard style</a></li>
-                                                                    <li><a href="shop-list.html">shop list style</a></li>
-                                                                    <li><a href="shop-fullwide.html">shop fullwide</a></li>
-                                                                    <li><a href="shop-no-sidebar.html">grid no sidebar</a></li>
-                                                                    <li><a href="shop-list-no-sidebar.html">list no sidebar</a></li>
-                                                                    <li><a href="shop-right-sidebar.html">shop right sidebar</a></li>
-                                                                    <li><a href="store-location.html">store location</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-title" href="#">Products Layout</a>
-                                                                <ul>
-                                                                    <li><a href="product-details.html">tab style 1</a></li>
-                                                                    <li><a href="product-details-2.html">tab style 2</a></li>
-                                                                    <li><a href="product-details-sticky.html">sticky style</a></li>
-                                                                    <li><a href="product-details-gallery.html">gallery style </a></li>
-                                                                    <li><a href="product-details-affiliate.html">affiliate style</a></li>
-                                                                    <li><a href="product-details-group.html">group style</a></li>
-                                                                    <li><a href="product-details-fixed-img.html">fixed image style </a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a href="shop.html"><img src="~/shop/norda/assets/images/banner/banner-12.png" alt=""></a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Về chúng tôi </a>
+                                            <li><a href="{{route('trang-chu')}}">Trang chủ </a></li>
+                                            <li><a href="#">Thương hiệu</a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="about-us.html">about us </a></li>
                                                     <li><a href="cart.html">cart page</a></li>
@@ -167,7 +119,7 @@
                                                     <li><a href="login-register.html">login / register </a></li>
                                                 </ul>
                                             </li>
-                                            @*<li><a href="blog.html">BLOG </a>
+                                            <li><a href="blog.html">Bài viết </a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="blog.html">blog standard </a></li>
                                                     <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
@@ -182,9 +134,6 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="header-action header-action-flex pr-20">
-                                    <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                                        <a href="login-register.html"><i class="icon-user"></i></a>
-                                    </div>
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec">
                                         <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
                                     </div>

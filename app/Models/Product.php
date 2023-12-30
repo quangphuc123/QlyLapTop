@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\QueryScopes;
 
-class Language extends Model
+class Product extends Model
 {
     use HasFactory, SoftDeletes,QueryScopes;
 
@@ -16,6 +16,9 @@ class Language extends Model
      *
      * @var array<int, string>
      */
+    use HasFactory;
+    use SoftDeletes;
+    protected $table="products";
     protected $fillable = [
         'id',
         'product_catalogue_id',

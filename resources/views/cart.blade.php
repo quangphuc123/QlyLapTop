@@ -8,18 +8,17 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon -->
 
-    <!-- All CSS is here
-	============================================ -->
+
+
     @include('assets.css')
+    
 
-     <!-- Bootstrap Font Icon CSS -->
 
 </head>
 
 <body>
-
+@include('sweetalert::alert')
     <div class="main-wrapper">
        <header class="header-area">
             <div class="header-large-device">
@@ -28,7 +27,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html"><img src="assets/images/logo/Độc Lạ LapTop.png" alt="logo"></a>
+                                    <a href="index.html"><img src="{{asset('assets/images/logo/Độc Lạ LapTop.png')}}" alt="logo"></a>
                                 </div>
                             </div>
                             <div class="sidebar-widget mb-25">
@@ -42,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="ml-50">
-                                <?php
+                            <?php
                                     try{
                                         $check=Auth::user()->id;
                                  ?>
@@ -62,11 +61,9 @@
                                 <?php } ?>
                             </div>
                             <div>
-                                <a href="{{route('cart-view')}}">
                                 <button type="button" class="btn btn-warning ml-15 bi-cart4" >
                                     Giỏ hàng
                                 </button>
-                                </a>
                             </div>
                             <div>
                             <div class="hotline-2-wrap ml-25">
@@ -105,7 +102,42 @@
                                     <nav>
                                         <ul>
                                             <li><a href="{{route('trang-chu')}}">Trang chủ </a></li>
-                                            <li><a href="#">Thương Hiệu </a>
+                                            <li><a href="shop.html">Sản phẩm </a>
+                                                <ul class="mega-menu-style mega-menu-mrg-2">
+                                                    <li>
+                                                        <ul>
+                                                            <li>
+                                                                <a class="dropdown-title" href="#">Shop Layout</a>
+                                                                <ul>
+                                                                    <li><a href="~/shop/norda/shop.html">standard style</a></li>
+                                                                    <li><a href="shop-list.html">shop list style</a></li>
+                                                                    <li><a href="shop-fullwide.html">shop fullwide</a></li>
+                                                                    <li><a href="shop-no-sidebar.html">grid no sidebar</a></li>
+                                                                    <li><a href="shop-list-no-sidebar.html">list no sidebar</a></li>
+                                                                    <li><a href="shop-right-sidebar.html">shop right sidebar</a></li>
+                                                                    <li><a href="store-location.html">store location</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-title" href="#">Products Layout</a>
+                                                                <ul>
+                                                                    <li><a href="product-details.html">tab style 1</a></li>
+                                                                    <li><a href="product-details-2.html">tab style 2</a></li>
+                                                                    <li><a href="product-details-sticky.html">sticky style</a></li>
+                                                                    <li><a href="product-details-gallery.html">gallery style </a></li>
+                                                                    <li><a href="product-details-affiliate.html">affiliate style</a></li>
+                                                                    <li><a href="product-details-group.html">group style</a></li>
+                                                                    <li><a href="product-details-fixed-img.html">fixed image style </a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <a href="shop.html"><img src="~/shop/norda/assets/images/banner/banner-12.png" alt=""></a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="#">Về chúng tôi </a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="about-us.html">about us </a></li>
                                                     <li><a href="cart.html">cart page</a></li>
@@ -118,7 +150,7 @@
                                                     <li><a href="login-register.html">login / register </a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="blog.html">Bài viết</a>
+                                            @*<li><a href="blog.html">BLOG </a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="blog.html">blog standard </a></li>
                                                     <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
@@ -133,6 +165,9 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="header-action header-action-flex pr-20">
+                                    <div class="same-style-2 same-style-2-white same-style-2-font-dec">
+                                        <a href="login-register.html"><i class="icon-user"></i></a>
+                                    </div>
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec">
                                         <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
                                     </div>
@@ -180,202 +215,113 @@
                 </div>
             </div>
         </header>
-        <!-- mini cart start -->
-        <div class="sidebar-cart-active">
-            <div class="sidebar-cart-all">
-                <a class="cart-close" href="#"><i class="icon_close"></i></a>
-                <div class="cart-content">
-                    <h3>Shopping Cart</h3>
-                    <ul>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Simple Black T-Shirt</a></h4>
-                                <span> 1 × $49.00	</span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
-                        </li>
-                        <li class="single-product-cart">
-                            <div class="cart-img">
-                                <a href="#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
-                            </div>
-                            <div class="cart-title">
-                                <h4><a href="#">Norda Backpack</a></h4>
-                                <span> 1 × $49.00	</span>
-                            </div>
-                            <div class="cart-delete">
-                                <a href="#">×</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="cart-total">
-                        <h4>Subtotal: <span>$170.00</span></h4>
-                    </div>
-                    <div class="cart-checkout-btn">
-                        <a class="btn-hover cart-btn-style" href="cart.html">view cart</a>
-                        <a class="no-mrg btn-hover cart-btn-style" href="checkout.html">checkout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="breadcrumb-area bg-gray">
+        
+         <!-- Start -->                               
+
+         <div class="breadcrumb-area bg-gray">
             <div class="container">
                 <div class="breadcrumb-content text-center">
                     <ul>
                         <li>
                             <a href="index.html">Home</a>
                         </li>
-                        <li class="active">Shop </li>
+                        <li class="active">Giỏ hàng </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="shop-area pt-120 pb-120">
+        <div class="cart-main-area pt-115 pb-120">
             <div class="container">
-                <div class="row flex-row-reverse">
-                    <div class="col-lg-9">
-                        <div class="shop-bottom-area">
-                            <div class="tab-content jump">
-                                <div id="shop-1" class="tab-pane active">
-                                    <div class="row">
-                                        @foreach($lsProduct as $data)
-                                        <!-- start -->
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                                            <div class="single-product-wrap mb-35">
-                                                <div class="product-img product-img-zoom mb-15">
-                                                    <a href="{{route('chi-tiet-san-pham',['id'=>$data->id])}}">
-                                                        <img src="assets/images/product/product-13.jpg" alt="">
-                                                    </a>
+                <h3 class="cart-page-title">Giỏ hàng của bạn</h3>
+                <div class="row updatee" >
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12" >
+                        <form action="#">
+                            <div class="table-content table-responsive cart-table-content delete_cart_url" data-url="{{route('delete-cart')}}">
+                                <table class="update_cart_url" data-url="{{route('update-cart')}}">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Đơn giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
+                                            <th>action</th>
+                                        </tr>
+                                    </thead>
+                                    <?php $total=0 ?>
+                                    <?php 
+                                        $symbol = 'đ';
+                                        $symbol_thousand = '.';
+                                        $decimal_place = 0;
+                                        $stt=0;
+                                    ?>
+                                    
+                                    @if(!is_null($carts))
+                                    <tbody>
+                                        @foreach($carts as $id => $cartItem)
+                                        <?php $total+=$cartItem['price']*$cartItem['quantity'] ?>
+                                        <tr>
+                                            <td scope="row">{{$stt+=1}}</td>
+                                            <td class="product-thumbnail">
+                                                <a href="#"><img width="50" src="{{asset('~/shop/norda/assets/images/product/spbanchay.jpg')}}" alt=""></a>
+                                            </td>
+                                            <td class="product-name"><a href="{{route('chi-tiet-san-pham',['id'=>$id])}}">{{$cartItem['name']}}</a></td>
+        
+                                            <td class="product-price-cart"><span class="amount">
+                                            {{number_format($cartItem['price'], $decimal_place, '', $symbol_thousand).$symbol}}
+                                               </span></td>
+                                            <td class="product-quantity pro-details-quality">
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box quantity" type="number" name="qtybutton" value='{{$cartItem["quantity"]}}' min=1>
                                                 </div>
-                                                <div class="product-content-wrap-2 text-center">
-                                                    <div class="product-rating-wrap">
-                                                        <div class="product-rating">
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star gray"></i>
-                                                        </div>
-                                                        <span>(2)</span>
-                                                    </div>
-                                                    <h3><a href="{{route('chi-tiet-san-pham',['id'=>$data->id])}}">{{$data->SKU}}</a></h3>
-                                                    <div class="product-price-2">
-                                                        <span>
-                                                            <?php 
-                                                                $symbol = 'đ';
-                                                                $symbol_thousand = '.';
-                                                                $decimal_place = 0;
-                                                            ?>
-                                                                {{number_format($data->price, $decimal_place, '', $symbol_thousand).$symbol}}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="product-content-wrap-2 product-content-position text-center">
-                                                    <div class="product-rating-wrap">
-                                                        <div class="product-rating">
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star gray"></i>
-                                                        </div>
-                                                        <span>(2)</span>
-                                                    </div>
-                                                    <h3><a href="{{route('chi-tiet-san-pham',['id'=>$data->id])}}">{{$data->SKU}}</a></h3>
-                                                    <div class="product-price-2">
-                                                        <span>{{number_format($data->price, $decimal_place, '', $symbol_thousand).$symbol}}</span>
-                                                    </div>
-                                                    <div class="pro-add-to-cart">
-                                                       <!-- <a href="{{route('cart-add',$data->id)}}">
-                                                            <button title="Add to Cart">Thêm vào giỏ hàng</button>
-                                                        </a> -->
-                                
-                                                        <a href="#" class="add_to_cart" data-url="{{route('cart-add',['id'=>$data->id])}}">
-                                                            <button title="Add to Cart">Thêm vào giỏ hàng</button>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!--END -->
+                                            </td>
+                                            <td class="product-subtotal">
+                                            {{number_format($cartItem['price']*$cartItem['quantity'], $decimal_place, '', $symbol_thousand).$symbol}}
+                                            </td>
+                                            <td class="product-remove">
+                                                <a href="" class="cart_update" data-id="{{$id}}">
+                                                    <button class="btn btn-primary">Cập nhật</button>
+                                                </a>
+                                                <a href=""class="cart_delete" data-id="{{$id}}">
+                                                    <button class="btn btn-danger mt-5" style="width: 96px;">Xóa</button>
+                                                </a>
+                                            </td>
+                                        </tr>
                                         @endforeach
-                                    </div>
-                                </div>
+                                    </tbody>
+                                    @endif
+                                </table>
                             </div>
-                            <style>
-                                .pagination {
-                                    margin-left: 190px;
-                                    color:red;
-                                }
-                            </style>
-                            <div class="pagination">
-                                {{$lsProduct->links('vendor\pagination\bootstrap-4')}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="sidebar-wrapper sidebar-wrapper-mrg-right">
-                            <div class="sidebar-widget shop-sidebar-border mb-35 pt-40">
-                                <h4 class="sidebar-widget-title">Categories </h4>
-                                <div class="shop-catigory">
-                                    <ul>
-                                        <li><a href="shop.html">Laptop</a></li>
-                                        <li><a href="shop.html">Phụ kiện laptop</a></li>
-                                        <li><a href="shop.html">PC, Linh kiện </a></li>
-                                        <li><a href="shop.html">Máy cũ giá rẻ </a></li>
-                                        <li><a href="shop.html">Dịch vụ </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget shop-sidebar-border mb-40 pt-40">
-                                <h4 class="sidebar-widget-title">Price Filter </h4>
-                                <div class="price-filter">
-                                    <span>Range:  $100.00 - 1.300.00 </span>
-                                    <div id="slider-range"></div>
-                                    <div class="price-slider-amount">
-                                        <div class="label-input">
-                                            <input type="text" id="amount" name="price" placeholder="Add Your Price" />
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cart-shiping-update-wrapper">
+                                        <div class="cart-shiping-update">
+                                            <a href="{{route('trang-chu')}}">Quay lại trang chủ</a>
                                         </div>
-                                        <button type="button">Filter</button>
+                                        <div class="cart-clear">
+                                            <a href="{{route('delete-cart-all')}}">Xóa giỏ hàng</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="sidebar-widget shop-sidebar-border mb-40 pt-40">
-                                <h4 class="sidebar-widget-title">Refine By </h4>
-                                <div class="sidebar-widget-list">
-                                    <ul>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox"> <a href="#">On Sale <span>4</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value=""> <a href="#">New <span>5</span></a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="sidebar-widget-list-left">
-                                                <input type="checkbox" value=""> <a href="#">In Stock <span>6</span> </a>
-                                                <span class="checkmark"></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget shop-sidebar-border pt-40">
-                                <h4 class="sidebar-widget-title">Popular Tags</h4>
-                                <div class="tag-wrap sidebar-widget-tag">
-                                    <a href="#">Clothing</a>
-                                    <a href="#">Accessories</a>
-                                    <a href="#">For Men</a>
-                                    <a href="#">Women</a>
-                                    <a href="#">Fashion</a>
+                        </form>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="grand-totall">
+                                    <div class="title-wrap">
+                                        <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                                    </div>
+                                    <h5>Total products <span>{{number_format($total, $decimal_place, '', $symbol_thousand).$symbol}}</span></h5>
+                                    <div class="total-shipping">
+                                        <h5>Total shipping</h5>
+                                        <ul>
+                                            <li><input type="checkbox"> Standard <span>$20.00</span></li>
+                                            <li><input type="checkbox"> Express <span>$30.00</span></li>
+                                        </ul>
+                                    </div>
+                                    <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
+                                    <a href="{{route('check-out')}}">Thanh Toán</a>
                                 </div>
                             </div>
                         </div>
@@ -383,33 +329,12 @@
                 </div>
             </div>
         </div>
-        <div class="subscribe-area bg-gray pt-115 pb-115">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5 col-md-5">
-                        <div class="section-title">
-                            <h2>keep connected</h2>
-                            <p>Get updates by subscribe our weekly newsletter</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-7 col-md-7">
-                        <div id="mc_embed_signup" class="subscribe-form">
-                            <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
-                                <div id="mc_embed_signup_scroll" class="mc-form">
-                                    <input class="email" type="email" required="" placeholder="Enter your email address" name="EMAIL" value="">
-                                    <div class="mc-news" aria-hidden="true">
-                                        <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
-                                    </div>
-                                    <div class="clear">
-                                        <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        
+
+
+
+        <!-- END -->
         <footer class="footer-area bg-gray pb-30">
             <div class="container">
                 <div class="row">
@@ -580,26 +505,23 @@
 
     <!-- All JS is here
 ============================================ -->
-
     @include('assets.js')
 
-    <!-- Use the minified version files listed below for better performance and remove the files listed above  
-<script src="assets/js/vendor/vendor.min.js"></script>
-<script src="assets/js/plugins/plugins.min.js"></script>  -->
-    <!-- Main JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+    
 
     <script>
-        function addTocart(){
+        function cartUpdate(event){
             event.preventDefault();
-            let urlCart=$(this).data('url');
+            let urlUpdateCart=$('.update_cart_url').data('url');
+            let id=$(this).data('id');
+            let quantity=$(this).parents('tr').find('input.quantity').val();
             $.ajax({
                 type:"GET",
-                url:urlCart,
-                dataType:'json',
+                url:urlUpdateCart,
+                data:{id:id,quantity:quantity},
                 success:function(data){
                     if(data.code===200){
-                        alert('Thêm sản phẩm thành công');
+                        $('.main-wrapper ').html(data.cart);
                     }
                 },
                 error:function(){
@@ -607,9 +529,29 @@
                 }
             })
         }
-       $(function(){
-        $('.add_to_cart').on('click',addTocart);
-       });
+
+        function cartDelete(event){
+            event.preventDefault();
+            let urlDelete=$('.delete_cart_url').data('url');
+            $.ajax({
+                type:"GET",
+                url:urlDelete,
+                data:{id:id},
+                success:function(data){
+                    if(data.code===200){
+                        $('.main-wrapper ').html(data.cart);
+                        alert('Sản phẩm đã được xóa khỏi giỏ hàng');
+                    }
+                },
+                error:function(){
+
+                }
+            })
+        }
+        $(function(){
+            $(document).on('click','.cart_update',cartUpdate);
+            $(document).on('click','.cart_delete',cartDelete);
+        })
     </script>
 
 </body>

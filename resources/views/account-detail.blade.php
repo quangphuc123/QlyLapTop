@@ -9,29 +9,16 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+
 
     <!-- All CSS is here
 	============================================ -->
 
-    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/vendor/signericafat.css">
-    <link rel="stylesheet" href="assets/css/vendor/cerebrisans.css">
-    <link rel="stylesheet" href="assets/css/vendor/simple-line-icons.css">
-    <link rel="stylesheet" href="assets/css/vendor/elegant.css">
-    <link rel="stylesheet" href="assets/css/vendor/linear-icon.css">
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="assets/css/plugins/easyzoom.css">
-    <link rel="stylesheet" href="assets/css/plugins/slick.css">
-    <link rel="stylesheet" href="assets/css/plugins/animate.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    @include('assets.css')
 
 
      <!-- Bootstrap Font Icon CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+     
 
 </head>
 
@@ -127,56 +114,8 @@
                                 <div class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
                                     <nav>
                                         <ul>
-                                            <li><a href="index.html">Trang chủ </a>
-                                                <ul class="sub-menu-style">
-                                                    <li><a href="index.html">Home version 1 </a></li>
-                                                    <li><a href="index-2.html">Home version 2</a></li>
-                                                    <li><a href="index-3.html">Home version 3</a></li>
-                                                    <li><a href="index-4.html">Home version 4</a></li>
-                                                    <li><a href="index-5.html">Home version 5</a></li>
-                                                    <li><a href="index-6.html">Home version 6</a></li>
-                                                    <li><a href="index-7.html">Home version 7</a></li>
-                                                    <li><a href="index-8.html">Home version 8</a></li>
-                                                    <li><a href="index-9.html">Home version 9</a></li>
-                                                    <li><a href="index-10.html">Home version 10</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="shop.html">Sản phẩm </a>
-                                                <ul class="mega-menu-style mega-menu-mrg-2">
-                                                    <li>
-                                                        <ul>
-                                                            <li>
-                                                                <a class="dropdown-title" href="#">Shop Layout</a>
-                                                                <ul>
-                                                                    <li><a href="~/shop/norda/shop.html">standard style</a></li>
-                                                                    <li><a href="shop-list.html">shop list style</a></li>
-                                                                    <li><a href="shop-fullwide.html">shop fullwide</a></li>
-                                                                    <li><a href="shop-no-sidebar.html">grid no sidebar</a></li>
-                                                                    <li><a href="shop-list-no-sidebar.html">list no sidebar</a></li>
-                                                                    <li><a href="shop-right-sidebar.html">shop right sidebar</a></li>
-                                                                    <li><a href="store-location.html">store location</a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-title" href="#">Products Layout</a>
-                                                                <ul>
-                                                                    <li><a href="product-details.html">tab style 1</a></li>
-                                                                    <li><a href="product-details-2.html">tab style 2</a></li>
-                                                                    <li><a href="product-details-sticky.html">sticky style</a></li>
-                                                                    <li><a href="product-details-gallery.html">gallery style </a></li>
-                                                                    <li><a href="product-details-affiliate.html">affiliate style</a></li>
-                                                                    <li><a href="product-details-group.html">group style</a></li>
-                                                                    <li><a href="product-details-fixed-img.html">fixed image style </a></li>
-                                                                </ul>
-                                                            </li>
-                                                            <li>
-                                                                <a href="shop.html"><img src="~/shop/norda/assets/images/banner/banner-12.png" alt=""></a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Về chúng tôi </a>
+                                            <li><a href="{{route('trang-chu')}}">Trang chủ </a></li>
+                                            <li><a href="#">Thương hiệu</a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="about-us.html">about us </a></li>
                                                     <li><a href="cart.html">cart page</a></li>
@@ -189,7 +128,7 @@
                                                     <li><a href="login-register.html">login / register </a></li>
                                                 </ul>
                                             </li>
-                                            @*<li><a href="blog.html">BLOG </a>
+                                            <li><a href="blog.html">Bài viết</a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="blog.html">blog standard </a></li>
                                                     <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
@@ -204,9 +143,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="header-action header-action-flex pr-20">
-                                    <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                                        <a href="login-register.html"><i class="icon-user"></i></a>
-                                    </div>
+
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec">
                                         <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
                                     </div>
@@ -269,7 +206,7 @@
                                         <a href="#account-info" class="active" data-toggle="tab"><i class="fa fa-user"></i>
                                             Thông tin tài khoản</a>
                                         <a href="#changepassword" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đổi mật khẩu</a>
-                                        <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
+                                        <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đơn hàng</a>
                                         <a href="{{route('logOut')}}"><i class="fa fa-sign-out"></i> Đăng xuất</a>
                                     </div>
                                 </div>
@@ -357,24 +294,42 @@
                                         <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="changepassword" role="tabpanel">
                                             <div class="myaccount-content">
-                                                <form action="" method="POST">
+                                                <form action="{{ route('xl-cap-nhat-mat-khau')}}" method="POST">
+                                                    @csrf
                                                     <fieldset>
                                                     <legend>Thay đổi mật khẩu</legend>
+
+                                                        @if (session('status'))
+                                                        <div class="alert alert-success" role="alert">
+                                                            {{ session('status') }}
+                                                        <div>
+                                                        @elseif (session('error'))
+                                                            <div class="alert alert-danger" role="alert">
+                                                                {{ session('error') }}
+                                                            <div>
+                                                        @endif
+
                                                         <div class="single-input-item">
                                                                 <label for="current-pwd" class="required">Mật khẩu cũ</label>
-                                                                <input type="password" id="current-pwd" />
+                                                                <input name="old_password" type="password" class="form-control @error('old_password') is-invalid @enderror" id="oldPasswordInput" />
+                                                                @error('old_password')
+                                                                <span class="text-danger">{{ $message }}<span>
+                                                                @enderror
                                                         </div>
                                                         <div class="row mt-10">
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
                                                                         <label for="new-pwd" class="required">Mật khẩu mới</label>
-                                                                        <input type="password" id="new-pwd" />
+                                                                        <input name="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" id="newPasswordInput" />
+                                                                        @error('new_password')
+                                                                        <span class="text-danger">{{ $message }}<span>
+                                                                        @enderror
                                                                 </div>
                                                             </div>
                                                         <div class="col-lg-6">
                                                         <div class="single-input-item">
                                                             <label for="confirm-pwd" class="required">Xác nhận mật khẩu mới</label>
-                                                            <input type="password" id="confirm-pwd" />
+                                                            <input name="new_password_confirmation" type="password" class="form-control" id="confirmNewPasswordInput" />
                                                         </div>
                                                                 </div>
                                                             </div>
@@ -612,28 +567,13 @@
     <!-- All JS is here
 ============================================ -->
 
-    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
-    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/plugins/slick.js"></script>
-    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
-    <script src="assets/js/plugins/jquery.instagramfeed.min.js"></script>
-    <script src="assets/js/plugins/jquery.nice-select.min.js"></script>
-    <script src="assets/js/plugins/wow.js"></script>
-    <script src="assets/js/plugins/jquery-ui-touch-punch.js"></script>
-    <script src="assets/js/plugins/jquery-ui.js"></script>
-    <script src="assets/js/plugins/magnific-popup.js"></script>
-    <script src="assets/js/plugins/sticky-sidebar.js"></script>
-    <script src="assets/js/plugins/easyzoom.js"></script>
-    <script src="assets/js/plugins/scrollup.js"></script>
-    <script src="assets/js/plugins/ajax-mail.js"></script>
+   
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above  
 <script src="assets/js/vendor/vendor.min.js"></script>
 <script src="assets/js/plugins/plugins.min.js"></script>  -->
     <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
+    @include('assets.js')
 
 </body>
 

@@ -21,7 +21,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $this->model = $model;
     }
 
-    public function pagination(
+    /*public function pagination(
         array $column = ['*'],
         array $condition = [],
         int $perpage = 1,
@@ -50,5 +50,5 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $query->join(...$join);
         }
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
-    }
+    }*/
 }

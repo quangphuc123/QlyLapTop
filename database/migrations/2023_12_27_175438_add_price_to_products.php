@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('languages', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable();
+        Schema::table('products', function (Blueprint $table) {
+            $table->bigInteger('price')->default(0);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('languages', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('price');
         });
     }
 };

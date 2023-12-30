@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name', 50)->nullable();
             $table->text('description')->nullable();
             $table->timestamp('deleted_at')->nullable();
+            $table->tinyInteger('publish')->default(0);
             $table->timestamps();
-
         });
     }
 
@@ -27,6 +27,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('user_catalogues');
-        $table->dropColumn('deleted_at');
     }
 };

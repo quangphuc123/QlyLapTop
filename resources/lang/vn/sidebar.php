@@ -21,7 +21,24 @@ return [
         ],
 
         [
-            'title' => 'Quản lý nhóm tài khoản',
+            'title' => 'Quản lý loại sản phẩm',
+            'icon' => 'fa fa-archive',
+            'name' => ['product'],
+            'subModule' =>
+            [
+                [
+                    'title' => 'Quản lý loại sản phẩm',
+                    'route' => 'product/catalogue/index',
+                ],
+                [
+                    'title' => 'Quản lý sản phẩm',
+                    'route' => 'product/index',
+                ],
+            ],
+        ],
+
+        [
+            'title' => 'Qlý nhóm tài khoản',
             'icon' => 'fa fa-user',
             'name' => ['user','permission'],
             'subModule' =>

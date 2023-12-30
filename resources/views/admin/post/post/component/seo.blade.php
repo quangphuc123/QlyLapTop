@@ -6,17 +6,18 @@
         {{-- @include('admin.post.catalogue.component.general') --}}
         <div class="seo-container">
             <div class="meta-title">
-                {{ (old('meta_title', ($post->meta_title) ??'' )) ? old('meta_title', ($post->meta_title) ??'' ) : 'Bạn chưa có tiêu đề SEO' }}
+                {{ old('meta_title', $post->meta_title ?? '') ? old('meta_title', $post->meta_title ?? '') : 'Bạn chưa có tiêu đề SEO' }}
                 {{-- {{ old('meta_title') ?? 'Bạn chưa có tiêu đề SEO' }} --}}
             </div>
             <div class="canonical">
-                {{ (old('canonical', ($post->canonical) ?? '')) ?
-                config('app.url').old('canonical', ($post->canonical) ?? '').config('apps.general.suffix') : 'https://duong-dan-cua-ban' }}
+                {{ old('canonical', $post->canonical ?? '')
+                    ? config('app.url') . old('canonical', $post->canonical ?? '') . config('apps.general.suffix')
+                    : 'https://duong-dan-cua-ban' }}
 
                 {{-- {{ old('canonical') ?config('app.url').old('canonical').config('apps.general.suffix') : 'https://duong-dan-cua-ban' }} --}}
             </div>
             <div class="meta-description">
-                {{ (old('meta_description',($post->meta_description) ?? '')) ?old('meta_description',($post->meta_description) ?? '') : 'Bạn cần mô tả SEO' }}
+                {{ old('meta_description', $post->meta_description ?? '') ? old('meta_description', $post->meta_description ?? '') : 'Bạn cần mô tả SEO' }}
                 {{-- {{ old('meta_description') ?? 'Bạn cần mô tả SEO' }} --}}
             </div>
         </div>
@@ -33,9 +34,8 @@
                                 </span>
                             </div>
                         </label>
-                        <input type="text" name="meta_title"
-                            value="{{ old('meta_title', $post->meta_title ?? '') }}" class="form-control"
-                            placeholder="" autocomplete="off">
+                        <input type="text" name="meta_title" value="{{ old('meta_title', $post->meta_title ?? '') }}"
+                            class="form-control" placeholder="" autocomplete="off">
                     </div>
                 </div>
             </div>

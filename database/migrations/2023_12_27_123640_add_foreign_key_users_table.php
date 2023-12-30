@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('publish')->default(0);
+            $table->unsignedBigInteger('user_catalogue_id')->default(1);
+            $table->foreign('user_catalogue_id')->references('id')->on('user_catalogues');
         });
     }
 
@@ -22,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('publish');
-            $table->dropColumn('deleted_at');
+            $table->dropColumn('user_catalogue_id');
+            $table->dropForeign(['user_catalogue_id']);
         });
     }
 };

@@ -44,7 +44,7 @@ class BaseRepository implements BaseRepositoryInterface
                 ->withPath(env('APP_URL') . $extend['path']);
     }
 
-    public function create(array $payload = [])
+    public function create(array $payload)
     {
         $model = $this->model->create($payload);
         return $model->fresh();

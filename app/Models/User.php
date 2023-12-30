@@ -35,8 +35,6 @@ class User extends Authenticatable
         'birthday',
         'image',
         'description',
-        'user_agent',
-        'ip',
         'user_catalogue_id',
         'publish',
     ];

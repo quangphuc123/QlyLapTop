@@ -31,7 +31,7 @@ class UserCatalogueController extends Controller
 
     public function index(Request $request)
     {
-        $this->authorize('modules', 'post.catalogue.index');
+        // $this->authorize('modules', 'post.catalogue.index');
         $userCatalogues = $this->userCatalogueService->paginate($request);
 
         $config = [
@@ -58,7 +58,7 @@ class UserCatalogueController extends Controller
     }
     public function create()
     {
-        $this->authorize('modules', 'post.catalogue.create');
+        // $this->authorize('modules', 'post.catalogue.create');
         $config['seo'] = config('apps.usercatalogue');
         $config['method'] = 'create';
         $template = 'admin.user.catalogue.store';
@@ -81,7 +81,7 @@ class UserCatalogueController extends Controller
 
     public function edit($id)
     {
-        $this->authorize('modules', 'post.catalogue.update');
+        // $this->authorize('modules', 'post.catalogue.update');
 
         $userCatalogue = $this->userCatalogueRepository->findById($id);
         $config['seo'] = config('apps.usercatalogue');
@@ -108,7 +108,7 @@ class UserCatalogueController extends Controller
 
     public function delete($id)
     {
-        $this->authorize('modules', 'post.catalogue.destroy');
+        // $this->authorize('modules', 'post.catalogue.destroy');
 
         $config['seo'] = config('apps.usercatalogue');
         $userCatalogue = $this->userCatalogueRepository->findById($id);
@@ -134,7 +134,7 @@ class UserCatalogueController extends Controller
     }
 
     public function permission(){
-        $this->authorize('modules', 'post.catalogue.permission');
+        // $this->authorize('modules', 'post.catalogue.permission');
         $userCatalogues = $this->userCatalogueRepository->all(['permissions']);
         $permissions = $this->permissionRepository->all();
         $template = 'admin.user.catalogue.permission';

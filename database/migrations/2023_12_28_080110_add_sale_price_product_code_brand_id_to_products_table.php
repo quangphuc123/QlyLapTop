@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('post_language', function (Blueprint $table) {
-            $table->string('canonical')->unique();
+        Schema::table('products', function (Blueprint $table) {
+            $table->bigInteger('sale_price')->default(0);
+            $table->string('product_code');
         });
     }
 
@@ -21,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('post_language', function (Blueprint $table) {
-            $table->dropColumn('canonical');
+        Schema::table('products', function (Blueprint $table) {
+            //
         });
     }
 };

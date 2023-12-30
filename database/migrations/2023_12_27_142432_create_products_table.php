@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_catalogue_id');
             $table->string('name');
+            $table->bigInteger('price')->default(0);
             $table->string('image')->nullable();
+            $table->text('album')->nullable();
+            $table->bigInteger('sale_price')->default(0);
+            $table->string('product_code');
             $table->text('description')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

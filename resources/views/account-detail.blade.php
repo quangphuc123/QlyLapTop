@@ -12,33 +12,35 @@
 
 
     <!-- All CSS is here
-	============================================ -->
+ ============================================ -->
 
     @include('assets.css')
 
 
-     <!-- Bootstrap Font Icon CSS -->
-     
+    <!-- Bootstrap Font Icon CSS -->
+
 
 </head>
 
 <body>
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
     <div class="main-wrapper">
-       <header class="header-area">
+        <header class="header-area">
             <div class="header-large-device">
                 <div class="header-middle header-middle-padding-2">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html"><img src="assets/images/logo/Độc Lạ LapTop.png" alt="logo"></a>
+                                    <a href="{{ route('trang-chu') }}"><img src="assets/images/logo/Độc Lạ LapTop.png"
+                                            alt="logo"></a>
                                 </div>
                             </div>
                             <div class="sidebar-widget mb-25">
                                 <div class="sidebar-search" style="width: 500px ;padding-left: 100px;">
-                                    <form class="sidebar-search-form" action="#" style="text-decoration-color: brown;">
-                                        <input type="text"  placeholder="Nhập tên laptop, phụ kiện cần tìm...">
+                                    <form class="sidebar-search-form" action="#"
+                                        style="text-decoration-color: brown;">
+                                        <input type="text" placeholder="Nhập tên laptop, phụ kiện cần tìm...">
                                         <button>
                                             <i class="icon-magnifier"></i>
                                         </button>
@@ -54,18 +56,18 @@
                                     try{
                                         $check=Auth::user()->id;
                                  ?>
-                                <a href="{{route('accountDetail')}}">
-                                <button  type="button" class="btn btn-warning bi-person">
-                                    Tài khoản
-                                </button>
+                                <a href="{{ route('accountDetail') }}">
+                                    <button type="button" class="btn btn-warning bi-person">
+                                        Tài khoản
+                                    </button>
                                 </a>
-                                <?php 
+                                <?php
                                     }catch(Exception $e){
                                 ?>
-                                <a href="{{route('loginRegister')}}">
-                                <button  type="button" class="btn btn-warning bi-person">
-                                    Đăng nhập
-                                </button>
+                                <a href="{{ route('loginRegister') }}">
+                                    <button type="button" class="btn btn-warning bi-person">
+                                        Đăng nhập
+                                    </button>
                                 </a>
                                 <?php } ?>
                             </div>
@@ -74,12 +76,12 @@
 
 
                             <div>
-                                <button type="button" class="btn btn-warning ml-15 bi-cart4" >
+                                <button type="button" class="btn btn-warning ml-15 bi-cart4">
                                     Giỏ hàng
                                 </button>
                             </div>
                             <div>
-                            <div class="hotline-2-wrap ml-25">
+                                <div class="hotline-2-wrap ml-25">
                                     <div class="hotline-2-icon">
                                         <i class="blue icon-call-end"></i>
                                     </div>
@@ -97,24 +99,30 @@
                         <div class="row align-items-center">
                             <div class="col-lg-3">
                                 <div class="main-categori-wrap main-categori-wrap-modify-2">
-                                    <a class="categori-show categori-blue" href="#">Danh mục sản phẩm <i class="icon-arrow-down icon-right"></i></a>
-                                    <div class="category-menu-2 category-menu-2-blue categori-hide categori-not-visible-2">
+                                    <a class="categori-show categori-blue" href="#">Danh mục sản phẩm <i
+                                            class="icon-arrow-down icon-right"></i></a>
+                                    <div
+                                        class="category-menu-2 category-menu-2-blue categori-hide categori-not-visible-2">
                                         <nav>
                                             <ul>
                                                 <li><a href="shop.html"><i class="bi-laptop"></i> Laptop</a></li>
-                                                <li><a href="shop.html"><i class="bi-cpu"></i> Linh kiện PC - Máy tính</a></li>
-                                                <li><a href="shop.html"><i class="bi-headphones"></i> Phụ kiện máy tính</a></li>
-                                                <li><a href="shop.html"><i class="bi-tools"></i> Bảo hành - Hậu mãi</a></li>
+                                                <li><a href="shop.html"><i class="bi-cpu"></i> Linh kiện PC - Máy
+                                                        tính</a></li>
+                                                <li><a href="shop.html"><i class="bi-headphones"></i> Phụ kiện máy
+                                                        tính</a></li>
+                                                <li><a href="shop.html"><i class="bi-tools"></i> Bảo hành - Hậu mãi</a>
+                                                </li>
                                             </ul>
                                         </nav>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
+                                <div
+                                    class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
                                     <nav>
                                         <ul>
-                                            <li><a href="{{route('trang-chu')}}">Trang chủ </a></li>
+                                            <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
                                             <li><a href="#">Thương hiệu</a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="about-us.html">about us </a></li>
@@ -145,7 +153,8 @@
                                 <div class="header-action header-action-flex pr-20">
 
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                                        <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                        <a href="wishlist.html"><i class="icon-heart"></i><span
+                                                class="pro-count red">03</span></a>
                                     </div>
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">
                                         <a class="cart-active" href="#">
@@ -175,7 +184,8 @@
                                     <a href="login-register.html"><i class="icon-user"></i></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc">
-                                    <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                    <a href="wishlist.html"><i class="icon-heart"></i><span
+                                            class="pro-count red">03</span></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc header-cart">
                                     <a class="cart-active" href="#">
@@ -183,7 +193,8 @@
                                     </a>
                                 </div>
                                 <div class="same-style-2 main-menu-icon">
-                                    <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i> </a>
+                                    <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +202,7 @@
                 </div>
             </div>
         </header>
-        
+
         <!-- my account wrapper start -->
         <div class="my-account-wrapper pt-120 pb-120">
             <div class="container">
@@ -203,11 +214,14 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-4">
                                     <div class="myaccount-tab-menu nav" role="tablist">
-                                        <a href="#account-info" class="active" data-toggle="tab"><i class="fa fa-user"></i>
+                                        <a href="#account-info" class="active" data-toggle="tab"><i
+                                                class="fa fa-user"></i>
                                             Thông tin tài khoản</a>
-                                        <a href="#changepassword" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đổi mật khẩu</a>
-                                        <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đơn hàng</a>
-                                        <a href="{{route('logOut')}}"><i class="fa fa-sign-out"></i> Đăng xuất</a>
+                                        <a href="#changepassword" data-toggle="tab"><i
+                                                class="fa fa-cart-arrow-down"></i> Đổi mật khẩu</a>
+                                        <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Đơn
+                                            hàng</a>
+                                        <a href="{{ route('logOut') }}"><i class="fa fa-sign-out"></i> Đăng xuất</a>
                                     </div>
                                 </div>
                                 <!-- My Account Tab Menu End -->
@@ -219,72 +233,65 @@
                                             <div class="myaccount-content">
                                                 <h3>Thông tin tài khoản</h3>
                                                 <style>
-                                                    .inputstyle{
-                                                        color:grey;
-                                                        font-style:italic;
+                                                    .inputstyle {
+                                                        color: grey;
+                                                        font-style: italic;
                                                     }
                                                 </style>
                                                 <div class="account-details-form">
-                                                    <form action="{{route('xl-cap-nhat',['id'=>Auth::user()->id])}}" method="POST">
+                                                    <form action="{{ route('xl-cap-nhat', ['id' => Auth::user()->id]) }}"
+                                                        method="POST">
                                                         @csrf
                                                         <div class="single-input-item">
                                                             <label for="name" class="required">Họ và tên</label>
                                                             <input type="text" name="name" class="inputstyle"
-                                                                <?php 
+                                                                <?php
                                                                     if(Auth::user()->name==null){
-                                                                ?>
-                                                                placeholder="Chưa cập nhật"
+                                                                ?> placeholder="Chưa cập nhật"
                                                                 <?php } else ?>
-                                                                placeholder="{{Auth::user()->name}}"
-                                                            />
+                                                                placeholder="{{ Auth::user()->name }}" />
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="birthday" class="required">Ngày sinh</label>
                                                             <input type="date" name="birthday" class="inputstyle"
-                                                                <?php 
+                                                                <?php
                                                                     if(Auth::user()->birthday==null){
-                                                                ?>
-                                                                placeholder="Chưa cập nhật"
+                                                                ?> placeholder="Chưa cập nhật"
                                                                 <?php } else ?>
-                                                                placeholder="{{Auth::user()->birthday}}"    
-                                                            />
+                                                                placeholder="{{ Auth::user()->birthday }}" />
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="phone" class="required">Số điện thoại</label>
+                                                            <label for="phone" class="required">Số điện
+                                                                thoại</label>
                                                             <input type="text" name="phone" class="inputstyle"
-                                                                <?php 
+                                                                <?php
                                                                     if(Auth::user()->phone==null){
-                                                                ?>
-                                                                placeholder="Chưa cập nhật"
+                                                                ?> placeholder="Chưa cập nhật"
                                                                 <?php } else ?>
-                                                                placeholder="{{Auth::user()->phone}}"
-                                                            />
+                                                                placeholder="{{ Auth::user()->phone }}" />
                                                         </div>
                                                         <div class="single-input-item">
                                                             <label for="address" class="required">Địa chỉ</label>
                                                             <input type="text" name="address" class="inputstyle"
-                                                                <?php 
+                                                                <?php
                                                                     if(Auth::user()->address==null){
-                                                                ?>
-                                                                placeholder="Chưa cập nhật"
+                                                                ?> placeholder="Chưa cập nhật"
                                                                 <?php } else ?>
-                                                                placeholder="{{Auth::user()->address}}"
-                                                                    
-                                                            />
+                                                                placeholder="{{ Auth::user()->address }}" />
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <label for="email" class="required">Email Addres</label>
-                                                            <input type="email" name="email"  class="inputstyle"
-                                                            <?php 
+                                                            <label for="email" class="required">Email
+                                                                Addres</label>
+                                                            <input type="email" name="email" class="inputstyle"
+                                                                <?php
                                                                     if(Auth::user()->email==null){
-                                                                ?>
-                                                                placeholder="Chưa cập nhật"
+                                                                ?> placeholder="Chưa cập nhật"
                                                                 <?php } else ?>
-                                                                placeholder="{{Auth::user()->email}}"   
-                                                            />
+                                                                placeholder="{{ Auth::user()->email }}" />
                                                         </div>
                                                         <div class="single-input-item">
-                                                            <button class="btn btn-danger " type="submit">Lưu</button>
+                                                            <button class="btn btn-danger "
+                                                                type="submit">Lưu</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -294,48 +301,58 @@
                                         <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="changepassword" role="tabpanel">
                                             <div class="myaccount-content">
-                                                <form action="{{ route('xl-cap-nhat-mat-khau')}}" method="POST">
+                                                <form action="{{ route('xl-cap-nhat-mat-khau') }}" method="POST">
                                                     @csrf
                                                     <fieldset>
-                                                    <legend>Thay đổi mật khẩu</legend>
+                                                        <legend>Thay đổi mật khẩu</legend>
 
                                                         @if (session('status'))
-                                                        <div class="alert alert-success" role="alert">
-                                                            {{ session('status') }}
-                                                        <div>
-                                                        @elseif (session('error'))
-                                                            <div class="alert alert-danger" role="alert">
-                                                                {{ session('error') }}
-                                                            <div>
+                                                            <div class="alert alert-success" role="alert">
+                                                                {{ session('status') }}
+                                                                <div>
+                                                                @elseif (session('error'))
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        {{ session('error') }}
+                                                                        <div>
                                                         @endif
 
                                                         <div class="single-input-item">
-                                                                <label for="current-pwd" class="required">Mật khẩu cũ</label>
-                                                                <input name="old_password" type="password" class="form-control @error('old_password') is-invalid @enderror" id="oldPasswordInput" />
-                                                                @error('old_password')
+                                                            <label for="current-pwd" class="required">Mật khẩu
+                                                                cũ</label>
+                                                            <input name="old_password" type="password"
+                                                                class="form-control @error('old_password') is-invalid @enderror"
+                                                                id="oldPasswordInput" />
+                                                            @error('old_password')
                                                                 <span class="text-danger">{{ $message }}<span>
-                                                                @enderror
+                                                                    @enderror
                                                         </div>
                                                         <div class="row mt-10">
                                                             <div class="col-lg-6">
                                                                 <div class="single-input-item">
-                                                                        <label for="new-pwd" class="required">Mật khẩu mới</label>
-                                                                        <input name="new_password" type="password" class="form-control @error('new_password') is-invalid @enderror" id="newPasswordInput" />
-                                                                        @error('new_password')
-                                                                        <span class="text-danger">{{ $message }}<span>
-                                                                        @enderror
+                                                                    <label for="new-pwd" class="required">Mật khẩu
+                                                                        mới</label>
+                                                                    <input name="new_password" type="password"
+                                                                        class="form-control @error('new_password') is-invalid @enderror"
+                                                                        id="newPasswordInput" />
+                                                                    @error('new_password')
+                                                                        <span
+                                                                            class="text-danger">{{ $message }}<span>
+                                                                            @enderror
                                                                 </div>
                                                             </div>
-                                                        <div class="col-lg-6">
-                                                        <div class="single-input-item">
-                                                            <label for="confirm-pwd" class="required">Xác nhận mật khẩu mới</label>
-                                                            <input name="new_password_confirmation" type="password" class="form-control" id="confirmNewPasswordInput" />
+                                                            <div class="col-lg-6">
+                                                                <div class="single-input-item">
+                                                                    <label for="confirm-pwd" class="required">Xác nhận
+                                                                        mật khẩu mới</label>
+                                                                    <input name="new_password_confirmation"
+                                                                        type="password" class="form-control"
+                                                                        id="confirmNewPasswordInput" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                                </div>
-                                                            </div>
                                                     </fieldset>
                                                     <div class="single-input-item mt-10">
-                                                            <button class="btn btn-danger " type="submit">Lưu</button>
+                                                        <button class="btn btn-danger " type="submit">Lưu</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -362,21 +379,24 @@
                                                                 <td>Aug 22, 2018</td>
                                                                 <td>Pending</td>
                                                                 <td>$3000</td>
-                                                                <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
+                                                                <td><a href="cart.html"
+                                                                        class="check-btn sqr-btn ">View</a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>July 22, 2018</td>
                                                                 <td>Approved</td>
                                                                 <td>$200</td>
-                                                                <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
+                                                                <td><a href="cart.html"
+                                                                        class="check-btn sqr-btn ">View</a></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>3</td>
                                                                 <td>June 12, 2017</td>
                                                                 <td>On Hold</td>
                                                                 <td>$990</td>
-                                                                <td><a href="cart.html" class="check-btn sqr-btn ">View</a></td>
+                                                                <td><a href="cart.html"
+                                                                        class="check-btn sqr-btn ">View</a></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -435,7 +455,8 @@
                                 <a href="#"><i class="social_youtube"></i></a>
                             </div>
                             <div class="copyright">
-                                <p>Copyright © 2020 HasThemes | <a href="https://hasthemes.com/">Built with <span>Norda</span> by HasThemes</a>.</p>
+                                <p>Copyright © 2020 HasThemes | <a href="https://hasthemes.com/">Built with
+                                        <span>Norda</span> by HasThemes</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -447,7 +468,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">x</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -468,10 +490,14 @@
                                 </div>
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active nav-style-6">
-                                        <a class="active" data-toggle="tab" href="#pro-1"><img src="assets/images/product/quickview-s1.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-2"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-3"><img src="assets/images/product/quickview-s3.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-4"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a class="active" data-toggle="tab" href="#pro-1"><img
+                                                src="assets/images/product/quickview-s1.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-2"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-3"><img
+                                                src="assets/images/product/quickview-s3.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-4"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -496,7 +522,8 @@
                                             <span>242 orders</span>
                                         </div>
                                     </div>
-                                    <p>Seamlessly predominate enterprise metrics without performance based process improvements.</p>
+                                    <p>Seamlessly predominate enterprise metrics without performance based process
+                                        improvements.</p>
                                     <div class="pro-details-price">
                                         <span class="new-price">$75.72</span>
                                         <span class="old-price">$95.72</span>
@@ -529,13 +556,16 @@
                                     <div class="pro-details-quality">
                                         <span>Quantity:</span>
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                            <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                value="1">
                                         </div>
                                     </div>
                                     <div class="product-details-meta">
                                         <ul>
-                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a href="#">Dress,</a> <a href="#">T-Shirt</a></li>
-                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a href="#">Mentone</a> , <a href="#">Texas</a></li>
+                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a
+                                                    href="#">Dress,</a> <a href="#">T-Shirt</a></li>
+                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a
+                                                    href="#">Mentone</a> , <a href="#">Texas</a></li>
                                         </ul>
                                     </div>
                                     <div class="pro-details-action-wrap">
@@ -545,12 +575,17 @@
                                         <div class="pro-details-action">
                                             <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
                                             <a title="Add to Compare" href="#"><i class="icon-refresh"></i></a>
-                                            <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
+                                            <a class="social" title="Social" href="#"><i
+                                                    class="icon-share"></i></a>
                                             <div class="product-dec-social">
-                                                <a class="facebook" title="Facebook" href="#"><i class="icon-social-facebook"></i></a>
-                                                <a class="twitter" title="Twitter" href="#"><i class="icon-social-twitter"></i></a>
-                                                <a class="instagram" title="Instagram" href="#"><i class="icon-social-instagram"></i></a>
-                                                <a class="pinterest" title="Pinterest" href="#"><i class="icon-social-pinterest"></i></a>
+                                                <a class="facebook" title="Facebook" href="#"><i
+                                                        class="icon-social-facebook"></i></a>
+                                                <a class="twitter" title="Twitter" href="#"><i
+                                                        class="icon-social-twitter"></i></a>
+                                                <a class="instagram" title="Instagram" href="#"><i
+                                                        class="icon-social-instagram"></i></a>
+                                                <a class="pinterest" title="Pinterest" href="#"><i
+                                                        class="icon-social-pinterest"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -567,9 +602,9 @@
     <!-- All JS is here
 ============================================ -->
 
-   
 
-    <!-- Use the minified version files listed below for better performance and remove the files listed above  
+
+    <!-- Use the minified version files listed below for better performance and remove the files listed above
 <script src="assets/js/vendor/vendor.min.js"></script>
 <script src="assets/js/plugins/plugins.min.js"></script>  -->
     <!-- Main JS -->

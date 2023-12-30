@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
-    <script src="{{asset('assets/js/vendor/modernizr-3.6.0.min.js')}}"></script> 
+    <script src="{{asset('assets/js/vendor/modernizr-3.6.0.min.js')}}"></script>
     <script src="{{asset('assets/js/vendor/jquery-3.5.1.min.js')}}"></script>
     <script src="{{asset('assets/js/vendor/jquery-migrate-3.3.0.min.js')}}"></script>
     <script src="{{asset('assets/js/vendor/bootstrap.bundle.min.js')}}"></script>
@@ -24,3 +24,4 @@
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

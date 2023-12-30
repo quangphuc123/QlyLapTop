@@ -12,28 +12,30 @@
 
 
     @include('assets.css')
-    
+
 
 
 </head>
 
 <body>
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
     <div class="main-wrapper">
-       <header class="header-area">
+        <header class="header-area">
             <div class="header-large-device">
                 <div class="header-middle header-middle-padding-2">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html"><img src="{{asset('assets/images/logo/Độc Lạ LapTop.png')}}" alt="logo"></a>
+                                    <a href="index.html"><img src="{{ asset('assets/images/logo/Độc Lạ LapTop.png') }}"
+                                            alt="logo"></a>
                                 </div>
                             </div>
                             <div class="sidebar-widget mb-25">
                                 <div class="sidebar-search" style="width: 500px ;padding-left: 100px;">
-                                    <form class="sidebar-search-form" action="#" style="text-decoration-color: brown;">
-                                        <input type="text"  placeholder="Nhập tên laptop, phụ kiện cần tìm...">
+                                    <form class="sidebar-search-form" action="#"
+                                        style="text-decoration-color: brown;">
+                                        <input type="text" placeholder="Nhập tên laptop, phụ kiện cần tìm...">
                                         <button>
                                             <i class="icon-magnifier"></i>
                                         </button>
@@ -41,32 +43,32 @@
                                 </div>
                             </div>
                             <div class="ml-50">
-                            <?php
+                                <?php
                                     try{
                                         $check=Auth::user()->id;
                                  ?>
-                                <a href="{{route('accountDetail')}}">
-                                <button  type="button" class="btn btn-warning bi-person">
-                                    Tài khoản
-                                </button>
+                                <a href="{{ route('accountDetail') }}">
+                                    <button type="button" class="btn btn-warning bi-person">
+                                        Tài khoản
+                                    </button>
                                 </a>
-                                <?php 
+                                <?php
                                     }catch(Exception $e){
                                 ?>
-                                <a href="{{route('loginRegister')}}">
-                                <button  type="button" class="btn btn-warning bi-person">
-                                    Đăng nhập
-                                </button>
+                                <a href="{{ route('loginRegister') }}">
+                                    <button type="button" class="btn btn-warning bi-person">
+                                        Đăng nhập
+                                    </button>
                                 </a>
                                 <?php } ?>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-warning ml-15 bi-cart4" >
+                                <button type="button" class="btn btn-warning ml-15 bi-cart4">
                                     Giỏ hàng
                                 </button>
                             </div>
                             <div>
-                            <div class="hotline-2-wrap ml-25">
+                                <div class="hotline-2-wrap ml-25">
                                     <div class="hotline-2-icon">
                                         <i class="blue icon-call-end"></i>
                                     </div>
@@ -84,24 +86,30 @@
                         <div class="row align-items-center">
                             <div class="col-lg-3">
                                 <div class="main-categori-wrap main-categori-wrap-modify-2">
-                                    <a class="categori-show categori-blue" href="#">Danh mục sản phẩm <i class="icon-arrow-down icon-right"></i></a>
-                                    <div class="category-menu-2 category-menu-2-blue categori-hide categori-not-visible-2">
+                                    <a class="categori-show categori-blue" href="#">Danh mục sản phẩm <i
+                                            class="icon-arrow-down icon-right"></i></a>
+                                    <div
+                                        class="category-menu-2 category-menu-2-blue categori-hide categori-not-visible-2">
                                         <nav>
                                             <ul>
                                                 <li><a href="shop.html"><i class="bi-laptop"></i> Laptop</a></li>
-                                                <li><a href="shop.html"><i class="bi-cpu"></i> Linh kiện PC - Máy tính</a></li>
-                                                <li><a href="shop.html"><i class="bi-headphones"></i> Phụ kiện máy tính</a></li>
-                                                <li><a href="shop.html"><i class="bi-tools"></i> Bảo hành - Hậu mãi</a></li>
+                                                <li><a href="shop.html"><i class="bi-cpu"></i> Linh kiện PC - Máy
+                                                        tính</a></li>
+                                                <li><a href="shop.html"><i class="bi-headphones"></i> Phụ kiện máy
+                                                        tính</a></li>
+                                                <li><a href="shop.html"><i class="bi-tools"></i> Bảo hành - Hậu mãi</a>
+                                                </li>
                                             </ul>
                                         </nav>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
+                                <div
+                                    class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
                                     <nav>
                                         <ul>
-                                            <li><a href="{{route('trang-chu')}}">Trang chủ </a></li>
+                                            <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
                                             <li><a href="#">Thương hiệu</a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="about-us.html">about us </a></li>
@@ -131,12 +139,13 @@
                             <div class="col-lg-3">
                                 <div class="header-action header-action-flex pr-20">
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                                        <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                        <a href="wishlist.html"><i class="icon-heart"></i><span
+                                                class="pro-count red">03</span></a>
                                     </div>
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">
                                         <a class="cart-active" href="#">
                                             <i class="icon-basket-loaded"></i><span class="pro-count red">02</span>
-                                            @*<span class="cart-amount white">$2,435.30</span>*@
+                                            <span class="cart-amount white">$2,435.30</span>
                                         </a>
                                     </div>
                                 </div>
@@ -161,7 +170,8 @@
                                     <a href="login-register.html"><i class="icon-user"></i></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc">
-                                    <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                    <a href="wishlist.html"><i class="icon-heart"></i><span
+                                            class="pro-count red">03</span></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc header-cart">
                                     <a class="cart-active" href="#">
@@ -169,7 +179,8 @@
                                     </a>
                                 </div>
                                 <div class="same-style-2 main-menu-icon">
-                                    <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i> </a>
+                                    <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -197,50 +208,40 @@
                             <div class="pro-dec-big-img-slider">
                                 <div class="easyzoom-style">
                                     <div class="easyzoom easyzoom--overlay">
-                                        <a href="assets/images/product-details/b-large-1.jpg">
-                                            <img src="{{asset('assets/images/product-details/large-1.jpg')}}" alt="">
+                                        <a href="{{ asset($product->image) }}">
+                                            <img src="{{ asset($product->image) }}" alt="" style="width: 650px; height: 806px;">
                                         </a>
                                     </div>
-                                    <a class="easyzoom-pop-up img-popup" href="assets/images/product-details/b-large-1.jpg"><i class="icon-size-fullscreen"></i></a>
+                                    <a class="easyzoom-pop-up img-popup" href="{{ asset($product->image) }}"><i
+                                            class="icon-size-fullscreen"></i></a>
                                 </div>
-                                <div class="easyzoom-style">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="assets/images/product-details/b-large-2.jpg">
-                                            <img src="{{asset('assets/images/product-details/large-2.jpg')}}" alt="">
-                                        </a>
-                                    </div>
-                                    <a class="easyzoom-pop-up img-popup" href="assets/images/product-details/b-large-2.jpg"><i class="icon-size-fullscreen"></i></a>
+                                @php
+                                $gallery = isset($album) && count($album) ? $album : old('album');
+                            @endphp
+                               @foreach ($gallery as $key => $val )
+                               <div class="easyzoom-style">
+                                <div class="easyzoom easyzoom--overlay">
+                                    <a href="{{ asset($val) }}">
+                                        <img src="{{ asset($val) }}" alt="" style="width: 180px; height: 225px;">
+                                    </a>
                                 </div>
-                                <div class="easyzoom-style">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="assets/images/product-details/b-large-3.jpg">
-                                            <img src="{{asset('assets/images/product-details/large-3.jpg')}}" alt="">
-                                        </a>
-                                    </div>
-                                    <a class="easyzoom-pop-up img-popup" href="assets/images/product-details/b-large-3.jpg"><i class="icon-size-fullscreen"></i></a>
-                                </div>
-                                <div class="easyzoom-style">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="assets/images/product-details/b-large-4.jpg">
-                                            <img src="{{asset('assets/images/product-details/large-4.jpg')}}" alt="">
-                                        </a>
-                                    </div>
-                                    <a class="easyzoom-pop-up img-popup" href="assets/images/product-details/b-large-4.jpg"><i class="icon-size-fullscreen"></i></a>
-                                </div>
-                                <div class="easyzoom-style">
-                                    <div class="easyzoom easyzoom--overlay">
-                                        <a href="assets/images/product-details/b-large-2.jpg">
-                                            <img src="{{asset('assets/images/product-details/large-2.jpg')}}" alt="">
-                                        </a>
-                                    </div>
-                                    <a class="easyzoom-pop-up img-popup" href="assets/images/product-details/b-large-2.jpg"><i class="icon-size-fullscreen"></i></a>
-                                </div>
+                                <a class="easyzoom-pop-up img-popup" href="{{ asset($val) }}"><i
+                                        class="icon-size-fullscreen"></i></a>
                             </div>
+                               @endforeach
+
+
+                            </div>
+
                             <div class="product-dec-slider-small product-dec-small-style1">
-                                <div class="product-dec-small active">
-                                    <img src="{{asset('assets/images/product-details/small-1.jpg')}}" alt="">
-                                </div>
-                                <div class="product-dec-small">
+
+                                @foreach ($gallery as $key => $val)
+                                    <div class="product-dec-small active">
+                                        <img src="{{ asset($val) }}" alt="">
+                                    </div>
+                                @endforeach
+
+                                {{-- <div class="product-dec-small">
                                     <img src="{{asset('assets/images/product-details/small-2.jpg')}}" alt="">
                                 </div>
                                 <div class="product-dec-small">
@@ -251,13 +252,13 @@
                                 </div>
                                 <div class="product-dec-small">
                                     <img src="{{asset('assets/images/product-details/small-2.jpg')}}" alt="">
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="product-details-content pro-details-content-mrg">
-                            <h2>{{$detail->SKU}}</h2>
+                            <h2>{{ $product->name }} </h2>
                             <div class="product-ratting-review-wrap">
                                 <div class="product-ratting-digit-wrap">
                                     <div class="product-ratting">
@@ -276,21 +277,22 @@
                                     <span>242 orders</span>
                                 </div>
                             </div>
-                            
+
                             <div class="pro-details-price">
                                 <span class="new-price">
-                                <?php 
-                                                                $symbol = 'đ';
-                                                                $symbol_thousand = '.';
-                                                                $decimal_place = 0;
-                                                            ?>
-                                                                {{number_format($detail->price, $decimal_place, '', $symbol_thousand).$symbol}}
+                                    <?php
+                                    $symbol = 'đ';
+                                    $symbol_thousand = '.';
+                                    $decimal_place = 0;
+                                    ?>
+                                    {{ number_format($product->price, $decimal_place, '', $symbol_thousand) . $symbol }}
                                 </span>
                             </div>
                             <div class="pro-details-quality">
                                 <span>Số lượng:</span>
                                 <div class="cart-plus-minus">
-                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                    <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                        value="1">
                                 </div>
                             </div>
                             <div class="pro-details-action-wrap">
@@ -301,10 +303,14 @@
                                     <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
                                     <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
                                     <div class="product-dec-social">
-                                        <a class="facebook" title="Facebook" href="#"><i class="icon-social-facebook"></i></a>
-                                        <a class="twitter" title="Twitter" href="#"><i class="icon-social-twitter"></i></a>
-                                        <a class="instagram" title="Instagram" href="#"><i class="icon-social-instagram"></i></a>
-                                        <a class="pinterest" title="Pinterest" href="#"><i class="icon-social-pinterest"></i></a>
+                                        <a class="facebook" title="Facebook" href="#"><i
+                                                class="icon-social-facebook"></i></a>
+                                        <a class="twitter" title="Twitter" href="#"><i
+                                                class="icon-social-twitter"></i></a>
+                                        <a class="instagram" title="Instagram" href="#"><i
+                                                class="icon-social-instagram"></i></a>
+                                        <a class="pinterest" title="Pinterest" href="#"><i
+                                                class="icon-social-pinterest"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -316,7 +322,7 @@
 
 
 
-        
+
         <div class="description-review-wrapper pb-110">
             <div class="container">
                 <div class="row">
@@ -329,8 +335,18 @@
                         <div class="tab-content dec-review-bottom">
                             <div id="des-details1" class="tab-pane active">
                                 <div class="description-wrap">
-                                    <p>Crafted in premium watch quality, fenix Chronos is the first Garmin timepiece to combine a durable metal case with integrated performance GPS to support navigation and sport. In the tradition of classic tool watches it features a tough design and a set of modern meaningful tools.</p>
-                                    <p> advanced performance metrics for endurance sports, Garmin quality navigation features and smart notifications. In fenix Chronos top-tier performance meets sophisticated design in a highly evolved timepiece that fits your style anywhere, anytime. Solid brushed 316L stainless steel case with brushed stainless steel bezel and integrated EXOTM antenna for GPS + GLONASS support. High-strength scratch resistant sapphire crystal. Brown vintage leather strap with hand-sewn contrast stitching and nubuck inner lining and quick release mechanism.</p>
+                                    <p>Crafted in premium watch quality, fenix Chronos is the first Garmin timepiece to
+                                        combine a durable metal case with integrated performance GPS to support
+                                        navigation and sport. In the tradition of classic tool watches it features a
+                                        tough design and a set of modern meaningful tools.</p>
+                                    <p> advanced performance metrics for endurance sports, Garmin quality navigation
+                                        features and smart notifications. In fenix Chronos top-tier performance meets
+                                        sophisticated design in a highly evolved timepiece that fits your style
+                                        anywhere, anytime. Solid brushed 316L stainless steel case with brushed
+                                        stainless steel bezel and integrated EXOTM antenna for GPS + GLONASS support.
+                                        High-strength scratch resistant sapphire crystal. Brown vintage leather strap
+                                        with hand-sewn contrast stitching and nubuck inner lining and quick release
+                                        mechanism.</p>
                                 </div>
                             </div>
                             <div id="des-details2" class="tab-pane">
@@ -389,13 +405,18 @@
                                                     <i class="yellow icon_star"></i>
                                                 </div>
                                             </div>
-                                            <p>Donec accumsan auctor iaculis. Sed suscipit arcu ligula, at egestas magna molestie a. Proin ac ex maximus, ultrices justo eget, sodales orci. Aliquam egestas libero ac turpis pharetra, in vehicula lacus scelerisque</p>
+                                            <p>Donec accumsan auctor iaculis. Sed suscipit arcu ligula, at egestas magna
+                                                molestie a. Proin ac ex maximus, ultrices justo eget, sodales orci.
+                                                Aliquam egestas libero ac turpis pharetra, in vehicula lacus scelerisque
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="ratting-form-wrapper">
                                     <span>Add a Review</span>
-                                    <p>Your email address will not be published. Required fields are marked <span>*</span></p>
+                                    <p>Your email address will not be published. Required fields are marked
+                                        <span>*</span>
+                                    </p>
                                     <div class="ratting-form">
                                         <form action="#">
                                             <div class="row">
@@ -504,7 +525,8 @@
                                 <a href="#"><i class="social_youtube"></i></a>
                             </div>
                             <div class="copyright">
-                                <p>Copyright © 2020 HasThemes | <a href="https://hasthemes.com/">Built with <span>Norda</span> by HasThemes</a>.</p>
+                                <p>Copyright © 2020 HasThemes | <a href="https://hasthemes.com/">Built with
+                                        <span>Norda</span> by HasThemes</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -516,7 +538,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">x</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -537,10 +560,14 @@
                                 </div>
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active nav-style-6">
-                                        <a class="active" data-toggle="tab" href="#pro-1"><img src="assets/images/product/quickview-s1.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-2"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-3"><img src="assets/images/product/quickview-s3.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-4"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a class="active" data-toggle="tab" href="#pro-1"><img
+                                                src="assets/images/product/quickview-s1.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-2"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-3"><img
+                                                src="assets/images/product/quickview-s3.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-4"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -565,7 +592,8 @@
                                             <span>242 orders</span>
                                         </div>
                                     </div>
-                                    <p>Seamlessly predominate enterprise metrics without performance based process improvements.</p>
+                                    <p>Seamlessly predominate enterprise metrics without performance based process
+                                        improvements.</p>
                                     <div class="pro-details-price">
                                         <span class="new-price">$75.72</span>
                                         <span class="old-price">$95.72</span>
@@ -598,13 +626,16 @@
                                     <div class="pro-details-quality">
                                         <span>Quantity:</span>
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                            <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                value="1">
                                         </div>
                                     </div>
                                     <div class="product-details-meta">
                                         <ul>
-                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a href="#">Dress,</a> <a href="#">T-Shirt</a></li>
-                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a href="#">Mentone</a> , <a href="#">Texas</a></li>
+                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a
+                                                    href="#">Dress,</a> <a href="#">T-Shirt</a></li>
+                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a
+                                                    href="#">Mentone</a> , <a href="#">Texas</a></li>
                                         </ul>
                                     </div>
                                     <div class="pro-details-action-wrap">
@@ -614,12 +645,17 @@
                                         <div class="pro-details-action">
                                             <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
                                             <a title="Add to Compare" href="#"><i class="icon-refresh"></i></a>
-                                            <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
+                                            <a class="social" title="Social" href="#"><i
+                                                    class="icon-share"></i></a>
                                             <div class="product-dec-social">
-                                                <a class="facebook" title="Facebook" href="#"><i class="icon-social-facebook"></i></a>
-                                                <a class="twitter" title="Twitter" href="#"><i class="icon-social-twitter"></i></a>
-                                                <a class="instagram" title="Instagram" href="#"><i class="icon-social-instagram"></i></a>
-                                                <a class="pinterest" title="Pinterest" href="#"><i class="icon-social-pinterest"></i></a>
+                                                <a class="facebook" title="Facebook" href="#"><i
+                                                        class="icon-social-facebook"></i></a>
+                                                <a class="twitter" title="Twitter" href="#"><i
+                                                        class="icon-social-twitter"></i></a>
+                                                <a class="instagram" title="Instagram" href="#"><i
+                                                        class="icon-social-instagram"></i></a>
+                                                <a class="pinterest" title="Pinterest" href="#"><i
+                                                        class="icon-social-pinterest"></i></a>
                                             </div>
                                         </div>
                                     </div>

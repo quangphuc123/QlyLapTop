@@ -13,7 +13,6 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        toast('Lỗi','error');
         return true;
     }
 

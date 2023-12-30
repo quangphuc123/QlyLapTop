@@ -24,13 +24,13 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
+            'email'=>'required',
             'password'=>'required|between:8,16',
         ];
     }
     public function messages(){
         return[
-            'name.required'=>'Vui lòng nhập tên đăng nhập',
+            'email.required'=>'Vui lòng nhập gmail đã đăng kí',
             'password.required'=>'Vui lòng nhập mật khẩu',
             'password.between'=>'Mật khẩu từ :min đến :max ký tự'
         ];

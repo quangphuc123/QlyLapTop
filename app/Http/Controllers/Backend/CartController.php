@@ -26,7 +26,8 @@ class CartController extends Controller
             $cart[$id]['quantity']=$cart[$id]['quantity']+1;
         } else {
             $cart[$id]=[
-                'name'=>$product->SKU,
+                'name'=>$product->name,
+                'image'=>$product->image,
                 'price'=>$product->price,
                 'quantity'=>1
             ];
@@ -70,7 +71,7 @@ class CartController extends Controller
     public function deleteCartAll(){
         session()->flush('cart');
         $carts=session()->get(key:'cart');
-        return redirect()->route('cart-view',compact('carts'));
+        return redirect()->route('cart-view',compact('carts'))->with('success', 'Xóa giỏ hàng thành công');
     }
 
     public function checkOut(){
@@ -78,7 +79,7 @@ class CartController extends Controller
         if(!is_null($carts)){
         return view('check-out',compact('carts'));
         } else {
-            return back()->with('error','Giỏ hàng của bạn không có gì để thanh toán');
+            return back()->with('error', 'Giỏ hàng của bạn đang trống');
         }
     }
 }

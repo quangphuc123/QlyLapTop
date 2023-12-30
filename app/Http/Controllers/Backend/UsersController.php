@@ -184,31 +184,26 @@ class UsersController extends Controller
             'user_catalogue_id'=>'3',
             'email'=> $request->email,
         ]);
-
         if(!empty($taiKhoan)){
-            alert()->success('Đăng Ký Tài Khoản','Thành công');
-            return redirect()->route('loginRegister');
+            return redirect()->route('loginRegister')->with('success', 'Đăng kí tài khoản thành công');
         }
         #Thông báo thêm không thành công
-        return "Thêm mới tài khoản không thành công";
+        return redirect()->route('loginRegister')->with('error', 'Đăng kí tài khoản không thành công');
     }
     //Xử lý đăng nhập
     public function xuLyDangNhap(LoginRequest $request)
     {
         $credentials =[
-            'name' => $request ->name,
+            'email' => $request ->email,
             'password' => $request ->password,
             ];
         if(Auth::attempt($credentials)&&(Auth::user()->user_catalogue_id==3)){
-            //return view('trang-chu',compact('lsBaiDang'));
-            return redirect()->route('trang-chu');
+            return redirect()->route('trang-chu')->with('success', 'Đăng nhập vào trang người dùng');
         }
         else if(Auth::attempt($credentials)&&(Auth::user()->user_catalogue_id==1)){
-            return redirect()->route('dashboard.index');
-            //return view('AdminHome');
+            return redirect()->route('dashboard.index')->with('success', 'Đăng nhập vào trang Admin');
         }
-        toast('Tên tài khoản hoặc mật khẩu không đúng','error');
-        return redirect()->back();
+        return redirect()->route('loginRegister')->with('success', 'Đăng nhập không thành công!!');
 
     }
 
@@ -285,7 +280,7 @@ class UsersController extends Controller
 
         return back()->with("status", "Mật khẩu đã được thay đổi");
     }
-    
+
     private function configData()
     {
         return [

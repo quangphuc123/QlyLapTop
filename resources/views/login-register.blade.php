@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
 
     <!-- All CSS is here
-	============================================ -->
+ ============================================ -->
 
     <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/vendor/signericafat.css">
@@ -29,30 +29,32 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
 
-     <!-- Bootstrap Font Icon CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 
 
 </head>
 
 <body>
-@include('sweetalert::alert')
+    @include('sweetalert::alert')
     <div class="main-wrapper">
-       <header class="header-area">
+        <header class="header-area">
             <div class="header-large-device">
                 <div class="header-middle header-middle-padding-2">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="index.html"><img src="assets/images/logo/Độc Lạ LapTop.png" alt="logo"></a>
+                                    <a href="index.html"><img src="assets/images/logo/Độc Lạ LapTop.png"
+                                            alt="logo"></a>
                                 </div>
                             </div>
                             <div class="sidebar-widget mb-25">
                                 <div class="sidebar-search" style="width: 500px ;padding-left: 100px;">
-                                    <form class="sidebar-search-form" action="#" style="text-decoration-color: brown;">
-                                        <input type="text"  placeholder="Nhập tên laptop, phụ kiện cần tìm...">
+                                    <form class="sidebar-search-form" action="#"
+                                        style="text-decoration-color: brown;">
+                                        <input type="text" placeholder="Nhập tên laptop, phụ kiện cần tìm...">
                                         <button>
                                             <i class="icon-magnifier"></i>
                                         </button>
@@ -60,17 +62,17 @@
                                 </div>
                             </div>
                             <div class="ml-50">
-                                <button  type="button" class="btn btn-warning bi-person">
+                                <button type="button" class="btn btn-warning bi-person">
                                     Đăng nhập
                                 </button>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-warning ml-15 bi-cart4" >
+                                <button type="button" class="btn btn-warning ml-15 bi-cart4">
                                     Giỏ hàng
                                 </button>
                             </div>
                             <div>
-                            <div class="hotline-2-wrap ml-25">
+                                <div class="hotline-2-wrap ml-25">
                                     <div class="hotline-2-icon">
                                         <i class="blue icon-call-end"></i>
                                     </div>
@@ -88,24 +90,30 @@
                         <div class="row align-items-center">
                             <div class="col-lg-3">
                                 <div class="main-categori-wrap main-categori-wrap-modify-2">
-                                    <a class="categori-show categori-blue" href="#">Danh mục sản phẩm <i class="icon-arrow-down icon-right"></i></a>
-                                    <div class="category-menu-2 category-menu-2-blue categori-hide categori-not-visible-2">
+                                    <a class="categori-show categori-blue" href="#">Danh mục sản phẩm <i
+                                            class="icon-arrow-down icon-right"></i></a>
+                                    <div
+                                        class="category-menu-2 category-menu-2-blue categori-hide categori-not-visible-2">
                                         <nav>
                                             <ul>
                                                 <li><a href="shop.html"><i class="bi-laptop"></i> Laptop</a></li>
-                                                <li><a href="shop.html"><i class="bi-cpu"></i> Linh kiện PC - Máy tính</a></li>
-                                                <li><a href="shop.html"><i class="bi-headphones"></i> Phụ kiện máy tính</a></li>
-                                                <li><a href="shop.html"><i class="bi-tools"></i> Bảo hành - Hậu mãi</a></li>
+                                                <li><a href="shop.html"><i class="bi-cpu"></i> Linh kiện PC - Máy
+                                                        tính</a></li>
+                                                <li><a href="shop.html"><i class="bi-headphones"></i> Phụ kiện máy
+                                                        tính</a></li>
+                                                <li><a href="shop.html"><i class="bi-tools"></i> Bảo hành - Hậu mãi</a>
+                                                </li>
                                             </ul>
                                         </nav>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
+                                <div
+                                    class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
                                     <nav>
                                         <ul>
-                                            <li><a href="{{route('trang-chu')}}">Trang chủ </a></li>
+                                            <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
                                             <li><a href="#">Thương hiệu</a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="about-us.html">about us </a></li>
@@ -135,7 +143,8 @@
                             <div class="col-lg-3">
                                 <div class="header-action header-action-flex pr-20">
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                                        <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                        <a href="wishlist.html"><i class="icon-heart"></i><span
+                                                class="pro-count red">03</span></a>
                                     </div>
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">
                                         <a class="cart-active" href="#">
@@ -165,7 +174,8 @@
                                     <a href="login-register.html"><i class="icon-user"></i></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc">
-                                    <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                    <a href="wishlist.html"><i class="icon-heart"></i><span
+                                            class="pro-count red">03</span></a>
                                 </div>
                                 <div class="same-style-2 same-style-2-font-inc header-cart">
                                     <a class="cart-active" href="#">
@@ -173,7 +183,8 @@
                                     </a>
                                 </div>
                                 <div class="same-style-2 main-menu-icon">
-                                    <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i> </a>
+                                    <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +192,7 @@
                 </div>
             </div>
         </header>
-        
+
         <div class="login-register-area pt-115 pb-120">
             <div class="container">
                 <div class="row">
@@ -201,18 +212,27 @@
                                 <div id="lg1" class="tab-pane active">
                                     <div class="login-form-container">
                                         <div class="login-register-form">
-                                            <form action="{{ route('xl-dang-nhap')}}" method="post">
+                                            <form action="{{ route('xl-dang-nhap') }}" method="post">
                                                 @csrf
-                                                <input type="text" name="name" placeholder="Tên đăng nhập" class="@error('name') is-invalid @enderror">
-                                                @error('name')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
+                                                <div>
+                                                    <input name="email" placeholder="Email" type="email"
+                                                        class="@error('email') is-invalid @enderror">
+                                                    @error('email')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                    @if (session('message1'))
+                                                        <div class="alert alert-danger">{{ @session('message1') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
 
-
-                                                <input type="password" name="password" placeholder="Mật khẩu" class="@error('password') is-invalid @enderror">
-                                                @error('password')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
+                                                <div>
+                                                    <input type="password" name="password" placeholder="Mật khẩu"
+                                                        class="@error('password') is-invalid @enderror">
+                                                    @error('password')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
 
 
                                                 <div class="button-box">
@@ -222,8 +242,8 @@
                                                     <button type="submit">Đăng nhập</button>
                                                 </div>
                                             </form>
-                                            @if(session('error'))
-                                            <p>{{session('error')}}</p>
+                                            @if (session('error'))
+                                                <p>{{ session('error') }}</p>
                                             @endif
                                         </div>
                                     </div>
@@ -233,42 +253,51 @@
                                 <div id="lg2" class="tab-pane">
                                     <div class="login-form-container">
                                         <div class="login-register-form">
-                                            <form action="{{ route('xl-dang-ky')}}" enctype="multipart/form-data" method="post">
+                                            <form action="{{ route('xl-dang-ky') }}" enctype="multipart/form-data"
+                                                method="post">
                                                 @csrf
                                                 <div>
-                                                        <input type="text" name="name" placeholder="Tên đăng nhập" class="@error('name') is-invalid @enderror">
-                                                        @error('name')
-                                                            <div class="alert alert-danger">{{ $message }}</div>
-                                                        @enderror
-                                                        @if(session('message'))
-                                                        <div class="alert alert-danger">{{@session('message')}}</div>
-                                                        @endif
-                                                </div>
-
-                                                <div>
-                                                    <input type="password" name="password" placeholder="Mật khẩu"  class="@error('password') is-invalid @enderror">
-                                                    @error('password')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <div>
-                                                    <input type="password" name="confirm_password" placeholder="Xác nhận mật khẩu" class="@error('confirm_mat_khau') is-invalid @enderror">
-                                                    @error('confirm_password')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-
-                                                <div>
-                                                    <input name="email" placeholder="email" type="email" class="@error('email') is-invalid @enderror">
+                                                    <input name="email" placeholder="Email" type="email"
+                                                        class="@error('email') is-invalid @enderror">
                                                     @error('email')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                        <div class="alert alert-danger">{{ $message }}</div>
                                                     @enderror
-                                                    @if(session('message1'))
-                                                    <div class="alert alert-danger">{{@session('message1')}}</div>
+                                                    @if (session('message1'))
+                                                        <div class="alert alert-danger">{{ @session('message1') }}
+                                                        </div>
                                                     @endif
                                                 </div>
+                                                <div>
+                                                    <input type="text" name="name" placeholder="Họ và tên"
+                                                        class="@error('name') is-invalid @enderror">
+                                                    @error('name')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                    @if (session('message'))
+                                                        <div class="alert alert-danger">{{ @session('message') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                <div>
+                                                    <input type="password" name="password" placeholder="Mật khẩu"
+                                                        class="@error('password') is-invalid @enderror">
+                                                    @error('password')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div>
+                                                    <input type="password" name="confirm_password"
+                                                        placeholder="Xác nhận mật khẩu"
+                                                        class="@error('confirm_mat_khau') is-invalid @enderror">
+                                                    @error('confirm_password')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+
+
 
 
                                                 <div class="button-box">
@@ -327,7 +356,8 @@
                                 <a href="#"><i class="social_youtube"></i></a>
                             </div>
                             <div class="copyright">
-                                <p>Copyright © 2020 HasThemes | <a href="https://hasthemes.com/">Built with <span>Norda</span> by HasThemes</a>.</p>
+                                <p>Copyright © 2020 HasThemes | <a href="https://hasthemes.com/">Built with
+                                        <span>Norda</span> by HasThemes</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -339,7 +369,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">x</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -360,10 +391,14 @@
                                 </div>
                                 <div class="quickview-wrap mt-15">
                                     <div class="quickview-slide-active nav-style-6">
-                                        <a class="active" data-toggle="tab" href="#pro-1"><img src="assets/images/product/quickview-s1.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-2"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-3"><img src="assets/images/product/quickview-s3.jpg" alt=""></a>
-                                        <a data-toggle="tab" href="#pro-4"><img src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a class="active" data-toggle="tab" href="#pro-1"><img
+                                                src="assets/images/product/quickview-s1.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-2"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-3"><img
+                                                src="assets/images/product/quickview-s3.jpg" alt=""></a>
+                                        <a data-toggle="tab" href="#pro-4"><img
+                                                src="assets/images/product/quickview-s2.jpg" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -388,7 +423,8 @@
                                             <span>242 orders</span>
                                         </div>
                                     </div>
-                                    <p>Seamlessly predominate enterprise metrics without performance based process improvements.</p>
+                                    <p>Seamlessly predominate enterprise metrics without performance based process
+                                        improvements.</p>
                                     <div class="pro-details-price">
                                         <span class="new-price">$75.72</span>
                                         <span class="old-price">$95.72</span>
@@ -421,13 +457,16 @@
                                     <div class="pro-details-quality">
                                         <span>Quantity:</span>
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+                                            <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                value="1">
                                         </div>
                                     </div>
                                     <div class="product-details-meta">
                                         <ul>
-                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a href="#">Dress,</a> <a href="#">T-Shirt</a></li>
-                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a href="#">Mentone</a> , <a href="#">Texas</a></li>
+                                            <li><span>Categories:</span> <a href="#">Woman,</a> <a
+                                                    href="#">Dress,</a> <a href="#">T-Shirt</a></li>
+                                            <li><span>Tag: </span> <a href="#">Fashion,</a> <a
+                                                    href="#">Mentone</a> , <a href="#">Texas</a></li>
                                         </ul>
                                     </div>
                                     <div class="pro-details-action-wrap">
@@ -437,12 +476,17 @@
                                         <div class="pro-details-action">
                                             <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
                                             <a title="Add to Compare" href="#"><i class="icon-refresh"></i></a>
-                                            <a class="social" title="Social" href="#"><i class="icon-share"></i></a>
+                                            <a class="social" title="Social" href="#"><i
+                                                    class="icon-share"></i></a>
                                             <div class="product-dec-social">
-                                                <a class="facebook" title="Facebook" href="#"><i class="icon-social-facebook"></i></a>
-                                                <a class="twitter" title="Twitter" href="#"><i class="icon-social-twitter"></i></a>
-                                                <a class="instagram" title="Instagram" href="#"><i class="icon-social-instagram"></i></a>
-                                                <a class="pinterest" title="Pinterest" href="#"><i class="icon-social-pinterest"></i></a>
+                                                <a class="facebook" title="Facebook" href="#"><i
+                                                        class="icon-social-facebook"></i></a>
+                                                <a class="twitter" title="Twitter" href="#"><i
+                                                        class="icon-social-twitter"></i></a>
+                                                <a class="instagram" title="Instagram" href="#"><i
+                                                        class="icon-social-instagram"></i></a>
+                                                <a class="pinterest" title="Pinterest" href="#"><i
+                                                        class="icon-social-pinterest"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -461,7 +505,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
-    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script> 
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="assets/js/vendor/jquery-3.5.1.min.js"></script>
     <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
     <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>

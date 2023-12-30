@@ -11,10 +11,10 @@
     <!-- Favicon -->
 
     <!-- All CSS is here
-	============================================ -->
+ ============================================ -->
     @include('assets.css')
 
-     <!-- Bootstrap Font Icon CSS -->
+    <!-- Bootstrap Font Icon CSS -->
 
 </head>
 
@@ -35,8 +35,10 @@
                                 <div class="sidebar-search" style="width: 500px ;padding-left: 100px;">
                                     <form class="sidebar-search-form" action="#"
                                         style="text-decoration-color: brown;">
-                                        <input type="text" placeholder="Nhập tên laptop, phụ kiện cần tìm...">
-                                        <button>
+                                        <input type="text" name="keyword"
+                                            value="{{ request('keyword') ?: old('keyword') }}">
+                                        <button type="submit" name="search" value="search"
+                                            class="btn btn-primary mb0 btn-sm">
                                             <i class="icon-magnifier"></i>
                                         </button>
                                     </form>
@@ -63,10 +65,10 @@
                                 <?php } ?>
                             </div>
                             <div>
-                                <a href="{{route('cart-view')}}">
-                                <button type="button" class="btn btn-warning ml-15 bi-cart4" >
-                                    Giỏ hàng
-                                </button>
+                                <a href="{{ route('cart-view') }}">
+                                    <button type="button" class="btn btn-warning ml-15 bi-cart4">
+                                        Giỏ hàng
+                                    </button>
                                 </a>
                             </div>
                             <div>
@@ -111,7 +113,7 @@
                                     class="main-menu main-menu-white main-menu-padding-1 main-menu-font-size-14 main-menu-lh-5">
                                     <nav>
                                         <ul>
-                                            <li><a href="{{route('trang-chu')}}">Trang chủ </a></li>
+                                            <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
                                             <li><a href="#">Thương Hiệu </a>
                                                 <ul class="sub-menu-style">
                                                     <li><a href="about-us.html">about us </a></li>
@@ -141,7 +143,8 @@
                             <div class="col-lg-3">
                                 <div class="header-action header-action-flex pr-20">
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                                        <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
+                                        <a href="wishlist.html"><i class="icon-heart"></i><span
+                                                class="pro-count red">03</span></a>
                                     </div>
                                     <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">
                                         <a class="cart-active" href="#">
@@ -251,66 +254,73 @@
                             <div class="tab-content jump">
                                 <div id="shop-1" class="tab-pane active">
                                     <div class="row">
-                                        @foreach($lsProduct as $data)
-                                        <!-- start -->
-                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                                            <div class="single-product-wrap mb-35">
-                                                <div class="product-img product-img-zoom mb-15">
-                                                    <a href="{{route('chi-tiet-san-pham',['id'=>$data->id])}}">
-                                                        <img src="assets/images/product/product-13.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="product-content-wrap-2 text-center">
-                                                    <div class="product-rating-wrap">
-                                                        <div class="product-rating">
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star gray"></i>
-                                                        </div>
-                                                        <span>(2)</span>
+                                        @foreach ($lsProduct as $data)
+                                            <!-- start -->
+                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                                                <div class="single-product-wrap mb-35">
+                                                    <div class="product-img product-img-zoom mb-15">
+                                                        <a
+                                                            href="{{ route('chi-tiet-san-pham', ['id' => $data->id]) }}">
+                                                            <img src="{{ asset($data->image) }}" alt=""
+                                                                style="width: 270px; height: 320px;">
+                                                        </a>
                                                     </div>
-                                                    <h3><a href="{{route('chi-tiet-san-pham',['id'=>$data->id])}}">{{$data->SKU}}</a></h3>
-                                                    <div class="product-price-2">
-                                                        <span>
-                                                            <?php 
+                                                    <div class="product-content-wrap-2 text-center">
+                                                        <div class="product-rating-wrap">
+                                                            <div class="product-rating">
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star gray"></i>
+                                                            </div>
+                                                            <span>(2)</span>
+                                                        </div>
+                                                        <h3><a
+                                                                href="{{ route('chi-tiet-san-pham', ['id' => $data->id]) }}">{{ $data->name }}</a>
+                                                        </h3>
+                                                        <div class="product-price-2">
+                                                            <span>
+                                                                <?php
                                                                 $symbol = 'đ';
                                                                 $symbol_thousand = '.';
                                                                 $decimal_place = 0;
-                                                            ?>
-                                                                {{number_format($data->price, $decimal_place, '', $symbol_thousand).$symbol}}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="product-content-wrap-2 product-content-position text-center">
-                                                    <div class="product-rating-wrap">
-                                                        <div class="product-rating">
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star"></i>
-                                                            <i class="icon_star gray"></i>
+                                                                ?>
+                                                                {{ number_format($data->price, $decimal_place, '', $symbol_thousand) . $symbol }}
+                                                            </span>
                                                         </div>
-                                                        <span>(2)</span>
                                                     </div>
-                                                    <h3><a href="{{route('chi-tiet-san-pham',['id'=>$data->id])}}">{{$data->SKU}}</a></h3>
-                                                    <div class="product-price-2">
-                                                        <span>{{number_format($data->price, $decimal_place, '', $symbol_thousand).$symbol}}</span>
-                                                    </div>
-                                                    <div class="pro-add-to-cart">
-                                                       <!-- <a href="{{route('cart-add',$data->id)}}">
+                                                    <div
+                                                        class="product-content-wrap-2 product-content-position text-center">
+                                                        <div class="product-rating-wrap">
+                                                            <div class="product-rating">
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star"></i>
+                                                                <i class="icon_star gray"></i>
+                                                            </div>
+                                                            <span>(2)</span>
+                                                        </div>
+                                                        <h3><a
+                                                                href="{{ route('chi-tiet-san-pham', ['id' => $data->id]) }}">{{ $data->SKU }}</a>
+                                                        </h3>
+                                                        <div class="product-price-2">
+                                                            <span>{{ number_format($data->price, $decimal_place, '', $symbol_thousand) . $symbol }}</span>
+                                                        </div>
+                                                        <div class="pro-add-to-cart">
+                                                            <!-- <a href="{{ route('cart-add', $data->id) }}">
                                                             <button title="Add to Cart">Thêm vào giỏ hàng</button>
                                                         </a> -->
-                                
-                                                        <a href="#" class="add_to_cart" data-url="{{route('cart-add',['id'=>$data->id])}}">
-                                                            <button title="Add to Cart">Thêm vào giỏ hàng</button>
-                                                        </a>
+
+                                                            <a href="#" class="add_to_cart"
+                                                                data-url="{{ route('cart-add', ['id' => $data->id]) }}">
+                                                                <button title="Add to Cart">Thêm vào giỏ hàng</button>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div> <!--END -->
+                                            </div> <!--END -->
                                         @endforeach
                                     </div>
                                 </div>
@@ -318,11 +328,11 @@
                             <style>
                                 .pagination {
                                     margin-left: 190px;
-                                    color:red;
+                                    color: red;
                                 }
                             </style>
                             <div class="pagination">
-                                {{$lsProduct->links('vendor\pagination\bootstrap-4')}}
+                                {{ $lsProduct->links('vendor\pagination\bootstrap-4') }}
                             </div>
                         </div>
                     </div>
@@ -585,10 +595,8 @@
                                             <a title="Add to Cart" href="#">Add To Cart </a>
                                         </div>
                                         <div class="pro-details-action">
-                                            <a title="Add to Wishlist" href="#"><i
-                                                    class="icon-heart"></i></a>
-                                            <a title="Add to Compare" href="#"><i
-                                                    class="icon-refresh"></i></a>
+                                            <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
+                                            <a title="Add to Compare" href="#"><i class="icon-refresh"></i></a>
                                             <a class="social" title="Social" href="#"><i
                                                     class="icon-share"></i></a>
                                             <div class="product-dec-social">
@@ -625,26 +633,33 @@
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 
     <script>
-        function addTocart(){
+        function addTocart() {
             event.preventDefault();
-            let urlCart=$(this).data('url');
+            let urlCart = $(this).data('url');
             $.ajax({
-                type:"GET",
-                url:urlCart,
-                dataType:'json',
-                success:function(data){
-                    if(data.code===200){
-                        alert('Thêm sản phẩm thành công');
+                type: "GET",
+                url: urlCart,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.code === 200) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Thêm mới thành công",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            customClass: 'swal-height'
+                        });
                     }
                 },
-                error:function(){
+                error: function() {
 
                 }
             })
         }
-       $(function(){
-        $('.add_to_cart').on('click',addTocart);
-       });
+        $(function() {
+            $('.add_to_cart').on('click', addTocart);
+        });
     </script>
 
 </body>

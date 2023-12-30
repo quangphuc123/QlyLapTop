@@ -18,7 +18,7 @@
                 @endforeach
             </div>
         </li>
-        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+        {{-- <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
             <i class="fa fa-envelope"></i> <span class="label label-warning">16</span>
         </a>
         <ul class="dropdown-menu dropdown-messages">
@@ -113,9 +113,7 @@
                     </div>
                 </li>
             </ul>
-        </li>
-
-
+        </li> --}}
         <li>
             <a href="{{ route('auth.logout') }}">
                 <i class="fa fa-sign-out"></i> Log out

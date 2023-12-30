@@ -16,10 +16,11 @@ use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 class ProductController extends Controller
 {
     public function productDetail($id){
-        $detail=Product::find($id);
-        return view('product-detail',compact('detail'));
+        $product = $this->productRepository->findById($id);
+        $album = json_decode($product->album);
+        return view('product-detail',compact('album', 'product'));
     }
-    
+
     protected $productService;
     protected $productCatalogueRepository;
     protected $productRepository;

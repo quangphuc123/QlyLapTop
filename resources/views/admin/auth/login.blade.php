@@ -33,7 +33,7 @@
                 <input type="text" placeholder="Tên của bạn" />
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Mật khẩu của bạn" />
-                <button>Đăng Ký</button>
+                {{-- <button>Đăng Ký</button> --}}
             </form>
         </div>
 
@@ -74,7 +74,7 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Chào bạn!</h1>
                     <p>Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi</p>
-                    <button class="ghost" id="signUp">Đăng Ký</button>
+                    {{-- <button class="ghost" id="signUp">Đăng Ký</button> --}}
                 </div>
             </div>
         </div>

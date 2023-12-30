@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('languages', function (Blueprint $table) {
-            $table->tinyInteger('current')->default(0);
+        Schema::create('product_catalogues', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('languages', function (Blueprint $table) {
-            $table->dropColumn('current');
-        });
+        Schema::dropIfExists('product_catalogues');
     }
 };

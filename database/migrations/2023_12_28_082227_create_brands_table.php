@@ -11,7 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('post_catalogue_language', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->unsignedBigInteger('product_id')->default(1);
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('post_catalogue_language', function (Blueprint $table) {
-            $table->dropTimestamps();
-        });
+        Schema::dropIfExists('brands');
     }
 };

@@ -35,7 +35,6 @@ class UserService implements UserServiceInterface
             $condition,
             $perPage,
             ['path' => 'user/index'],
-
             [],
 
         );
@@ -45,12 +44,15 @@ class UserService implements UserServiceInterface
     {
         DB::beginTransaction();
         try {
-            $payload = $request->except(['_token', 'send', 're_password']); //Lấy ra hết trừ 3 cái trên
-            if ($payload['birthday'] != null)
+
+            $payload = $request->except(['_token', 'send', 're_password']);
+            if ($payload['birthday'] != null){
                 $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);
-            $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);
+            }
             $payload['password'] = Hash::make($payload['password']);
+            // dd($payload);
             $user = $this->userRepository->create($payload);
+
             DB::commit();
             return true;
         } catch (\Exception $e) {

@@ -67,14 +67,15 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
     public function create($request){
         DB::beginTransaction();
         try {
-            $postCatalogue = $this->createCatalogue($request);
+            $postCatalogue = $this->createCatalogue($request); //post_câtlogues
             if($postCatalogue->id > 0){
-                $this->updateLanguageForCatalogue($postCatalogue, $request);
+                $this->updateLanguageForCatalogue($postCatalogue, $request); // post_catalogue_language
                 $this->createRouter(
                     $postCatalogue, $request,$this->controllerName
-                );
+                ); // routers
                 $this->nestedset();
             }
+
             DB::commit();
             return true;
         } catch (\Exception $e) {

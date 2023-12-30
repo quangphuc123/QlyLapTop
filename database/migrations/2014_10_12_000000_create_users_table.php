@@ -21,13 +21,12 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('image')->nullable();
             $table->text('description')->nullable();
-            $table->text('user_agent')->nullable();
-            $table->text('ip')->nullable();
             $table->dateTime('birthday')->nullable();
             $table->string('email', 255)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->tinyInteger('publish')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -39,6 +38,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        $table->dropColumn('deleted_at');
     }
 };

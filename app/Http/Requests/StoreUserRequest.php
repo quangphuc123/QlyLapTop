@@ -25,8 +25,9 @@ class StoreUserRequest extends FormRequest
 
             'email' => 'required|string|email|unique:users|max:255',
             'name' => 'required|string',
+            'phone' => 'numeric|min:1|max:10',
             'user_catalogue_id' => 'gt:0',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
             're_password' => 'required|string|same:password',
 
         ];
@@ -46,6 +47,9 @@ class StoreUserRequest extends FormRequest
             'password.min' => 'Mật khẩu của bạn quá ngắn',
             'user_catalogue_id.gt' =>'Bạn chưa chọn nhóm thành viên',
             're_password.required' => 'Bạn vui lòng nhập mật khẩu giống như trên',
+            'phone.numeric' => 'bạn chỉ được nhập số',
+            'phone.min' => 'Bạn nhập ít nhất 1 số',
+            'phone.max' => 'Bạn chỉ nhập được 10 số',
         ];
     }
 }

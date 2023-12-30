@@ -1,38 +1,25 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-<<<<<<< HEAD
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-=======
-
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
-use App\Models\Product;
-use Illuminate\Support\Facades\DB;
->>>>>>> de0e26ecd37d7a71e45bdb13191a82922a51948e
-
 
 class ProductController extends Controller
 {
-<<<<<<< HEAD
     public function productDetail($id){
         $detail=Product::find($id);
         return view('product-detail',compact('detail'));
-=======
-
+    }
+    
     protected $productService;
     protected $productCatalogueRepository;
     protected $productRepository;
@@ -162,6 +149,5 @@ class ProductController extends Controller
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
             ],
         ];
->>>>>>> de0e26ecd37d7a71e45bdb13191a82922a51948e
     }
 }

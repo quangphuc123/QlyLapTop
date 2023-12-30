@@ -13,15 +13,11 @@ use App\Http\Controllers\Backend\UsersController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\PostCatalogueController;
 use App\Http\Controllers\Backend\PostController;
-<<<<<<< HEAD
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CartController;
-=======
 use App\Http\Controllers\Backend\ProductCatalogueController;
-use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\PermissionController;
 
->>>>>>> de0e26ecd37d7a71e45bdb13191a82922a51948e
 
 /*
 |--------------------------------------------------------------------------

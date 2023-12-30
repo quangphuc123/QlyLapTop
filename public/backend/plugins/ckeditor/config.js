@@ -15,5 +15,4 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserUploadUrl = BASE_URL + 'backend/plugins/ckfinder_2/core/connector/php/connector.php?command=QuickUpload&type=Files',
     config.filebrowserImageUrl = BASE_URL + 'backend/plugins/ckfinder_2/core/connector/php/connector.php?command=QuickUpload&type=Images',
     config.filebrowserFlashUrl = BASE_URL + 'backend/plugins/ckfinder_2/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-
 };

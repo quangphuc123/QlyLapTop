@@ -50,9 +50,7 @@ class UserService implements UserServiceInterface
                 $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);
             }
             $payload['password'] = Hash::make($payload['password']);
-            // dd($payload);
             $user = $this->userRepository->create($payload);
-
             DB::commit();
             return true;
         } catch (\Exception $e) {

@@ -1,4 +1,4 @@
-@include('admin.dashboard.component.breadcrumb', ['title' => $config['seo']['create']['title']])
+@include('admin.dashboard.component.breadcrumb', ['title' => $config['seo']['delete']['title']])
 
 <form action="{{ route('product.catalogue.destroy', $productCatalogue->id) }}" method="post" class="box">
     @csrf

@@ -49,25 +49,17 @@ class ProductService implements ProductServiceInterface
         }
         $request['product_code'] = $product_code;
         $payload = $request->except(['_token', 'send',]);
-        dd($payload);
+        $payload['album'] = json_encode($payload['album']);
         $product = $this->productRepository->create($payload);
         return true;
     }
 
     public function update($id, $request)
     {
-        try {
-            $payload = $request->except(['_token', 'send']); //Lấy ra hết trừ 2 cái trên
+            $payload = $request->except(['_token', 'send']);
             $product = $this->productRepository->update($id, $payload);
             DB::commit();
             return true;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            // Log::error($e->getMessage());
-            echo $e->getMessage();
-            die();
-            return false;
-        }
     }
 
     public function destroy($id)
@@ -93,6 +85,7 @@ class ProductService implements ProductServiceInterface
             'image',
             'description',
             'price',
+            'album',
             'sale_price',
             'product_code',
             'product_catalogue_id',

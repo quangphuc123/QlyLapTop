@@ -7,6 +7,7 @@
                  </th>
                  <th class="text-center">Tên sản phẩm</th>
                  <th class="text-center">Loại sản phẩm</th>
+                 <th class="text-center">Thương hiệu</th>
                  <th class="text-center">Giá sản phẩm</th>
                  <th class="text-center">Giá khuyến mãi</th>
                  <th class="text-center">Mã sản phẩm</th>
@@ -28,6 +29,11 @@
                         <td>
                             <div class="text-center">
                                 {{ $product->product_catalogues->name }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                {{ $product->brands->name }}
                             </div>
                         </td>
                         <td>

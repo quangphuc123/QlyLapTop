@@ -25,3 +25,52 @@
     <script src="{{asset('assets/js/main.js')}}"></script>
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function cartUpdate(event) {
+            event.preventDefault();
+            let urlUpdateCart = $('.update_cart_url').data('url');
+            let id = $(this).data('id');
+            let quantity = $(this).parents('tr').find('input.quantity').val();
+            $.ajax({
+                type: "GET",
+                url: urlUpdateCart,
+                data: {
+                    id: id,
+                    quantity: quantity
+                },
+                success: function(data) {
+                    if (data.code === 200) {
+                        $('.main-wrapper ').html(data.cart);
+                    }
+                },
+                error: function() {
+
+                }
+            })
+        }
+
+        function cartDelete(event) {
+            event.preventDefault();
+            let urlDelete = $('.delete_cart_url').data('url');
+            $.ajax({
+                type: "GET",
+                url: urlDelete,
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    if (data.code === 200) {
+                        $('.main-wrapper ').html(data.cart);
+                        alert('Sản phẩm đã được xóa khỏi giỏ hàng');
+                    }
+                },
+                error: function() {
+
+                }
+            })
+        }
+        $(function() {
+            $(document).on('click', '.cart_update', cartUpdate);
+            $(document).on('click', '.cart_delete', cartDelete);
+        })
+    </script>

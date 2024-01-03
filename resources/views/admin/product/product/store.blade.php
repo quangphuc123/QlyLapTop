@@ -77,16 +77,36 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-row">
+                                    <label for="" class="control-lable text-left">Thương hiệu
+                                        <span class="text-danger">(*)
+                                        </span>
+                                    </label>
+                                    <select name="brand_id" id="" class="form-control">
+                                        <option value="0">Chọn thương hiệu sản phẩm</option>
+                                        @foreach ($brands as $key => $item)
+                                            <option
+                                                {{ $item->id == old('brand_id', isset($product->brand_id) ? $product->brand_id : '') ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb15">
+                            <div class="col-lg-6">
+                                <div class="form-row">
                                     <label for="" class="control-lable text-left">Giá Khuyến Mãi
                                         <span class="text-danger">(*)
                                         </span>
                                     </label>
                                     <input type="number" name="sale_price"
-                                        value="{{ old('sale_price', $product->sale_price ?? '') }}" class="form-control"
-                                        placeholder="" autocomplete="off">
+                                        value="{{ old('sale_price', $product->sale_price ?? '') }}"
+                                        class="form-control" placeholder="" autocomplete="off">
                                 </div>
                             </div>
                         </div>
+
                         <div class="row mb15">
                             <div class="col-lg-12">
                                 <div class="form-row">
@@ -114,54 +134,7 @@
                                 </div>
                             </div>
                         </div>
-                        @php
-                            $gallery = isset($album) && count($album) ? $album : old('album');
-                        @endphp
-                        <div class="row mb15">
-                            <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                                <h5>Ảnh mô tả sản phẩm</h5>
-                                <div class="upload-album">
-                                    <a href="" class="upload-picture">Chọn hình</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-row">
-                                    @if (!isset($gallery) || count($gallery) == 0)
-                                        <div class="click-to-upload">
-                                            <div class="icon">
-                                                <a href="" class="upload-picture">
-                                                    <img src="backend/img/svg.png"
-                                                        style="width: 50px; height: 50px; fill">
-                                                </a>
-                                            </div>
-                                            <div class="small-text">
-                                                Sử dụng nút chọn hình hoặc ấn vào đây để thêm hình ảnh
-                                            </div>
-                                        </div>
-                                    @endif
-                                    <div class="upload-list {{ isset($gallery) && count($gallery) ? '' : 'hidden' }}">
-                                        <ul id="sortable" class="clearfix data-album sortui ui-sortable">
-                                            @if (isset($gallery) && count($gallery))
-                                                @foreach ($gallery as $key => $val)
-                                                    <li class="ui-state-default">
-                                                        <div class="thumb">
-                                                            <span class="span image img-scaledown">
-                                                                <img src="{{ $val }}"
-                                                                    alt="{{ $val }}">
-                                                                <input type="hidden" name="album[]"
-                                                                    value="{{ $val }}">
-                                                            </span>
-                                                            <button class="delete-image"><i class="fa fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            @endif
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('admin.dashboard.component.album')
                     </div>
                 </div>
             </div>

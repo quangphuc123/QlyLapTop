@@ -24,6 +24,8 @@ return new class extends Migration
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
             $table->foreign('product_catalogue_id')->references('id')->on('product_catalogues');
+            $table->unsignedBigInteger('brand_id');
+            $table->foreign('brand_id')->references('id')->on('brands');
         });
     }
 

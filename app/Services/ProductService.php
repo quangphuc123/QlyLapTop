@@ -49,13 +49,14 @@ class ProductService implements ProductServiceInterface
         }
         $request['product_code'] = $product_code;
         $payload = $request->except(['_token', 'send',]);
-        $payload['album'] = json_encode($payload['album']);
+        $payload['album'] = ($request->input('album') && !empty($request->input('album'))) ? json_encode($request->input('album')) : '';
         $product = $this->productRepository->create($payload);
         return true;
     }
 
     public function update($id, $request)
     {
+            $product = $this->productRepository->findById($id);
             $payload = $request->except(['_token', 'send']);
             $product = $this->productRepository->update($id, $payload);
             DB::commit();
@@ -89,6 +90,7 @@ class ProductService implements ProductServiceInterface
             'sale_price',
             'product_code',
             'product_catalogue_id',
+            'brand_id'
         ];
     }
 }

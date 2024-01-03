@@ -23,7 +23,7 @@ return [
         [
             'title' => 'Quản lý loại sản phẩm',
             'icon' => 'fa fa-archive',
-            'name' => ['product'],
+            'name' => ['product','brand'],
             'subModule' =>
             [
                 [
@@ -33,6 +33,10 @@ return [
                 [
                     'title' => 'Quản lý sản phẩm',
                     'route' => 'product/index',
+                ],
+                [
+                    'title' => 'Quản lý thương hiệu',
+                    'route' => 'brand/index',
                 ],
             ],
         ],

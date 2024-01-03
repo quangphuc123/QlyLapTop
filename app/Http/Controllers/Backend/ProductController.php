@@ -11,6 +11,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
+use App\Repositories\Interfaces\BrandRepositoryInterface as BrandRepository;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 
 class ProductController extends Controller
@@ -18,20 +19,23 @@ class ProductController extends Controller
     public function productDetail($id){
         $product = $this->productRepository->findById($id);
         $album = json_decode($product->album);
-        return view('product-detail',compact('album', 'product'));
+        return view('user.product.product-detail',compact('album', 'product'));
     }
 
     protected $productService;
     protected $productCatalogueRepository;
+    protected $brandRepository;
     protected $productRepository;
 
     public function __construct(
         ProductService $productService,
         ProductRepository $productRepository,
         ProductCatalogueRepository $productCatalogueRepository,
+        BrandRepository $brandRepository,
     ) {
         $this->productService = $productService;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->brandRepository = $brandRepository;
         $this->productRepository = $productRepository;
     }
     public function index(Request $request)
@@ -39,6 +43,7 @@ class ProductController extends Controller
         // $this->authorize('modules', 'post.index');
         $products = $this->productService->paginate($request);
         $productCatalogue = $this->productRepository->all();
+        $brand = $this->brandRepository->all();
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -59,6 +64,7 @@ class ProductController extends Controller
                 'config',
                 'products',
                 'productCatalogue',
+                'brand'
 
             )
         );
@@ -68,6 +74,7 @@ class ProductController extends Controller
         // $this->authorize('modules', 'post.create');
         $config = $config = $this->configData();
         $productCatalogues = $this->productCatalogueRepository->all();
+        $brands = $this->brandRepository->all();
         $config['seo'] = config('apps.product');
         $config['method'] = 'create';
         $template = 'admin.product.product.store';
@@ -77,6 +84,7 @@ class ProductController extends Controller
                 'template',
                 'config',
                 'productCatalogues',
+                'brands',
             )
         );
     }
@@ -92,6 +100,7 @@ class ProductController extends Controller
         // $this->authorize('modules', 'post.update');
         $product = $this->productRepository->findById($id);
         $productCatalogues = $this->productCatalogueRepository->all();
+        $brands = $this->brandRepository->all();
         $config = $this->configData();
         $config['seo'] = config('apps.product');
         $config['method'] = 'edit';
@@ -104,6 +113,7 @@ class ProductController extends Controller
                 'config',
                 'product',
                 'productCatalogues',
+                'brands',
                 'album',
             )
         );

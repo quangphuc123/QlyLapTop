@@ -24,6 +24,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => 'required|string',
             'product_catalogue_id' => 'gt:0',
+            'brand_id' => 'gt:0',
             'price' => 'numeric'
 
         ];
@@ -34,7 +35,8 @@ class StoreProductRequest extends FormRequest
             'name.required' => 'Bạn vui lòng nhập tên sản phẩm',
             'name.string' => 'Tên sản phẩm phải là ký tự',
             'product_catalogue_id.gt' =>'Bạn chưa chọn loại sản phẩm',
-            'price.numeric' => 'bạn chỉ được nhập số',
+            'brand_id.gt' =>'Bạn chưa chọn thương hiệu',
+            'price.numeric' => 'Bạn chỉ được nhập số',
         ];
     }
 }

@@ -4247,11 +4247,19 @@ textarea:focus {
 }
 
 .logo a {
-  display: block;
+  font-size:32px;
+  color:#fff;
+  float:left;
+  margin:20px 0 0 25px;
+  text-transform:uppercase;
 }
 
 .logo a img {
   max-width: 100%;
+}
+.logo a img:hover, .logo a img:focus{
+    text-decoration:none;
+    outline:none;
 }
 
 .social-offer-wrap {
@@ -16447,7 +16455,7 @@ textarea:focus {
 
 .product-details-content .product-details-meta ul li span {
   display: inline-block;
-  width: 105px;
+  width: 155px;
   font-weight: 600;
   letter-spacing: .5px;
 }
@@ -17547,7 +17555,7 @@ textarea:focus {
 
 /*------ 17. Breadcrumb style  --------*/
 .breadcrumb-area {
-  padding: 45px 0;
+  padding: 25px 0;
 }
 
 .breadcrumb-content ul li {

@@ -43,8 +43,5 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
 
-    public function attribute_children(){
-        return $this->belongsToMany(AttributeChildren::class, 'attribute_list','product_id','attribute_children_id');
-    }
 
 }

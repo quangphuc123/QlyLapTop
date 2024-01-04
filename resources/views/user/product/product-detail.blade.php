@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="product-details-area pt-120 pb-115">
+        <div class="product-details-area pt-20 pb-15">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -43,26 +43,31 @@
                                 @php
                                     $gallery = isset($album) && count($album) ? $album : old('album');
                                 @endphp
-                                @foreach ($gallery as $key => $val)
-                                    <div class="easyzoom-style">
-                                        <div class="easyzoom easyzoom--overlay">
-                                            <a href="{{ asset($val) }}">
-                                                <img src="{{ asset($val) }}" alt=""
-                                                    style="width: 180px; height: 225px;">
-                                            </a>
+                                @if (isset($gallery) && count($gallery))
+
+                                    @foreach ($gallery as $key => $val)
+                                        <div class="easyzoom-style">
+                                            <div class="easyzoom easyzoom--overlay">
+                                                <a href="{{ asset($val) }}">
+                                                    <img src="{{ asset($val) }}" alt=""
+                                                        style="width: 180px; height: 225px;">
+                                                </a>
+                                            </div>
+                                            <a class="easyzoom-pop-up img-popup" href="{{ asset($val) }}"><i
+                                                    class="icon-size-fullscreen"></i></a>
                                         </div>
-                                        <a class="easyzoom-pop-up img-popup" href="{{ asset($val) }}"><i
-                                                class="icon-size-fullscreen"></i></a>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                @endif
+
                             </div>
                             <div class="product-dec-slider-small product-dec-small-style1">
-
-                                @foreach ($gallery as $key => $val)
-                                    <div class="product-dec-small active">
-                                        <img src="{{ asset($val) }}" alt="">
-                                    </div>
-                                @endforeach
+                                @if (isset($gallery) && count($gallery))
+                                    @foreach ($gallery as $key => $val)
+                                        <div class="product-dec-small active">
+                                            <img src="{{ asset($val) }}" alt="">
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -105,9 +110,33 @@
                                     <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
                                 </div>
                             </div>
+                            <div class="product-details-meta">
+                                <ul>
+                                    <li>
+                                        <span>Loại sản phẩm:</span>
+                                        <a href="{{ route('danh-muc-san-pham', $product->product_catalogue_id) }}">
+                                            {{ $product->product_catalogues->name }}
+                                        </a>
+
+                                    </li>
+                                    <li>
+                                        <span>Thương hiệu:</span>
+                                        <a href="{{ route('danh-muc-thuong-hieu', $product->brand_id) }}">
+                                            {{ $product->product_catalogues->name }}
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
                             <div class="pro-details-action-wrap">
-                                <div class="pro-details-add-to-cart">
-                                    <a title="Add to Cart" href="#">Add To Cart </a>
+                                <div class="pro-add-to-cart">
+                                    {{-- <!-- <a href="{{ route('cart-add', $data->id) }}">
+                                        <button title="Add to Cart">Thêm vào giỏ hàng</button>
+                                    </a> --> --}}
+                                    <a href="#" class="add_to_cart"
+                                        data-url="{{ route('cart-add', ['id' => $product->id]) }}">
+                                        <button title="Add to Cart">Thêm vào giỏ hàng</button>
+                                    </a>
                                 </div>
                                 {{-- <div class="pro-details-action">
                                     <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
@@ -130,9 +159,12 @@
             </div>
         </div>
         @include('user.product.information')
+        {{-- @include('user.product.related') --}}
         @include('user.index.component.footer')
     </div>
     @include('assets.js')
+    @include('assets.cart')
+
 </body>
 
 </html>

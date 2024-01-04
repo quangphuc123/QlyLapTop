@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -75,11 +79,43 @@ class CartController extends Controller
     }
 
     public function checkOut(){
-        $carts=session()->get(key:'cart');
+        $carts = session()->get(key:'cart');
         if(!is_null($carts)){
         return view('user.auth.check-out',compact('carts'));
         } else {
             return back()->with('error', 'Giỏ hàng của bạn đang trống');
+        }
+    }
+
+    public function post_checkOut(Request $req){
+        $carts = session()->get(key:'cart');
+        $req->validate([
+            'name',
+            'email',
+            'phone',
+            'address',
+        ]);
+        $data = $req->only(
+            'name',
+            'email',
+            'phone',
+            'address',
+            'order_id'
+        );
+        $data['user_id'] = Auth::user()->id;
+        if($order = Order::create($data)){
+            foreach($carts as $id => $car){
+                $data1 = [
+                    'order_id' => $order->id,
+                    'product_id' => $id,
+                    'price' => $car['price'],
+                    'name' => $car['name'],
+                    'quantity' => $car['quantity'],
+                ];
+                OrderDetail::create($data1);
+            }
+            session()->flush('cart');
+            $carts=session()->get(key:'cart');
         }
     }
 }

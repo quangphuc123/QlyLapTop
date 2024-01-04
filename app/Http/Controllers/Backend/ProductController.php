@@ -19,7 +19,10 @@ class ProductController extends Controller
     public function productDetail($id){
         $product = $this->productRepository->findById($id);
         $album = json_decode($product->album);
-        return view('user.product.product-detail',compact('album', 'product'));
+        return view('user.product.product-detail',compact(
+            'album',
+            'product',
+        ));
     }
 
     protected $productService;

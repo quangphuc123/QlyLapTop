@@ -10,10 +10,9 @@
         <header class="header-area">
             @include('user.index.component.nav')
         </header>
-        @include('user.cart.mini-cart')
         @include('user.index.component.sidebar')
 
-        <div class="shop-area pt-120 pb-120">
+        <div class="shop-area pt-20 pb-20">
             <div class="container">
                 <div class="row flex-row-reverse">
                     @include('user.product.product-list')

@@ -19,6 +19,7 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PaymentController;
+use App\Http\Controllers\Backend\CheckOutController;
 
 
 /*
@@ -46,6 +47,9 @@ Route::post('cap-nhat-mat-khau',[UsersController::class,'changePassword'])->name
 Route::get('/',[UsersController::class,'homePage'])->name('trang-chu');
 Route::get('/chi-tiet-san-pham/{id}',[ProductController::class,'productDetail'])->name('chi-tiet-san-pham');
 
+Route::get('/danh-muc-san-pham/{id}',[ProductCatalogueController::class,'show_product_catalogue'])->name('danh-muc-san-pham');
+Route::get('/danh-muc-thuong-hieu/{id}',[ProductCatalogueController::class,'show_brand_catalogue'])->name('danh-muc-thuong-hieu');
+
 Route::get('/cart',[CartController::class,'showCart'])->name('cart-view');
 Route::post('/cart',[CartController::class,'showCart'])->name('cart-view');
 //Route::get('/add/{product}',[CartController::class,'addToCart'])->name('cart-add');
@@ -54,6 +58,7 @@ Route::get('/update-cart',[CartController::class,'updateCart'])->name('update-ca
 Route::get('/delete-cart',[CartController::class,'deleteCart'])->name('delete-cart');
 Route::get('/delete-cart-all',[CartController::class,'deleteCartAll'])->name('delete-cart-all');
 Route::get('/thanh-toan',[CartController::class,'checkOut'])->name('check-out');
+Route::post('/thanh-toan',[CartController::class,'post_checkOut']);
 
 //cổng thanh toán
 Route::post('/vnpay_payment',[PaymentController::class,'vnpay_payment'])->name('pay.vnpay');

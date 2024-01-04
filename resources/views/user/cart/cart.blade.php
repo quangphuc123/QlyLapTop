@@ -6,14 +6,10 @@
 </head>
 
 <body>
-    @include('sweetalert::alert')
     <div class="main-wrapper">
         <header class="header-area">
             @include('user.index.component.nav')
         </header>
-
-        <!-- Start -->
-
         <div class="breadcrumb-area bg-gray">
             <div class="container">
                 <div class="breadcrumb-content text-center">
@@ -26,15 +22,15 @@
                 </div>
             </div>
         </div>
-
         <div class="cart-main-area pt-115 pb-120">
             <div class="container">
                 <h3 class="cart-page-title">Giỏ hàng của bạn</h3>
-                <div class="row updatee">
+                <div class="row update">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <form action="#">
                             <div class="table-content table-responsive cart-table-content delete_cart_url"
                                 data-url="{{ route('delete-cart') }}">
+
                                 <table class="update_cart_url" data-url="{{ route('update-cart') }}">
                                     <thead>
                                         <tr>
@@ -54,7 +50,6 @@
                                     $decimal_place = 0;
                                     $stt = 0;
                                     ?>
-
                                     @if (!is_null($carts))
                                         <tbody>
                                             @foreach ($carts as $id => $cartItem)
@@ -97,6 +92,7 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
+                                    @endif
                                 </table>
                             </div>
                             <div class="row">
@@ -112,39 +108,33 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12">
-                                <div class="grand-totall">
-                                    <div class="title-wrap">
-                                        <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                        @if (!is_null($carts))
+                            <div class="row">
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="grand-totall">
+                                        <div class="title-wrap">
+                                            <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                                        </div>
+                                        <h5>Total products
+                                            <span>
+                                                {{ $cartItem['quantity'] }}
+                                            </span>
+                                        </h5>
+                                        <h4 class="grand-totall-title">Grand Total
+                                            <span>{{ number_format($total, $decimal_place, '', $symbol_thousand) . $symbol }}</span>
+                                        </h4>
+                                        <a href="{{ route('check-out') }}">Thanh Toán</a>
                                     </div>
-                                    <h5>Total products
-                                        <span>
-                                            {{ $cartItem['quantity'] }}
-                                        </span>
-                                    </h5>
-                                    {{-- <div class="total-shipping">
-                                        <h5>Total shipping</h5>
-                                        <ul>
-                                            <li><input type="checkbox"> Standard <span>$20.00</span></li>
-                                            <li><input type="checkbox"> Express <span>$30.00</span></li>
-                                        </ul>
-                                    </div> --}}
-                                    <h4 class="grand-totall-title">Grand Total
-                                        <span>{{ number_format($total, $decimal_place, '', $symbol_thousand) . $symbol }}</span>
-                                    </h4>
-                                    <a href="{{ route('check-out') }}">Thanh Toán</a>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
-                    @endif
                 </div>
             </div>
         </div>
-        <!-- END -->
         @include('user.index.component.footer')
     </div>
+
     @include('assets.js')
 </body>
 

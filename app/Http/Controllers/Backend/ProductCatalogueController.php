@@ -6,22 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductCatalogueRequest;
 use App\Http\Requests\UpdateProductCatalogueRequest;
 use App\Http\Requests\DeleteProductCatalogueRequest;
+use App\Models\Product;
+
 use Illuminate\Http\Request;
 
 use App\Services\Interfaces\ProductCatalogueServiceInterface as ProductCatalogueService;
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
+use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
+use App\Repositories\Interfaces\BrandRepositoryInterface as BrandRepository;
 
 class ProductCatalogueController extends Controller
 {
     protected $productCatalogueService;
     protected $productCatalogueRepository;
+    protected $brandRepository;
+    protected $productRepository;
+
 
     public function __construct(
         ProductCatalogueService $productCatalogueService,
         ProductCatalogueRepository $productCatalogueRepository,
+        ProductRepository $productRepository,
+        BrandRepository $brandRepository,
     ) {
         $this->productCatalogueService = $productCatalogueService;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->brandRepository = $brandRepository;
+        $this->productRepository = $productRepository;
     }
 
     public function index(Request $request)
@@ -141,5 +152,29 @@ class ProductCatalogueController extends Controller
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             ]
         ];
+    }
+
+    public function show_product_catalogue($id){
+        $lsProduct= $this->productRepository->findById($id);
+        $brand = $this->brandRepository->all();
+        $productcatalogue_id = $this->productRepository->findById($id)->join('product_catalogues as tb1',
+        'products.product_catalogue_id','=','tb1.id')->where('products.product_catalogue_id',$id)->get();
+        return view('user.product.show-category',compact(
+            'productcatalogue_id',
+            'lsProduct',
+            'brand',
+        ));
+    }
+
+    public function show_brand_catalogue($id){
+        $lsProduct= $this->productRepository->findById($id);
+        $productCatalogue = $this->productCatalogueRepository->all();
+        $brand_id = $this->productRepository->findById($id)->join('brands as tb1',
+        'products.brand_id','=','tb1.id')->where('products.brand_id',$id)->get();
+        return view('user.product.show-brand',compact(
+            'productCatalogue',
+            'lsProduct',
+            'brand_id',
+        ));
     }
 }

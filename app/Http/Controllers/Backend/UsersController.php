@@ -12,6 +12,7 @@ use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
 use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
+use App\Repositories\Interfaces\BrandRepositoryInterface as BrandRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
@@ -32,6 +33,7 @@ class UsersController extends Controller
     protected $provinceRepository;
     protected $userCatalogueRepository;
     protected $productCatalogueRepository;
+    protected $brandRepository;
     protected $userRepository;
 
     public function __construct(
@@ -39,12 +41,14 @@ class UsersController extends Controller
         ProvinceRepository $provinceRepository,
         UserRepository $userRepository,
         UserCatalogueRepository $userCatalogueRepository,
+        BrandRepository $brandRepository,
         ProductCatalogueRepository $productCatalogueRepository,
     ) {
         $this->userService = $userService;
         $this->provinceRepository = $provinceRepository;
         $this->userCatalogueRepository = $userCatalogueRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->brandRepository = $brandRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -168,8 +172,14 @@ class UsersController extends Controller
         //session()->flush('cart');
         $carts= session()->get(key : 'cart');
         $productCatalogue = $this->productCatalogueRepository->all();
+        $brand = $this->brandRepository->all();
         $lsProduct=Product::orderByDesc('id')->paginate(9);
-        return view('user.home-page',compact(['lsProduct','productCatalogue','carts']));
+        return view('user.home-page',compact([
+            'lsProduct',
+            'productCatalogue',
+            'carts',
+            'brand'
+        ]));
     }
     public function loginRegister(){
         return view('user.auth.login-register');

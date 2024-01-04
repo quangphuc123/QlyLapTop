@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\ProductServiceInterface' => 'App\Services\ProductService',
         'App\Repositories\Interfaces\ProductRepositoryInterface' => 'App\Repositories\ProductRepository',
 
+        'App\Services\Interfaces\BrandServiceInterface' => 'App\Services\BrandService',
+        'App\Repositories\Interfaces\BrandRepositoryInterface' => 'App\Repositories\BrandRepository',
+
         'App\Services\Interfaces\LanguageServiceInterface' => 'App\Services\LanguageService',
         'App\Repositories\Interfaces\LanguageRepositoryInterface' => 'App\Repositories\LanguageRepository',
 

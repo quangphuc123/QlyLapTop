@@ -16,7 +16,9 @@ use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\CartController;
 use App\Http\Controllers\Backend\ProductCatalogueController;
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\PaymentController;
 
 
 /*
@@ -41,16 +43,23 @@ Route::post('cap-nhat',[UsersController::class,'updateAccount'])->name('xl-cap-n
 Route::post('cap-nhat-mat-khau',[UsersController::class,'changePassword'])->name('xl-cap-nhat-mat-khau');
 
 
-
+Route::get('/',[UsersController::class,'homePage'])->name('trang-chu');
 Route::get('/chi-tiet-san-pham/{id}',[ProductController::class,'productDetail'])->name('chi-tiet-san-pham');
 
 Route::get('/cart',[CartController::class,'showCart'])->name('cart-view');
+Route::post('/cart',[CartController::class,'showCart'])->name('cart-view');
 //Route::get('/add/{product}',[CartController::class,'addToCart'])->name('cart-add');
 Route::get('/add/{id}',[CartController::class,'addToCart'])->name('cart-add');
 Route::get('/update-cart',[CartController::class,'updateCart'])->name('update-cart');
 Route::get('/delete-cart',[CartController::class,'deleteCart'])->name('delete-cart');
 Route::get('/delete-cart-all',[CartController::class,'deleteCartAll'])->name('delete-cart-all');
 Route::get('/thanh-toan',[CartController::class,'checkOut'])->name('check-out');
+
+//cổng thanh toán
+Route::post('/vnpay_payment',[PaymentController::class,'vnpay_payment'])->name('pay.vnpay');
+
+
+
 //Quên mật khẩu
 
 
@@ -207,6 +216,24 @@ Route::group(['middleware' => ['admin', 'locale']],function () {
             ->name('product.delete');
         Route::delete('destroy/{id}', [ProductController::class, 'destroy'])->where(['id' => '[0-9]+'])
             ->name('product.destroy');
+    });
+
+    Route::group(['prefix' => 'brand'], function () {
+
+        Route::get('index', [BrandController::class, 'index'])
+            ->name('brand.index');
+        Route::get('create', [BrandController::class, 'create'])
+            ->name('brand.create');
+        Route::post('store', [BrandController::class, 'store'])
+            ->name('brand.store');
+        Route::get('edit/{id}', [BrandController::class, 'edit'])->where(['id' => '[0-9]+'])
+            ->name('brand.edit');
+        Route::post('update/{id}', [BrandController::class, 'update'])->where(['id' => '[0-9]+'])
+            ->name('brand.update');
+        Route::get('delete/{id}', [BrandController::class, 'delete'])->where(['id' => '[0-9]+'])
+            ->name('brand.delete');
+        Route::delete('destroy/{id}', [BrandController::class, 'destroy'])->where(['id' => '[0-9]+'])
+            ->name('brand.destroy');
     });
 
     //AJAX

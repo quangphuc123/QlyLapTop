@@ -32,14 +32,19 @@ class Product extends Model
         'product_code',
         'album',
         'product_catalogue_id',
+        'brand_id'
     ];
     public function product_catalogues()
     {
         return $this->belongsTo(ProductCatalogue::class, 'product_catalogue_id', 'id');
     }
+    public function brands()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
+    }
 
-    // public function product_images(){
-    //     return $this->belongsTo(ProductImage::class);
-    // }
+    public function attribute_children(){
+        return $this->belongsToMany(AttributeChildren::class, 'attribute_list','product_id','attribute_children_id');
+    }
 
 }

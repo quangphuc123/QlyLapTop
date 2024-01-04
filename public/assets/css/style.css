@@ -1,10 +1,10 @@
 /*-----------------------------------------------------------------------------------
-    
+
     Template Name: Norda - Minimal eCommerce HTML Template
     Version: 1.0
-    
+
 -----------------------------------------------------------------------------------
-    
+
     CSS INDEX
     ===================
     1. Template default CSS
@@ -34,7 +34,7 @@
     25. Contect us style
     26. Blog details style
     27. Order tracking style
-    
+
 -----------------------------------------------------------------------------------*/
 /*----------------------------------------*/
 /*  1. Template default CSS
@@ -163,7 +163,7 @@ ul {
   padding: 0;
 }
 
-/*-- 
+/*--
     - Common Classes
 -----------------------------------------*/
 .fix {
@@ -1488,7 +1488,7 @@ ul {
 }
 
 /***************************
-    Page section padding 
+    Page section padding
 ****************************/
 .ptb-0 {
   padding: 0;
@@ -1603,7 +1603,7 @@ ul {
 }
 
 /***************************
-    Page section margin 
+    Page section margin
 ****************************/
 .mtb-0 {
   margin: 0;
@@ -1677,7 +1677,7 @@ ul {
   margin: 290px 0;
 }
 
-/*-- 
+/*--
     - Input Placeholder
 -----------------------------------------*/
 input:-moz-placeholder,
@@ -1856,8 +1856,8 @@ textarea:focus {
   }
 }
 
-/*-- 
-    Scroll Up 
+/*--
+    Scroll Up
 -----------------------------------------*/
 #scrollUp {
   width: 40px;
@@ -16287,9 +16287,8 @@ textarea:focus {
 }
 
 .product-details-content .pro-details-price span {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 500;
-  font-family: "Heebo", sans-serif;
 }
 
 .product-details-content .pro-details-price span.new-price {

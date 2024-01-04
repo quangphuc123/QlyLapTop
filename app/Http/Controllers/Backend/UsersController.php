@@ -11,9 +11,11 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
 use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
+use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdateChangPassWordRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Product;
@@ -29,6 +31,7 @@ class UsersController extends Controller
     protected $userService;
     protected $provinceRepository;
     protected $userCatalogueRepository;
+    protected $productCatalogueRepository;
     protected $userRepository;
 
     public function __construct(
@@ -36,17 +39,18 @@ class UsersController extends Controller
         ProvinceRepository $provinceRepository,
         UserRepository $userRepository,
         UserCatalogueRepository $userCatalogueRepository,
+        ProductCatalogueRepository $productCatalogueRepository,
     ) {
         $this->userService = $userService;
         $this->provinceRepository = $provinceRepository;
         $this->userCatalogueRepository = $userCatalogueRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
         $this->userRepository = $userRepository;
     }
 
     public function index(Request $request)
     {
         // $this->authorize('modules', 'post.index');
-
         $users = $this->userService->paginate($request);
         $username = $this->userRepository->all();
         $config = [
@@ -159,24 +163,28 @@ class UsersController extends Controller
         return redirect()->route('dashboard.index')
             ->with('error', 'Xóa tài khoản không thành công');
     }
+
     public function homePage(){
         //session()->flush('cart');
+        $carts= session()->get(key : 'cart');
+        $productCatalogue = $this->productCatalogueRepository->all();
         $lsProduct=Product::orderByDesc('id')->paginate(9);
-        return view('home-page',compact(['lsProduct']));
+        return view('user.home-page',compact(['lsProduct','productCatalogue','carts']));
     }
     public function loginRegister(){
-        return view('login-register');
+        return view('user.auth.login-register');
     }
+
     //Xử lý đăng ký
     public function xuLyDangKy(RegisterRequest $request)
     {
         $usernameExist = User::where('name', $request->name)->count();
         if ($usernameExist > 0) {
-            return redirect()->back()->with(['message' => "Tên tài khoản {$request->name} đã tồn tại"]);
+            return redirect()->route('loginRegister')->with(['message' => "Tên tài khoản {$request->name} đã tồn tại"]);
         }
         $emailExist = User::where('email', $request->email)->count();
         if ($emailExist > 0) {
-            return redirect()->back()->with(['message1' => "Email {$request->email} đã được sử dụng"]);
+            return redirect()->route('loginRegister')->with(['message1' => "Email {$request->email} đã được sử dụng"]);
         }
         $taiKhoan=User::create([
             'name'=>$request->name,
@@ -185,10 +193,10 @@ class UsersController extends Controller
             'email'=> $request->email,
         ]);
         if(!empty($taiKhoan)){
-            return redirect()->route('loginRegister')->with('success', 'Đăng kí tài khoản thành công');
+            return redirect()->route('user.auth.loginRegister')->with('success', 'Đăng kí tài khoản thành công');
         }
         #Thông báo thêm không thành công
-        return redirect()->route('loginRegister')->with('error', 'Đăng kí tài khoản không thành công');
+        return redirect()->route('user.auth.loginRegister')->with('error', 'Đăng kí tài khoản không thành công');
     }
     //Xử lý đăng nhập
     public function xuLyDangNhap(LoginRequest $request)
@@ -215,15 +223,15 @@ class UsersController extends Controller
 
     //Thông tin tài khoản
     public function accountDetail(User $user){
-        $profile=$user::find(Auth::user()->id);
-        return view('account-detail',compact('profile'));
+        $profile = $user::find(Auth::user()->id);
+        return view('user.auth.account-detail',compact('profile'));
     }
 
     //Cập nhật thông tin tài khoản
     public function updateAccount(Request $request){
-        $profile=User::find(Auth::user()->id);
+        $profile = User::find(Auth::user()->id);
         if(empty($profile)){
-            return("Không tìm thấy người dùng với id = {$id}");
+            return redirect()->route('account-detail')->with('error','Không tìm thấy người dùng với id = {$id}');
         }
         if($request->name==null){
             $profile->name=$profile->name;
@@ -257,19 +265,12 @@ class UsersController extends Controller
         }
         $profile->user_catalogue_id=$profile->user_catalogue_id;
         $profile->save();
-        return redirect()->route('accountDetail');
+        return redirect()->route('accountDetail')->with('success','Cập nhật thành co');
     }
 
     //Đổi mật khẩu
-    public function changePassword(Request $request)
+    public function changePassword(UpdateChangPassWordRequest $request)
     {
-        # Validation
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed',
-        ]);
-
-
         if(!Hash::check($request->old_password, auth()->user()->password)){
             return back()->with("error", "Mật khẩu cũ không đúng");
         }
@@ -278,7 +279,7 @@ class UsersController extends Controller
             'password' => Hash::make($request->new_password)
         ]);
 
-        return back()->with("status", "Mật khẩu đã được thay đổi");
+        return back()->with("success", "Mật khẩu đã được thay đổi");
     }
 
     private function configData()

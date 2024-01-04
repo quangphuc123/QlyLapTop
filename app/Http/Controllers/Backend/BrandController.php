@@ -3,31 +3,31 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductCatalogueRequest;
-use App\Http\Requests\UpdateProductCatalogueRequest;
-use App\Http\Requests\DeleteProductCatalogueRequest;
+use App\Http\Requests\StoreBrandRequest;
+use App\Http\Requests\UpdateBrandRequest;
+use App\Http\Requests\DeleteBrandRequest;
 use Illuminate\Http\Request;
 
-use App\Services\Interfaces\ProductCatalogueServiceInterface as ProductCatalogueService;
-use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
+use App\Services\Interfaces\BrandServiceInterface as BrandService;
+use App\Repositories\Interfaces\BrandRepositoryInterface as BrandRepository;
 
-class ProductCatalogueController extends Controller
+class BrandController extends Controller
 {
-    protected $productCatalogueService;
-    protected $productCatalogueRepository;
+    protected $brandService;
+    protected $brandRepository;
 
     public function __construct(
-        ProductCatalogueService $productCatalogueService,
-        ProductCatalogueRepository $productCatalogueRepository,
+        BrandService $brandService,
+        BrandRepository $brandRepository,
     ) {
-        $this->productCatalogueService = $productCatalogueService;
-        $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->brandService = $brandService;
+        $this->brandRepository = $brandRepository;
     }
 
     public function index(Request $request)
     {
-        // $this->authorize('modules', 'product.catalogue.index');
-        $productCatalogues = $this->productCatalogueService->paginate($request);
+        // $this->authorize('modules', 'brand.index');
+        $brands = $this->brandService->paginate($request);
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -37,26 +37,26 @@ class ProductCatalogueController extends Controller
                 'backend/css/plugins/switchery/switchery.css',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
             ],
-            'model' => 'ProductCatalogue',
+            'model' => 'Brand',
         ];
-        $config['seo'] =  config('apps.productCatalogue');
-        $template = 'admin.product.catalogue.index';
+        $config['seo'] =  config('apps.brand');
+        $template = 'admin.brand.index';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'productCatalogues'
+                'brands'
             )
         );
     }
     public function create()
     {
-        // $this->authorize('modules', 'product.catalogue.create');
+        // $this->authorize('modules', 'brand.create');
         $config = $this->configData();
-        $config['seo'] = config('apps.productCatalogue');
+        $config['seo'] = config('apps.brand');
         $config['method'] = 'create';
-        $template = 'admin.product.catalogue.store';
+        $template = 'admin.brand.store';
         return view(
             'admin.dashboard.admin-layout',
             compact(
@@ -66,35 +66,35 @@ class ProductCatalogueController extends Controller
         );
     }
 
-    public function store(StoreProductCatalogueRequest $request)
+    public function store(StoreBrandRequest $request)
     {
-        if ($this->productCatalogueService->create($request)) {
-            return redirect()->route('product.catalogue.index')->with('success', 'Thêm mới thành công!!');
+        if ($this->brandService->create($request)) {
+            return redirect()->route('brand.index')->with('success', 'Thêm mới thành công!!');
         }
         return redirect()->route('dashboard.index')->with('error', 'Thêm mới không thành công!! Vui lòng thử lại');
     }
 
     public function edit($id)
     {
-        // $this->authorize('modules', 'product.catalogue.update');
-        $productCatalogue = $this->productCatalogueRepository->findById($id);
+        // $this->authorize('modules', 'brand.update');
+        $brand = $this->brandRepository->findById($id);
         $config = $this->configData();
-        $config['seo'] = config('apps.productCatalogue');
+        $config['seo'] = config('apps.brand');
         $config['method'] = 'edit';
-        $template = 'admin.product.catalogue.store';
+        $template = 'admin.brand.store';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'productCatalogue',
+                'brand',
             )
         );
     }
-    public function update($id, UpdateProductCatalogueRequest $request)
+    public function update($id, UpdateBrandRequest $request)
     {
-        if ($this->productCatalogueService->update($id, $request)) {
-            return redirect()->route('product.catalogue.index')
+        if ($this->brandService->update($id, $request)) {
+            return redirect()->route('brand.index')
                 ->with('success', 'Cập nhật thành công!!');
         }
         return redirect()->route('dashboard.index')
@@ -103,28 +103,28 @@ class ProductCatalogueController extends Controller
 
     public function delete($id)
     {
-        // $this->authorize('modules', 'product.catalogue.destroy');
-        $config['seo'] = config('apps.productCatalogue');
-        $productCatalogue = $this->productCatalogueRepository->findById($id);
-        $template = 'admin.product.catalogue.delete';
+        // $this->authorize('modules', 'brand.destroy');
+        $config['seo'] = config('apps.brand');
+        $brand = $this->brandRepository->findById($id);
+        $template = 'admin.brand.delete';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
-                'productCatalogue'
+                'brand'
             )
         );
     }
 
     public function destroy($id, Request $request)
     {
-        if ($this->productCatalogueService->destroy($id)) {
-            return redirect()->route('product.catalogue.index')
-                ->with('success', 'Xóa loại sản phẩm thành công');
+        if ($this->brandService->destroy($id)) {
+            return redirect()->route('brand.index')
+                ->with('success', 'Xóa loại thương hiệu thành công');
         }
         return redirect()->route('dashboard.index')
-            ->with('error', 'Xóa loại sản phẩm không thành công');
+            ->with('error', 'Xóa loại thương hiệu không thành công');
     }
 
     private function configData()

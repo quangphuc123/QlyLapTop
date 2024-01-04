@@ -43,7 +43,7 @@ class CartController extends Controller
 
     public function showCart(){
         $carts=session()->get(key:'cart');
-        return view('cart',compact('carts'));
+        return view('user.cart.cart',compact('carts'));
     }
 
     public function updateCart(Request $request){
@@ -77,7 +77,7 @@ class CartController extends Controller
     public function checkOut(){
         $carts=session()->get(key:'cart');
         if(!is_null($carts)){
-        return view('check-out',compact('carts'));
+        return view('user.auth.check-out',compact('carts'));
         } else {
             return back()->with('error', 'Giỏ hàng của bạn đang trống');
         }

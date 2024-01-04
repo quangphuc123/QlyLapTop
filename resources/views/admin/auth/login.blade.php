@@ -33,7 +33,7 @@
                 <input type="text" placeholder="Tên của bạn" />
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Mật khẩu của bạn" />
-                {{-- <button>Đăng Ký</button> --}}
+                <button>Đăng Ký</button>
             </form>
         </div>
 

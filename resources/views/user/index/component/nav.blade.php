@@ -114,34 +114,30 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header-action header-action-flex pr-20">
-                        {{-- <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                            <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
-                        </div> --}}
+                        @auth
+                        <div class="same-style-2 same-style-2-white same-style-2-font-dec">
+                            <a href="{{route('show-wishlist')}}"><i class="icon-heart"></i><span class="pro-count red"></span></a>
+                        </div>
+                        @endauth
                         <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">
                             <a class="cart-active" href="#">
-                                {{-- <php
+                                <?php
                                 $total = 0;
                                 $symbol = 'đ';
                                 $symbol_thousand = '.';
                                 $decimal_place = 0;
                                 $stt = 0;
+                                $x=0;
                                 ?>
 
                                 @if (!is_null($carts))
                                     @foreach ($carts as $id => $cartItem)
-                                        <div class="same-style-2 header-cart">
-                                            <a class="cart-active" href="#">
-                                                <i class="icon-basket-loaded"></i>
-                                                <span class="pro-count red">
-                                                    02
-                                                </span>
-                                            </a>
-                                        </div>
+                                    <?php $x=$x+$cartItem['quantity']?>
                                     @endforeach
-                                @endif --}}
+                                @endif
                                 <div class="same-style-2 header-cart">
                                     <a class="cart-active" href="#">
-                                        <i class="icon-basket-loaded"></i><span class="pro-count red">02</span>
+                                        <i class="icon-basket-loaded"></i><span class="pro-count red">{{$x}}</span>
                                     </a>
                                 </div>
                                 <span class="cart-amount white">

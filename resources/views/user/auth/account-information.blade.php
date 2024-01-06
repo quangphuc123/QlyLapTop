@@ -12,7 +12,7 @@
         <input type="date" name="birthday" class="inputstyle" <?php
                                                                     if(Auth::user()->birthday==null){
                                                                 ?> placeholder="Chưa cập nhật"
-            <?php } else ?> placeholder="{{ Auth::user()->birthday }}" />
+            <?php } else ?> placeholder="{{ Auth::user()->birthday}} " />
     </div>
     <div class="single-input-item">
         <label for="phone" class="required">Số điện

@@ -278,7 +278,7 @@ class UsersController extends Controller
         }
         $profile->user_catalogue_id=$profile->user_catalogue_id;
         $profile->save();
-        return redirect()->route('accountDetail')->with('success','Cập nhật thành co');
+        return redirect()->route('accountDetail')->with('success','Thông tin tài khoản đã được cập nhật');
     }
 
     //Đổi mật khẩu

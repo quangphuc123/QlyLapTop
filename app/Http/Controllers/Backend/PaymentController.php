@@ -81,7 +81,7 @@ class PaymentController extends Controller
 
         $vnp_Url = $vnp_Url . "?" . $query;
         if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//
+            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret);//
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
         $returnData = array('code' => '00'
@@ -91,7 +91,7 @@ class PaymentController extends Controller
                 header('Location: ' . $vnp_Url);
                 die();
             } else {
-                dd (json_encode($returnData));
+                echo json_encode($returnData);
             }
     }
 }

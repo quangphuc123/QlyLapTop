@@ -16,7 +16,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="sidebar-widget shop-sidebar-border mb-35 pt-40">
             <h4 class="sidebar-widget-title">Thương hiệu </h4>
             <div class="shop-catigory">

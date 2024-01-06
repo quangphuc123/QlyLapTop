@@ -171,19 +171,21 @@ class UsersController extends Controller
             ->with('error', 'Xóa tài khoản không thành công');
     }
 
-    public function homePage(){
+    public function homePage()
+    {
         //session()->flush('cart');
-        $brands=Brand::all();
-        $carts= session()->get(key : 'cart');
+        $brands = Brand::all();
+        $carts = session()->get(key: 'cart');
         $productCatalogue = $this->productCatalogueRepository->all();
         $brand = $this->brandRepository->all();
-        $lsProduct=Product::orderByDesc('id')->paginate(9);
-        return view('user.home-page',compact(['lsProduct','productCatalogue','carts','brands']));
+        $lsProduct = Product::orderByDesc('id')->paginate(9);
+        return view('user.home-page', compact('lsProduct', 'productCatalogue', 'carts', 'brands'));
     }
-    public function loginRegister(){
-        $brands=Brand::all();
-        $carts=session()->get(key:'cart');
-        return view('user.auth.login-register',compact('carts','brands'));
+    public function loginRegister()
+    {
+        $brands = Brand::all();
+        $carts = session()->get(key: 'cart');
+        return view('user.auth.login-register', compact('carts', 'brands'));
     }
 
     //Xử lý đăng ký
@@ -197,13 +199,13 @@ class UsersController extends Controller
         if ($emailExist > 0) {
             return redirect()->route('loginRegister')->with(['message1' => "Email {$request->email} đã được sử dụng"]);
         }
-        $taiKhoan=User::create([
-            'name'=>$request->name,
-            'password'=>Hash::make($request->password),
-            'user_catalogue_id'=>'3',
-            'email'=> $request->email,
+        $taiKhoan = User::create([
+            'name' => $request->name,
+            'password' => Hash::make($request->password),
+            'user_catalogue_id' => '3',
+            'email' => $request->email,
         ]);
-        if(!empty($taiKhoan)){
+        if (!empty($taiKhoan)) {
             return redirect()->route('loginRegister')->with('success', 'Đăng kí tài khoản thành công');
         }
         #Thông báo thêm không thành công
@@ -212,79 +214,75 @@ class UsersController extends Controller
     //Xử lý đăng nhập
     public function xuLyDangNhap(LoginRequest $request)
     {
-        $credentials =[
-            'email' => $request ->email,
-            'password' => $request ->password,
-            ];
-        if(Auth::attempt($credentials)&&(Auth::user()->user_catalogue_id==3)){
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        if (Auth::attempt($credentials) && (Auth::user()->user_catalogue_id == 3)) {
             return redirect()->route('trang-chu')->with('success', 'Đăng nhập vào trang người dùng');
-        }
-        else if(Auth::attempt($credentials)&&(Auth::user()->user_catalogue_id==1)){
+        } else if (Auth::attempt($credentials) && (Auth::user()->user_catalogue_id == 1)) {
             return redirect()->route('dashboard.index')->with('success', 'Đăng nhập vào trang Admin');
         }
         return redirect()->route('loginRegister')->with('success', 'Đăng nhập không thành công!!');
-
     }
 
     //Đăng xuất
-    public function logOut(){
+    public function logOut()
+    {
         Auth::logout();
         return redirect()->route('trang-chu');
     }
 
     //Thông tin tài khoản
-    public function accountDetail(User $user){
-        $brands=Brand::all();
-        $carts= session()->get(key : 'cart');
+    public function accountDetail(User $user)
+    {
+        $brands = Brand::all();
+        $carts = session()->get(key: 'cart');
         $profile = $user::find(Auth::user()->id);
-        return view('user.auth.account-detail',compact('profile','carts','brands'));
+        return view('user.auth.account-detail', compact('profile', 'carts', 'brands'));
     }
 
     //Cập nhật thông tin tài khoản
-    public function updateAccount(Request $request){
+    public function updateAccount(Request $request)
+    {
         $profile = User::find(Auth::user()->id);
-        if(empty($profile)){
-            return redirect()->route('account-detail')->with('error','Không tìm thấy người dùng với id = {$id}');
+        if (empty($profile)) {
+            return redirect()->route('account-detail')->with('error', 'Không tìm thấy người dùng với id = {$id}');
         }
-        if($request->name==null){
-            $profile->name=$profile->name;
+        if ($request->name == null) {
+            $profile->name = $profile->name;
+        } else {
+            $profile->name = $request->name;
         }
-        else{
-            $profile->name=$request->name;
+        if ($request->email == null) {
+            $profile->email = $profile->email;
+        } else {
+            $profile->email = $request->email;
         }
-        if($request->email==null){
-            $profile->email=$profile->email;
+        if ($request->address == null) {
+            $profile->address = $profile->address;
+        } else {
+            $profile->address = $request->address;
         }
-        else{
-            $profile->email=$request->email;
+        if ($request->birthday == null) {
+            $profile->birthday = $profile->birthday;
+        } else {
+            $profile->birthday = $request->birthday;
         }
-        if($request->address==null){
-            $profile->address=$profile->address;
+        if ($request->phone == null) {
+            $profile->phone = $profile->phone;
+        } else {
+            $profile->phone = $request->phone;
         }
-        else{
-            $profile->address=$request->address;
-        }
-        if($request->birthday==null){
-            $profile->birthday=$profile->birthday;
-        }
-        else{
-            $profile->birthday=$request->birthday;
-        }
-        if($request->phone==null){
-            $profile->phone=$profile->phone;
-        }
-        else{
-            $profile->phone=$request->phone;
-        }
-        $profile->user_catalogue_id=$profile->user_catalogue_id;
+        $profile->user_catalogue_id = $profile->user_catalogue_id;
         $profile->save();
-        return redirect()->route('accountDetail')->with('success','Thông tin tài khoản đã được cập nhật');
+        return redirect()->route('accountDetail')->with('success', 'Thông tin tài khoản đã được cập nhật');
     }
 
     //Đổi mật khẩu
     public function changePassword(UpdateChangPassWordRequest $request)
     {
-        if(!Hash::check($request->old_password, auth()->user()->password)){
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
             return back()->with("error", "Mật khẩu cũ không đúng");
         }
         #Update the new Password
@@ -295,15 +293,17 @@ class UsersController extends Controller
         return back()->with("success", "Mật khẩu đã được thay đổi");
     }
 
-    public function forgotPassword(){
-        $brands=Brand::all();
-        $carts= session()->get(key : 'cart');
-        return view('user.auth.forgot-password',compact('carts','brands'));
+    public function forgotPassword()
+    {
+        $brands = Brand::all();
+        $carts = session()->get(key: 'cart');
+        return view('user.auth.forgot-password', compact('carts', 'brands'));
     }
 
-    public function changePasswordMail($id,$mail){
-        $carts= session()->get(key : 'cart');
-        return view('user.auth.change-password-mail',compact('carts','id','mail'));
+    public function changePasswordMail($id, $mail)
+    {
+        $carts = session()->get(key: 'cart');
+        return view('user.auth.change-password-mail', compact('carts', 'id', 'mail'));
     }
     public function updateForgotPassword(ForgotPassword $request)
     {
@@ -314,31 +314,34 @@ class UsersController extends Controller
         return redirect()->route('loginRegister')->with("success", "Mật khẩu đã được thay đổi");
     }
 
-    public function sendMailForgotPassword(Request $request){
-        $checkExist=User::where('email',$request->email)->first();
-        if(empty($checkExist)){
-            return back()->with('error','email khong ton tai');
+    public function sendMailForgotPassword(Request $request)
+    {
+        $checkExist = User::where('email', $request->email)->first();
+        if (empty($checkExist)) {
+            return back()->with('error', 'email khong ton tai');
         }
         Mail::to($checkExist->email)->send(new changePassword($checkExist));
-        return back()->with('succes','Vui long kiem tra email');
+        return back()->with('succes', 'Vui long kiem tra email');
     }
 
-    public function showContact(){
-        $brands=Brand::all();
-        $carts= session()->get(key : 'cart');
-        return view('user.auth.contact',compact('carts','brands'));
+    public function showContact()
+    {
+        $brands = Brand::all();
+        $carts = session()->get(key: 'cart');
+        return view('user.auth.contact', compact('carts', 'brands'));
     }
-    public function searchProduct(Request $req){
+    public function searchProduct(Request $req)
+    {
         $keywords = $req->keyword;
-        $carts= session()->get(key : 'cart');
+        $carts = session()->get(key: 'cart');
         $productCatalogue = $this->productCatalogueRepository->all();
-        $brand = $this->brandRepository->all();
-        $search_product = Product::where('name','like','%'.$keywords.'%')->get();
-        return view('user.product.search',compact([
+        $brands = $this->brandRepository->all();
+        $search_product = Product::where('name', 'like', '%' . $keywords . '%')->get();
+        return view('user.product.search', compact([
             'search_product',
             'productCatalogue',
             'carts',
-            'brand'
+            'brands'
         ]));
     }
 

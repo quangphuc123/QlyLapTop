@@ -8,17 +8,19 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
 class changePassword extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected User $user;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -39,6 +41,11 @@ class changePassword extends Mailable
     {
         return new Content(
             view: 'mail.forgot-email',
+            with:[
+                'id'=>$this->user->id,
+                'name'=>$this->user->name,
+                'mail'=>$this->user->email
+            ]
         );
     }
 

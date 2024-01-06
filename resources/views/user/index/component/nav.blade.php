@@ -87,17 +87,11 @@
                             <ul>
                                 <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
                                 <li><a href="#">Thương hiệu</a>
-                                    {{-- <ul class="sub-menu-style">
-                                        <li><a href="about-us.html">about us </a></li>
-                                        <li><a href="cart.html">cart page</a></li>
-                                        <li><a href="checkout.html">checkout </a></li>
-                                        <li><a href="my-account.html">my account</a></li>
-                                        <li><a href="wishlist.html">wishlist </a></li>
-                                        <li><a href="compare.html">compare </a></li>
-                                        <li><a href="contact.html">contact us </a></li>
-                                        <li><a href="order-tracking.html">order tracking</a></li>
-                                        <li><a href="login-register.html">login / register </a></li>
-                                    </ul> --}}
+                                     <ul class="sub-menu-style">
+                                        @foreach($brands as $brand)
+                                        <li><a href="about-us.html">{{$brand->name}}</a></li>
+                                        @endforeach
+                                    </ul> 
                                 </li>
                                 <li><a href="blog.html">Bài viết</a>
                                     {{-- <ul class="sub-menu-style">
@@ -107,80 +101,36 @@
                                         <li><a href="blog-details.html">blog details</a></li>
                                     </ul> --}}
                                 </li>
-                                <li><a href="~/shop/norda/contact.html">Liên hệ </a></li>
+                                <li><a href="{{route('contact')}}">Liên hệ </a></li>
                             </ul>
                         </nav>
                     </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="header-action header-action-flex pr-20">
-                        {{-- <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                            <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
-                        </div> --}}
+
+                        <div class="same-style-2 same-style-2-white same-style-2-font-dec">
+                            @auth()
+                            <a href="{{route('show-wishlist')}}"><i class="icon-heart"></i><span class="pro-count red">{{Auth::user()->countWishlist() / 2}}</span></a>
+                            @endauth
+                        </div> 
+
+                        
                         <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">
                             <a class="cart-active" href="#">
-                                {{-- <php
-                                $total = 0;
-                                $symbol = 'đ';
-                                $symbol_thousand = '.';
-                                $decimal_place = 0;
-                                $stt = 0;
-                                ?>
-
+                            <?php $x=0 ?>
                                 @if (!is_null($carts))
                                     @foreach ($carts as $id => $cartItem)
-                                        <div class="same-style-2 header-cart">
-                                            <a class="cart-active" href="#">
-                                                <i class="icon-basket-loaded"></i>
-                                                <span class="pro-count red">
-                                                    02
-                                                </span>
-                                            </a>
-                                        </div>
+                                       <?php $x=$x+$cartItem['quantity']?>
                                     @endforeach
-                                @endif --}}
+                                @endif
                                 <div class="same-style-2 header-cart">
                                     <a class="cart-active" href="#">
-                                        <i class="icon-basket-loaded"></i><span class="pro-count red">02</span>
+                                        <i class="icon-basket-loaded"></i><span class="pro-count red">{{$x}}</span>
                                     </a>
                                 </div>
-                                <span class="cart-amount white">
-                                    {{-- {{ number_format($total, $decimal_place, '', $symbol_thousand) . $symbol }} --}}
-                                </span>
                             </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="header-small-device small-device-ptb-1">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-5">
-                <div class="mobile-logo">
-                    <a href="index.html">
-                        <img alt="" src="~/shop/norda/assets/images/logo/logo.png">
-                    </a>
-                </div>
-            </div>
-            <div class="col-7">
-                <div class="header-action header-action-flex">
-                    <div class="same-style-2 same-style-2-font-inc">
-                        <a href="login-register.html"><i class="icon-user"></i></a>
-                    </div>
-                    <div class="same-style-2 same-style-2-font-inc">
-                        <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
-                    </div>
-                    <div class="same-style-2 same-style-2-font-inc header-cart">
-                        <a class="cart-active" href="#">
-                            <i class="icon-basket-loaded"></i><span class="pro-count red">02</span>
-                        </a>
-                    </div>
-                    <div class="same-style-2 main-menu-icon">
-                        <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i>
-                        </a>
                     </div>
                 </div>
             </div>

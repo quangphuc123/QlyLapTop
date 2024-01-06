@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\QueryScopes;
+use App\Models\Product;
 
 
 class User extends Authenticatable
@@ -68,5 +69,17 @@ class User extends Authenticatable
     {
         return $this->user_catalogues->permissions->contains('canonical',
         $permissionCanonical);
+    }
+
+    public function wishlist(){
+        return $this->belongsToMany(Product::class,'wishlist','user_id','product_id');
+    }
+
+    public function checkWishlist(){
+        return $this->wishlist()->where('user_id',auth()->id())->exists();
+    }
+
+    public function countWishlist(){
+        return $this->wishlist()->where('user_id',auth()->id())->count();
     }
 }

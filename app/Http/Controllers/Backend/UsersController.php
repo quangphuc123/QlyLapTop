@@ -16,13 +16,16 @@ use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateChangPassWordRequest;
+use App\Http\Requests\ForgotPassWord;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Brand;
 use RealRashid\SweetAlert\Facades\Aler;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\changePassword;
 
 
 class UsersController extends Controller
@@ -166,13 +169,16 @@ class UsersController extends Controller
 
     public function homePage(){
         //session()->flush('cart');
+        $brands=Brand::all();
         $carts= session()->get(key : 'cart');
         $productCatalogue = $this->productCatalogueRepository->all();
         $lsProduct=Product::orderByDesc('id')->paginate(9);
-        return view('user.home-page',compact(['lsProduct','productCatalogue','carts']));
+        return view('user.home-page',compact(['lsProduct','productCatalogue','carts','brands']));
     }
     public function loginRegister(){
-        return view('user.auth.login-register');
+        $brands=Brand::all();
+        $carts=session()->get(key:'cart');
+        return view('user.auth.login-register',compact('carts','brands'));
     }
 
     //Xử lý đăng ký
@@ -193,10 +199,10 @@ class UsersController extends Controller
             'email'=> $request->email,
         ]);
         if(!empty($taiKhoan)){
-            return redirect()->route('user.auth.loginRegister')->with('success', 'Đăng kí tài khoản thành công');
+            return redirect()->route('loginRegister')->with('success', 'Đăng kí tài khoản thành công');
         }
         #Thông báo thêm không thành công
-        return redirect()->route('user.auth.loginRegister')->with('error', 'Đăng kí tài khoản không thành công');
+        return redirect()->route('loginRegister')->with('error', 'Đăng kí tài khoản không thành công');
     }
     //Xử lý đăng nhập
     public function xuLyDangNhap(LoginRequest $request)
@@ -223,8 +229,10 @@ class UsersController extends Controller
 
     //Thông tin tài khoản
     public function accountDetail(User $user){
+        $brands=Brand::all();
+        $carts= session()->get(key : 'cart');
         $profile = $user::find(Auth::user()->id);
-        return view('user.auth.account-detail',compact('profile'));
+        return view('user.auth.account-detail',compact('profile','carts','brands'));
     }
 
     //Cập nhật thông tin tài khoản
@@ -282,6 +290,39 @@ class UsersController extends Controller
         return back()->with("success", "Mật khẩu đã được thay đổi");
     }
 
+    public function forgotPassword(){
+        $brands=Brand::all();
+        $carts= session()->get(key : 'cart');
+        return view('user.auth.forgot-password',compact('carts','brands'));
+    }
+
+    public function changePasswordMail($id,$mail){
+        $carts= session()->get(key : 'cart');
+        return view('user.auth.change-password-mail',compact('carts','id','mail'));
+    }
+    public function updateForgotPassword(ForgotPassword $request)
+    {
+        #Update the new Password
+        User::find($request->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        return redirect()->route('loginRegister')->with("success", "Mật khẩu đã được thay đổi");
+    }
+
+    public function sendMailForgotPassword(Request $request){
+        $checkExist=User::where('email',$request->email)->first();
+        if(empty($checkExist)){
+            return back()->with('error','email khong ton tai');
+        }
+        Mail::to($checkExist->email)->send(new changePassword($checkExist));
+        return back()->with('succes','Vui long kiem tra email');
+    }
+
+    public function showContact(){
+        $brands=Brand::all();
+        $carts= session()->get(key : 'cart');
+        return view('user.auth.contact',compact('carts','brands'));
+    }
     private function configData()
     {
         return [

@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Brand;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
@@ -17,9 +18,11 @@ use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 class ProductController extends Controller
 {
     public function productDetail($id){
+        $brands=Brand::all();
+        $carts= session()->get(key : 'cart');
         $product = $this->productRepository->findById($id);
         $album = json_decode($product->album);
-        return view('user.product.product-detail',compact('album', 'product'));
+        return view('user.product.product-detail',compact('album', 'product','carts','brands'));
     }
 
     protected $productService;
@@ -165,5 +168,38 @@ class ProductController extends Controller
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
             ],
         ];
+    }
+
+    public function addToWishlist(Request $request){
+        $user=auth()->user();
+        if(is_null($user)){
+            return redirect()->route('loginRegister')->with('error','vui long dang nhap');
+        }
+        $data = [
+            'user_id'=>$request->user_id,
+            'product_id'=>$request->product_id,
+        ];
+        $user->wishlist()->attach($data);
+        return back()->with('succes','Đã thích sản phẩm');
+    }
+
+    public function deleteToWishlist(Request $request){
+        $user=auth()->user();
+        if(is_null($user)){
+            return redirect()->route('loginRegister')->with('error','vui long dang nhap');
+        }
+        $data = [
+            'user_id'=>$request->user_id,
+            'product_id'=>$request->product_id,
+        ];
+        $user->wishlist()->detach($data);
+        return back()->with('succes','Đã bỏ thích sản phẩm');
+    }
+
+    public function showWishlist(){
+        $brands=Brand::all();
+        $carts= session()->get(key : 'cart');
+        $user=User::with('wishlist')->find(auth()->id());
+        return view('user.auth.wishlist',compact('user','carts','brands'));
     }
 }

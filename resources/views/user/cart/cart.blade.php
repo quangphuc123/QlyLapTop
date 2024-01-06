@@ -11,7 +11,7 @@
         <header class="header-area">
             @include('user.index.component.nav')
         </header>
-
+        @include('user.cart.mini-cart')
         <!-- Start -->
 
         <div class="breadcrumb-area bg-gray">
@@ -75,8 +75,8 @@
                                                         </span></td>
                                                     <td class="product-quantity pro-details-quality">
                                                         <div class="cart-plus-minus">
-                                                            <input class="cart-plus-minus-box quantity" type="number"
-                                                                name="qtybutton" value='{{ $cartItem['quantity'] }}'
+                                                            <input class="cart-plus-minus-box quantity" 
+                                                                name="qtybutton" value="{{ $cartItem['quantity'] }}"
                                                                 min=1>
                                                         </div>
                                                     </td>
@@ -103,7 +103,7 @@
                                 <div class="col-lg-12">
                                     <div class="cart-shiping-update-wrapper">
                                         <div class="cart-shiping-update">
-                                            <a href="{{ route('trang-chu') }}">Quay lại trang chủ</a>
+                                            <a href="{{ route('trang-chu') }}">Tiếp tục mua săm</a>
                                         </div>
                                         <div class="cart-clear">
                                             <a href="{{ route('delete-cart-all') }}">Xóa giỏ hàng</a>
@@ -143,8 +143,8 @@
             </div>
         </div>
         <!-- END -->
-        @include('user.index.component.footer')
     </div>
+    @include('user.index.component.footer')
     @include('assets.js')
 </body>
 

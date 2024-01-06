@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Brand;
 
 class CartController extends Controller
 {
@@ -42,8 +43,9 @@ class CartController extends Controller
     }
 
     public function showCart(){
+        $brands=Brand::all();
         $carts=session()->get(key:'cart');
-        return view('user.cart.cart',compact('carts'));
+        return view('user.cart.cart',compact('carts','brands'));
     }
 
     public function updateCart(Request $request){
@@ -75,9 +77,10 @@ class CartController extends Controller
     }
 
     public function checkOut(){
+        $brands=Brand::all();
         $carts=session()->get(key:'cart');
         if(!is_null($carts)){
-        return view('user.auth.check-out',compact('carts'));
+        return view('user.auth.check-out',compact('carts','brands'));
         } else {
             return back()->with('error', 'Giỏ hàng của bạn đang trống');
         }

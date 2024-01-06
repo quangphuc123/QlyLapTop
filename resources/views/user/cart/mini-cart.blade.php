@@ -2,9 +2,9 @@
 <div class="sidebar-cart-active">
     <div class="sidebar-cart-all">
         <a class="cart-close" href="#"><i class="icon_close"></i></a>
+        <div class="cart-content">
+                <h3>Giỏ hàng của bạn</h3>
         @if (!is_null($carts))
-            <div class="cart-content">
-                <h3>Shopping Cart</h3>
                 <?php
                 $total = 0;
                 $symbol = 'đ';
@@ -21,11 +21,11 @@
                                 <a href="#"><img src="{{ asset($cartItem['image']) }}" alt=""></a>
                             </div>
                             <div class="cart-title">
-                                <h4><a href="{{ route('chi-tiet-san-pham', ['id' => $id]) }}">{{ $cartItem['name'] }}
+                                <h4><a href="{{ route('chi-tiet-san-pham', ['id' => $id]) }}">{{ $cartItem['name'] }} X {{ $cartItem['quantity'] }}
                                     </a>
                                 </h4>
                                 <span>
-                                    {{ number_format($cartItem['price'], $decimal_place, '', $symbol_thousand) . $symbol }}
+                                    {{ number_format($cartItem['price'], $decimal_place, '', $symbol_thousand) . $symbol }} 
                                 </span>
                             </div>
                             <div class="cart-delete">
@@ -35,15 +35,15 @@
                     @endforeach
                 </ul>
                 <div class="cart-total">
-                    <h4>Subtotal:
+                    <h4>Tổng:
                         <span>{{ number_format($total, $decimal_place, '', $symbol_thousand) . $symbol }}</span>
                     </h4>
                 </div>
                 <div class="cart-checkout-btn">
-                    <a class="btn-hover cart-btn-style" href="{{ route('cart-view') }}">view cart</a>
-                    <a class="no-mrg btn-hover cart-btn-style" href="{{ route('check-out') }}">checkout</a>
+                    <a class="btn-hover cart-btn-style" href="{{ route('cart-view') }}">Giỏ hàng</a>
+                    <a class="no-mrg btn-hover cart-btn-style" href="{{ route('check-out') }}">Thanh toán</a>
                 </div>
-            </div>
         @endif
+        </div>
     </div>
 </div>

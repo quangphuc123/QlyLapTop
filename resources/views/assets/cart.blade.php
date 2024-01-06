@@ -17,6 +17,7 @@
                         customClass: 'swal-height'
                     });
                 }
+                location.reload();
             },
             error: function() {
 

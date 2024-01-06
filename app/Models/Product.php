@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\QueryScopes;
+use App\Models\User;
 
 class Product extends Model
 {
@@ -47,4 +48,7 @@ class Product extends Model
         return $this->belongsToMany(AttributeChildren::class, 'attribute_list','product_id','attribute_children_id');
     }
 
+    public function wishlist1(){
+        return $this->belongsToMany(User::class,'wishlist','product_id','user_id')->count();
+    }
 }

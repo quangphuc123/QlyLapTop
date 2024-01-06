@@ -47,8 +47,8 @@
 
                 }
             })
+            location.reload();
         }
-
         function cartDelete(event) {
             event.preventDefault();
             let urlDelete = $('.delete_cart_url').data('url');

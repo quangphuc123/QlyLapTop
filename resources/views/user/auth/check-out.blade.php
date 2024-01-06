@@ -11,7 +11,7 @@
         <header class="header-area">
             @include('user.index.component.nav')
         </header>
-
+        @include('user.cart.mini-cart')
         <!-- Start -->
 
 
@@ -41,18 +41,31 @@
                     <p class="cart-page-title">Nếu bạn đã có tài khoản? <a class="checkout-click1" href="#"
                             style="color:red"> Đăng nhập</a></p>
                     <div class="checkout-login-info">
-                        <form action="#">
+                        <form action="{{ route('xl-dang-nhap') }}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                     <div class="sin-checkout-login">
                                         <label>Email<span>*</span></label>
-                                        <input type="text" name="user-name">
+                                        <input name="email" placeholder="Email" type="email"
+                                                        class="@error('email') is-invalid @enderror">
+                                                    @error('email')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                    @if (session('message1'))
+                                                        <div class="alert alert-danger">{{ @session('message1') }}
+                                                        </div>
+                                                    @endif
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="sin-checkout-login">
                                         <label>Mật khẩu<span>*</span></label>
-                                        <input type="password" name="user-password">
+                                        <input type="password" name="password" placeholder="Mật khẩu"
+                                                        class="@error('password') is-invalid @enderror">
+                                                    @error('password')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
                                     </div>
                                 </div>
                             </div>
@@ -60,9 +73,12 @@
                                 <button class="button" type="submit">Đăng nhập</button>
                             </div>
                             <div class="lost-password">
-                                <a href="#">Quên mật khẩu?</a>
+                                <a href="{{ route('forgotPassword') }}">Quên mật khẩu?</a>
                             </div>
                         </form>
+                        @if (session('error'))
+                                                <p>{{ session('error') }}</p>
+                                            @endif
                     </div>
                 </div>
                 <?php } ?>
@@ -71,7 +87,7 @@
                     <div class="row">
                         <div class="col-lg-7">
                             <div class="billing-info-wrap mr-50">
-                                <h3>Thông tin khách hàng</h3>
+                                <h3>Thông tin đặt hàng</h3>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="billing-info mb-20">
@@ -146,7 +162,7 @@
                                 <div class="Place-order">
                                     <form action="{{ route('pay.vnpay') }}" method="POST">
                                         @csrf
-                                        <button type="submit" name="redirect" class="primary-btn checkout-btn">Thanh Toán Ngay</button>
+                                        <button type="submit" name="redirect" class="btn btn-danger checkout-btn">Thanh Toán Ngay</button>
                                     </form>
                                 </div>
                             </div>

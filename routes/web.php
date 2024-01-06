@@ -38,6 +38,10 @@ Route::get('login-register',[UsersController::class,'loginRegister'])->name('log
 Route::post('xl-dang-ky',[UsersController::class,'xuLyDangKy'])->name('xl-dang-ky')->middleware('guest');
 Route::post('/',[UsersController::class,'xuLyDangNhap'])->name('xl-dang-nhap')->middleware('guest');
 Route::get('dang-xuat',[UsersController::class,'logOut'])->name('logOut')->middleware('auth');
+Route::get('quen-mat-khau',[UsersController::class,'forgotPassword'])->name('forgotPassword');
+Route::post('gui-mail',[UsersController::class,'sendMailForgotPassword'])->name('sendMail');
+Route::get('change-password-mail/{id}/{mail}',[UsersController::class,'changePasswordMail'])->name('changePasswordMail');
+Route::post('forgot-password',[UsersController::class,'updateForgotPassword'])->name('xl-forgot-password');
 Route::get('thong-tin-tai-khoan',[UsersController::class,'accountDetail'])->name('accountDetail');
 Route::post('cap-nhat',[UsersController::class,'updateAccount'])->name('xl-cap-nhat');
 Route::post('cap-nhat-mat-khau',[UsersController::class,'changePassword'])->name('xl-cap-nhat-mat-khau');
@@ -54,6 +58,12 @@ Route::get('/update-cart',[CartController::class,'updateCart'])->name('update-ca
 Route::get('/delete-cart',[CartController::class,'deleteCart'])->name('delete-cart');
 Route::get('/delete-cart-all',[CartController::class,'deleteCartAll'])->name('delete-cart-all');
 Route::get('/thanh-toan',[CartController::class,'checkOut'])->name('check-out');
+
+Route::get('/wishlist',[ProductController::class,'showWishlist'])->name('show-wishlist');
+Route::post('/add-wishlist',[ProductController::class,'addToWishlist'])->name('add-wishlist');
+Route::post('/delete-wishlist',[ProductController::class,'deleteToWishlist'])->name('delete-wishlist');
+
+Route::get('/lien-he',[UsersController::class,'showContact'])->name('contact');
 
 //cổng thanh toán
 Route::post('/vnpay_payment',[PaymentController::class,'vnpay_payment'])->name('pay.vnpay');

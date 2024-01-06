@@ -107,7 +107,8 @@
                             </div>
                             <div class="pro-details-action-wrap">
                                 <div class="pro-details-add-to-cart">
-                                    <a title="Add to Cart" href="#">Add To Cart </a>
+                                    <a a href="#" class="add_to_cart"
+                                            data-url="{{ route('cart-add', ['id' => $product['id']]) }}">Add To Cart </a>
                                 </div>
                                 {{-- <div class="pro-details-action">
                                     <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>
@@ -133,6 +134,7 @@
         @include('user.index.component.footer')
     </div>
     @include('assets.js')
+    @include('assets.cart')
 </body>
 
 </html>

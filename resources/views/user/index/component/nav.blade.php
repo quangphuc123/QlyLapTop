@@ -87,16 +87,10 @@
                             <ul>
                                 <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
                                 <li><a href="#">Thương hiệu</a>
-                                    {{-- <ul class="sub-menu-style">
-                                        <li><a href="about-us.html">about us </a></li>
-                                        <li><a href="cart.html">cart page</a></li>
-                                        <li><a href="checkout.html">checkout </a></li>
-                                        <li><a href="my-account.html">my account</a></li>
-                                        <li><a href="wishlist.html">wishlist </a></li>
-                                        <li><a href="compare.html">compare </a></li>
-                                        <li><a href="contact.html">contact us </a></li>
-                                        <li><a href="order-tracking.html">order tracking</a></li>
-                                        <li><a href="login-register.html">login / register </a></li>
+                                    {{--<ul class="sub-menu-style">
+                                        @foreach($brands as $brand)
+                                             <li><a href="about-us.html">{{$brand->name}}</a></li>
+                                        @endforeach
                                     </ul> --}}
                                 </li>
                                 <li><a href="blog.html">Bài viết</a>

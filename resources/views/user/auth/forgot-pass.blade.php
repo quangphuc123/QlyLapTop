@@ -37,7 +37,7 @@
                                 <div id="lg1" class="tab-pane active">
                                     <div class="login-form-container">
                                         <div class="login-register-form">
-                                            <form action="" method="post">
+                                            <form action="{{route('')}}" method="post">
                                                 @csrf
                                                 <div>
                                                     <input name="email" placeholder="Email" type="email">

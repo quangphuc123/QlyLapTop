@@ -46,7 +46,7 @@ class ProductController extends Controller
         // $this->authorize('modules', 'post.index');
         $products = $this->productService->paginate($request);
         $productCatalogue = $this->productRepository->all();
-        $brand = $this->brandRepository->all();
+        $brands = $this->brandRepository->all();
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',

@@ -16,13 +16,12 @@
                 </ul>
             </div>
         </div>
-
         <div class="sidebar-widget shop-sidebar-border mb-35 pt-40">
             <h4 class="sidebar-widget-title">Thương hiệu </h4>
             <div class="shop-catigory">
                 <ul>
-                    @if (!empty($brand))
-                        @foreach ($brand as $key => $val)
+                    @if (!empty($brands))
+                        @foreach ($brands as $key => $val)
                             <li>
                                 <a href="{{ route('danh-muc-thuong-hieu', $val->id) }}">
                                     {{ $val->name }}

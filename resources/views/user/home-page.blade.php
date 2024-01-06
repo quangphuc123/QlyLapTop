@@ -6,12 +6,13 @@
 </head>
 
 <body>
+    {{-- @dd($brands) --}}
     <div class="main-wrapper">
         <header class="header-area">
             @include('user.index.component.nav')
         </header>
-        @include('user.index.component.sidebar')
         @include('user.cart.mini-cart')
+        @include('user.index.component.sidebar')
 
         <div class="shop-area pt-20 pb-20">
             <div class="container">

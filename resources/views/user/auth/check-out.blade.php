@@ -83,7 +83,7 @@
                 </div>
                 <?php } ?>
                 @auth
-                    <form action="{{ route('pay.vnpay') }}" method="POST">
+                    <form action="{{ route('pay.vnpay') }}" name="redirect" method="POST">
                         @csrf
                         <div class="checkout-wrap pt-30">
                             <div class="row">

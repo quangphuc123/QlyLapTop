@@ -131,8 +131,6 @@ class PermissionController extends Controller
 
     private function configData()
     {
-        return [
-
-        ];
+        return [];
     }
 }

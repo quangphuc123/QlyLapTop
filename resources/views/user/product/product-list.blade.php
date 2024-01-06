@@ -13,27 +13,30 @@
                                             style="width: 270px; height: 320px;">
                                     </a>
                                     @auth
-                                    @if(Auth::user()->checkWishlist())
-                                    <form action="{{route('delete-wishlist')}}" method="POST">
-                                            @csrf
-                                    <div class="product-action-2 tooltip-style-2">
-                                            <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                                            <input type="hidden" name="product_id" value="{{$data->id}}">
-                                            <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-</svg></button>
-                                    </div>
-                                    </form>
-                                    @else
-                                    <form action="{{route('add-wishlist')}}" method="POST">
-                                            @csrf
-                                    <div class="product-action-2 tooltip-style-2">
-                                            <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                                            <input type="hidden" name="product_id" value="{{$data->id}}">
-                                            <button type="submit"><i class="icon-heart"></i></button>
-                                    </div>
-                                    </form>
-                                    @endif
+                                        @if (Auth::user()->checkWishlist())
+                                            <form action="{{ route('delete-wishlist') }}" method="POST">
+                                                @csrf
+                                                <div class="product-action-2 tooltip-style-2">
+                                                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                                    <input type="hidden" name="product_id" value="{{ $data->id }}">
+                                                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg"
+                                                            width="16" height="16" fill="red"
+                                                            class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd"
+                                                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                                                        </svg></button>
+                                                </div>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('add-wishlist') }}" method="POST">
+                                                @csrf
+                                                <div class="product-action-2 tooltip-style-2">
+                                                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                                    <input type="hidden" name="product_id" value="{{ $data->id }}">
+                                                    <button type="submit"><i class="icon-heart"></i></button>
+                                                </div>
+                                            </form>
+                                        @endif
                                     @endauth
                                 </div>
                                 <div class="product-content-wrap-2 text-center">
@@ -105,4 +108,3 @@
         </div>
     </div>
 </div>
-

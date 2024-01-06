@@ -66,7 +66,8 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="product-content-wrap-2 product-content-position text-center">
+                                                    <div
+                                                        class="product-content-wrap-2 product-content-position text-center">
                                                         <div class="product-rating-wrap">
                                                             <div class="product-rating">
                                                                 <i class="icon_star"></i>
@@ -111,8 +112,5 @@
     </div>
     @include('assets.js')
     @include('assets.cart')
-
-
 </body>
-
 </html>

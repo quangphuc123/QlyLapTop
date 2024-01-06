@@ -32,19 +32,19 @@
         let id = $(this).data('id');
         let quantity = $(this).parents('tr').find('input.quantity').val();
         $.ajax({
-            type: "GET",
-            url: urlUpdateCart,
-            data: {
-                id: id,
-                quantity: quantity
-            },
-            success: function(data) {
-                if (data.code === 200) {
-                    $('.main-wrapper ').html(data.cart);
-                }
-            })
-            location.reload();
+                type: "GET",
+                url: urlUpdateCart,
+                data: {
+                    id: id,
+                    quantity: quantity
+                },
+                success: function(data) {
+                    if (data.code === 200) {
+                        $('.main-wrapper ').html(data.cart);
+                    }
+                }) location.reload();
         }
+
         function cartDelete(event) {
             event.preventDefault();
             let urlDelete = $('.delete_cart_url').data('url');

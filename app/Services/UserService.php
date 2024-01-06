@@ -44,7 +44,6 @@ class UserService implements UserServiceInterface
     {
         DB::beginTransaction();
         try {
-
             $payload = $request->except(['_token', 'send', 're_password']);
             if ($payload['birthday'] != null){
                 $payload['birthday'] = $this->converBrithdayDate($payload['birthday']);

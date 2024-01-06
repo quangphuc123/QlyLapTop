@@ -19,6 +19,8 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PaymentController;
+use App\Http\Controllers\Backend\CheckOutController;
+use App\Http\Controllers\Backend\OrderController;
 
 
 /*
@@ -34,6 +36,8 @@ use App\Http\Controllers\Backend\PaymentController;
 //FONTEND
 
 Route::get('/',[UsersController::class,'homePage'])->name('trang-chu');
+Route::post('/tim-kiem',[UsersController::class,'searchProduct'])->name('user.search');
+
 Route::get('login-register',[UsersController::class,'loginRegister'])->name('loginRegister')->middleware('guest');
 Route::post('xl-dang-ky',[UsersController::class,'xuLyDangKy'])->name('xl-dang-ky')->middleware('guest');
 Route::post('/',[UsersController::class,'xuLyDangNhap'])->name('xl-dang-nhap')->middleware('guest');
@@ -47,8 +51,12 @@ Route::post('cap-nhat',[UsersController::class,'updateAccount'])->name('xl-cap-n
 Route::post('cap-nhat-mat-khau',[UsersController::class,'changePassword'])->name('xl-cap-nhat-mat-khau');
 
 
+
 Route::get('/',[UsersController::class,'homePage'])->name('trang-chu');
 Route::get('/chi-tiet-san-pham/{id}',[ProductController::class,'productDetail'])->name('chi-tiet-san-pham');
+
+Route::get('/danh-muc-san-pham/{id}',[ProductCatalogueController::class,'show_product_catalogue'])->name('danh-muc-san-pham');
+Route::get('/danh-muc-thuong-hieu/{id}',[ProductCatalogueController::class,'show_brand_catalogue'])->name('danh-muc-thuong-hieu');
 
 Route::get('/cart',[CartController::class,'showCart'])->name('cart-view');
 Route::post('/cart',[CartController::class,'showCart'])->name('cart-view');
@@ -57,7 +65,9 @@ Route::get('/add/{id}',[CartController::class,'addToCart'])->name('cart-add');
 Route::get('/update-cart',[CartController::class,'updateCart'])->name('update-cart');
 Route::get('/delete-cart',[CartController::class,'deleteCart'])->name('delete-cart');
 Route::get('/delete-cart-all',[CartController::class,'deleteCartAll'])->name('delete-cart-all');
+
 Route::get('/thanh-toan',[CartController::class,'checkOut'])->name('check-out');
+Route::post('/thanh-toan',[CartController::class,'post_checkOut']);
 
 Route::get('/wishlist',[ProductController::class,'showWishlist'])->name('show-wishlist');
 Route::post('/add-wishlist',[ProductController::class,'addToWishlist'])->name('add-wishlist');
@@ -244,6 +254,23 @@ Route::group(['middleware' => ['admin', 'locale']],function () {
             ->name('brand.delete');
         Route::delete('destroy/{id}', [BrandController::class, 'destroy'])->where(['id' => '[0-9]+'])
             ->name('brand.destroy');
+    });
+
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('index', [OrderController::class, 'index'])
+            ->name('order.index');
+        Route::get('create', [OrderController::class, 'create'])
+            ->name('order.create');
+        Route::post('store', [OrderController::class, 'store'])
+            ->name('order.store');
+        Route::get('edit/{id}', [OrderController::class, 'edit'])->where(['id' => '[0-9]+'])
+            ->name('order.edit');
+        Route::post('update/{id}', [OrderController::class, 'update'])->where(['id' => '[0-9]+'])
+            ->name('order.update');
+        Route::get('delete/{id}', [OrderController::class, 'delete'])->where(['id' => '[0-9]+'])
+            ->name('order.delete');
+        Route::delete('destroy/{id}', [OrderController::class, 'destroy'])->where(['id' => '[0-9]+'])
+            ->name('order.destroy');
     });
 
     //AJAX

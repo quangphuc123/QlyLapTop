@@ -40,6 +40,18 @@ return [
                 ],
             ],
         ],
+        [
+            'title' => 'Quản lý đơn hàng',
+            'icon' => 'fa fa-shopping-cart',
+            'name' => ['order'],
+            'subModule' =>
+            [
+                [
+                    'title' => 'Quản lý đơn hàng',
+                    'route' => 'order/index',
+                ],
+            ],
+        ],
 
         [
             'title' => 'Qlý nhóm tài khoản',

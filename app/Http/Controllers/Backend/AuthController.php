@@ -37,7 +37,7 @@ class AuthController extends Controller
         else if(Auth::attempt($credentials)&&(Auth::user()->user_catalogue_id==1)){
             return redirect()->route('dashboard.index')->with('success', 'Đăng nhập vào trang Admin');
         }
-        return redirect()->route('auth.admin')->with('success', 'Đăng nhập không thành công!!');
+        return redirect()->route('auth.admin')->with('error', 'Đăng nhập không thành công!!');
     }
 
     public function logout(Request $request)

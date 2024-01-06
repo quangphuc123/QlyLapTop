@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class UpdateOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,12 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email|unique:users|max:255',
+
+            'email' => 'required|string|email|unique:orders,email, ' . $this->user_id . '|max:255',
             'name' => 'required|string',
-            'phone' => 'numeric|min:1|max:10',
-            'user_catalogue_id' => 'gt:0',
-            'password' => 'required|string|min:8',
-            're_password' => 'required|string|same:password',
+            'phone' => 'required',
+            'address' => 'required',
+
         ];
     }
     public function messages(): array
@@ -40,14 +40,6 @@ class StoreUserRequest extends FormRequest
             'email.string' => 'Email phải là ký tự',
             'name.required' => 'Bạn vui lòng nhập tên của bạn',
             'name.string' => 'Tên của bạn phải là ký tự',
-            'password.required' => 'Bạn vui lòng nhập mật khẩu',
-            'password.string' => 'Mật khẩu của bạn cần ký tự',
-            'password.min' => 'Mật khẩu của bạn quá ngắn',
-            'user_catalogue_id.gt' =>'Bạn chưa chọn nhóm thành viên',
-            're_password.required' => 'Bạn vui lòng nhập mật khẩu giống như trên',
-            'phone.numeric' => 'bạn chỉ được nhập số',
-            'phone.min' => 'Bạn nhập ít nhất 1 số',
-            'phone.max' => 'Bạn chỉ nhập được 10 số',
         ];
     }
 }

@@ -12,11 +12,13 @@ use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
 use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
+use App\Repositories\Interfaces\BrandRepositoryInterface as BrandRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateChangPassWordRequest;
 use App\Http\Requests\ForgotPassWord;
+use App\Http\Requests\StoreForgotRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Product;
@@ -35,6 +37,7 @@ class UsersController extends Controller
     protected $provinceRepository;
     protected $userCatalogueRepository;
     protected $productCatalogueRepository;
+    protected $brandRepository;
     protected $userRepository;
 
     public function __construct(
@@ -42,12 +45,14 @@ class UsersController extends Controller
         ProvinceRepository $provinceRepository,
         UserRepository $userRepository,
         UserCatalogueRepository $userCatalogueRepository,
+        BrandRepository $brandRepository,
         ProductCatalogueRepository $productCatalogueRepository,
     ) {
         $this->userService = $userService;
         $this->provinceRepository = $provinceRepository;
         $this->userCatalogueRepository = $userCatalogueRepository;
         $this->productCatalogueRepository = $productCatalogueRepository;
+        $this->brandRepository = $brandRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -101,7 +106,6 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-
         if ($this->userService->create($request)) {
             return redirect()->route('user.index')->with('success', 'Thêm mới thành công!!');
         }
@@ -172,6 +176,7 @@ class UsersController extends Controller
         $brands=Brand::all();
         $carts= session()->get(key : 'cart');
         $productCatalogue = $this->productCatalogueRepository->all();
+        $brand = $this->brandRepository->all();
         $lsProduct=Product::orderByDesc('id')->paginate(9);
         return view('user.home-page',compact(['lsProduct','productCatalogue','carts','brands']));
     }
@@ -225,7 +230,7 @@ class UsersController extends Controller
     public function logOut(){
         Auth::logout();
         return redirect()->route('trang-chu');
-     }
+    }
 
     //Thông tin tài khoản
     public function accountDetail(User $user){
@@ -323,6 +328,20 @@ class UsersController extends Controller
         $carts= session()->get(key : 'cart');
         return view('user.auth.contact',compact('carts','brands'));
     }
+    public function searchProduct(Request $req){
+        $keywords = $req->keyword;
+        $carts= session()->get(key : 'cart');
+        $productCatalogue = $this->productCatalogueRepository->all();
+        $brand = $this->brandRepository->all();
+        $search_product = Product::where('name','like','%'.$keywords.'%')->get();
+        return view('user.product.search',compact([
+            'search_product',
+            'productCatalogue',
+            'carts',
+            'brand'
+        ]));
+    }
+
     private function configData()
     {
         return [

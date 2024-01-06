@@ -4,6 +4,7 @@
 <head>
     @include('user.index.component.head')
 </head>
+
 <body>
     <div class="main-wrapper">
         <header class="header-area">
@@ -63,7 +64,9 @@
                                                 </div>
                                                 <div class="button-box">
                                                     <div class="login-toggle-btn">
-                                                        <a href="{{ route('xl-cap-nhat-mat-khau') }}">Quên mật khẩu?</a>
+                                                        <div class="login-register">
+                                                            <a href="#">Quên mật khẩu?</a>
+                                                        </div>
                                                     </div>
                                                     <button type="submit">Đăng nhập</button>
                                                 </div>
@@ -74,6 +77,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <!-- FORM ĐĂNG KÝ -->
                                 <div id="lg2" class="tab-pane">
@@ -131,6 +135,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

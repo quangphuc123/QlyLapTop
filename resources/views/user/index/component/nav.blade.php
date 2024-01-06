@@ -22,8 +22,9 @@
                                     </select>
                                 </div> --}}
                                 <div class="search-wrap-3">
-                                    <form action="#">
-                                        <input placeholder="Bạn muốn tìm kiếm sản phẩm gì?......." type="text">
+                                    <form action="{{ route('user.search') }}" method="POST">
+                                        @csrf
+                                        <input name="keyword" placeholder="Bạn muốn tìm kiếm sản phẩm gì?......." type="text">
                                         <button><i class="lnr lnr-magnifier"></i></button>
                                     </form>
                                 </div>

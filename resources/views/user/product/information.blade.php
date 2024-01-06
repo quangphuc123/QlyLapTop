@@ -23,7 +23,7 @@
                                     </tr>
                                     <tr>
                                         <td class="title width1">Mã sản phẩm</td>
-                                        <td>{{ $product->product_code }}</td>
+                                        <td>HS - {{ $product->product_code }}</td>
                                     </tr>
                                     <tr>
                                         <td class="title width1">Loại sản phẩm</td>

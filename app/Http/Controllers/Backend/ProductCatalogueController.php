@@ -157,7 +157,7 @@ class ProductCatalogueController extends Controller
     public function show_product_catalogue($id){
         $lsProduct= $this->productRepository->findById($id);
         $brand = $this->brandRepository->all();
-        $productcatalogue_id = $this->productRepository->findById($id)->join('product_catalogues as tb1',
+        $productcatalogue_id = Product::find($id)->join('product_catalogues as tb1',
         'products.product_catalogue_id','=','tb1.id')->where('products.product_catalogue_id',$id)->get();
         return view('user.product.show-category',compact(
             'productcatalogue_id',
@@ -169,7 +169,7 @@ class ProductCatalogueController extends Controller
     public function show_brand_catalogue($id){
         $lsProduct= $this->productRepository->findById($id);
         $productCatalogue = $this->productCatalogueRepository->all();
-        $brand_id = $this->productRepository->findById($id)->join('brands as tb1',
+        $brand_id = Product::find($id)->join('brands as tb1',
         'products.brand_id','=','tb1.id')->where('products.brand_id',$id)->get();
         return view('user.product.show-brand',compact(
             'productCatalogue',

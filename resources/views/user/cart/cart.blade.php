@@ -30,7 +30,6 @@
                         <form action="#">
                             <div class="table-content table-responsive cart-table-content delete_cart_url"
                                 data-url="{{ route('delete-cart') }}">
-
                                 <table class="update_cart_url" data-url="{{ route('update-cart') }}">
                                     <thead>
                                         <tr>
@@ -115,11 +114,11 @@
                                         <div class="title-wrap">
                                             <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                                         </div>
-                                        <h5>Total products
+                                        {{-- <h5>Total products
                                             <span>
                                                 {{ $cartItem['quantity'] }}
                                             </span>
-                                        </h5>
+                                        </h5> --}}
                                         <h4 class="grand-totall-title">Grand Total
                                             <span>{{ number_format($total, $decimal_place, '', $symbol_thousand) . $symbol }}</span>
                                         </h4>

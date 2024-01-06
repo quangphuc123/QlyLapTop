@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 
@@ -90,20 +92,28 @@ class CartController extends Controller
     public function post_checkOut(Request $req){
         $carts = session()->get(key:'cart');
         $req->validate([
-            'name',
+            'name' ,
             'email',
-            'phone',
-            'address',
+            'phone' ,
+            'address' ,
         ]);
+        $paymet = array();
+        $paymet['payment_method'] = $req->payment_method;
+        $paymet['status'] = 'Đang chờ xử lý';
+        $paymets = Payment::create($paymet);
         $data = $req->only(
             'name',
             'email',
             'phone',
             'address',
-            'order_id'
+            'order_id',
+            'payment_method',
         );
         $data['user_id'] = Auth::user()->id;
-        if($order = Order::create($data)){
+        $data['status'] = 'Đang chờ xử lý';
+        $data['payment_id'] = $paymets->id;
+        $order = Order::create($data);
+        if($order){
             foreach($carts as $id => $car){
                 $data1 = [
                     'order_id' => $order->id,
@@ -117,5 +127,12 @@ class CartController extends Controller
             session()->flush('cart');
             $carts=session()->get(key:'cart');
         }
+        if($paymet['payment_method']== 1){
+            echo 'thanh toán bằng tiền mặt';
+        }
+        else{
+            return redirect()->route('pay.vnpay');
+        }
     }
+
 }

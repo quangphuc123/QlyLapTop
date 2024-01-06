@@ -6,7 +6,6 @@
                      <input type="checkbox" value="" id="checkAll" class="input-checkox">
                  </th>
                  <th class="text-center">Tiêu đề bài viết</th>
-                 <th class="text-center" style="width: 80px;">Vị trí</th>
                  <th class="text-center">Trạng thái </th>
                  <th class="text-center">Tùy chỉnh </th>
              </tr>
@@ -45,10 +44,6 @@
                                      </div>
                                  </div>
                              </div>
-                         </td>
-                         <td>
-                             <input type="text" name="order" value="{{ $post->oder }}"
-                                 class="form-control sort-order" data-id="{{ $post->id }}" data-model="">
                          </td>
                          <td class="text-center js-switch-{{ $post->id }}">
                              <input type="checkbox" value="{{ $post->publish }}" class="js-switch status"

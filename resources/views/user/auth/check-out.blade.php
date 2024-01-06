@@ -73,7 +73,7 @@
                 </div>
                 <?php } ?>
                 @auth
-                    <form action="{{ route('check-out') }}" method="POST">
+                    <form action="{{ route('pay.vnpay') }}" method="POST">
                         @csrf
                         <div class="checkout-wrap pt-30">
                             <div class="row">
@@ -85,6 +85,11 @@
                                                 <div class="billing-info mb-20">
                                                     <label>Họ tên<abbr class="required" title="required">*</abbr></label>
                                                     <input type="text" name="name" value="{{ Auth::user()->name }}">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="billing-info mb-20">
+                                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
@@ -134,7 +139,6 @@
                                                         @foreach ($carts as $id => $cartItem)
                                                             <?php $total += $cartItem['price'] * $cartItem['quantity']; ?>
                                                             <li>
-                                                                {{ $id }}
                                                                 {{ $cartItem['name'] }} X {{ $cartItem['quantity'] }}
                                                                 <span>{{ number_format($cartItem['price'] * $cartItem['quantity'], $decimal_place, '', $symbol_thousand) . $symbol }}
                                                                 </span>
@@ -151,7 +155,16 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
+                                            <div class="payment-method">
+                                                <div class="pay-top sin-payment sin-payment-3">
+                                                    <input id="payment-method-4" class="input-radio" type="radio"
+                                                        name="payment_method" value="1">
+                                                    <label for="payment-method-4">VNPay</label>
+                                                    <div class="payment-box payment_method_bacs">
+                                                        <p>Bạn sẽ dùng thẻ để thanh toán.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="Place-order">
                                             <button type="submit" name="redirect" class="btn btn-danger">

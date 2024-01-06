@@ -17,6 +17,7 @@ use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateChangPassWordRequest;
+use App\Http\Requests\StoreForgotRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Product;
@@ -102,7 +103,6 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-
         if ($this->userService->create($request)) {
             return redirect()->route('user.index')->with('success', 'Thêm mới thành công!!');
         }
@@ -229,7 +229,7 @@ class UsersController extends Controller
     public function logOut(){
         Auth::logout();
         return redirect()->route('trang-chu');
-     }
+    }
 
     //Thông tin tài khoản
     public function accountDetail(User $user){
@@ -290,6 +290,20 @@ class UsersController extends Controller
         ]);
 
         return back()->with("success", "Mật khẩu đã được thay đổi");
+    }
+
+    public function searchProduct(Request $req){
+        $keywords = $req->keyword;
+        $carts= session()->get(key : 'cart');
+        $productCatalogue = $this->productCatalogueRepository->all();
+        $brand = $this->brandRepository->all();
+        $search_product = Product::where('name','like','%'.$keywords.'%')->get();
+        return view('user.product.search',compact([
+            'search_product',
+            'productCatalogue',
+            'carts',
+            'brand'
+        ]));
     }
 
     private function configData()

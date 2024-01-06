@@ -21,7 +21,7 @@
                 <div class="panel-head">
                     <div class="panel-title">Thông tin chung</div>
                     <div class="panel-description">
-                        <p>- Nhập thông tin liên hệ của tài khoản</p>
+                        <p>- Nhập thông tin của sản phẩm</p>
                         <p>- Lưu ý những trường đánh dấu <span class="text-danger">(*)</span> là những trường bắt buộc
                         </p>
                     </div>

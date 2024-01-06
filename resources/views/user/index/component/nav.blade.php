@@ -116,7 +116,7 @@
                     <div class="header-action header-action-flex pr-20">
                         @auth
                         <div class="same-style-2 same-style-2-white same-style-2-font-dec">
-                            <a href="{{route('show-wishlist')}}"><i class="icon-heart"></i><span class="pro-count red"></span></a>
+                            <a href="{{route('show-wishlist')}}"><i class="icon-heart"></i><span class="pro-count red">{{Auth::user()->wishlist()->count()/2}}</span></a>
                         </div>
                         @endauth
                         <div class="same-style-2 same-style-2-white same-style-2-font-dec header-cart">

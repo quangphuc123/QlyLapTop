@@ -77,8 +77,8 @@
                             </div>
                         </form>
                         @if (session('error'))
-                                                <p>{{ session('error') }}</p>
-                                            @endif
+                            <p>{{ session('error') }}</p>
+                        @endif
                     </div>
                 </div>
                 <?php } ?>

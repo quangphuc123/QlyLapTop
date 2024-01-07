@@ -51,7 +51,7 @@
                                                 </div>
                                                 <div class="button-box">
                                                     <div class="login-toggle-btn">
-                                                        <a href="{{ route('xl-cap-nhat-mat-khau') }}">Quên mật khẩu?</a>
+                                                        <a href="{{ route('forgotPassword') }}">Quên mật khẩu?</a>
                                                     </div>
                                                     <button type="submit">Đăng nhập</button>
                                                 </div>

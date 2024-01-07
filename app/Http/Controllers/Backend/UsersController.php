@@ -18,6 +18,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateChangPassWordRequest;
 use App\Http\Requests\ForgotPassWord;
+use App\Http\Requests\SendMailFogotRequest;
 use App\Http\Requests\StoreForgotRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -314,14 +315,14 @@ class UsersController extends Controller
         return redirect()->route('loginRegister')->with("success", "Mật khẩu đã được thay đổi");
     }
 
-    public function sendMailForgotPassword(Request $request)
+    public function sendMailForgotPassword(SendMailFogotRequest $request)
     {
         $checkExist = User::where('email', $request->email)->first();
         if (empty($checkExist)) {
-            return back()->with('error', 'email khong ton tai');
+            return redirect()->route('loginRegister')->with('error', 'Email này không tồn tại');
+        } elseif (Mail::to($checkExist->email)->send(new changePassword($checkExist))) {
+            return redirect()->route('loginRegister')->with('success', 'Vui lòng kiểm tra Email của bạn');
         }
-        Mail::to($checkExist->email)->send(new changePassword($checkExist));
-        return back()->with('succes', 'Vui long kiem tra email');
     }
 
     public function showContact()

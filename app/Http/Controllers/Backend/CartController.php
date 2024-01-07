@@ -134,7 +134,7 @@ class CartController extends Controller
             echo 'thanh toán bằng tiền mặt';
         }
         else{
-            return redirect()->route('pay.vnpay');
+            return redirect()->route('pay.vnpay')->with('success','Thanh toán thành công');
         }
     }
 

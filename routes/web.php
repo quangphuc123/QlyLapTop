@@ -79,6 +79,7 @@ Route::get('/lien-he',[UsersController::class,'showContact'])->name('contact');
 
 //cổng thanh toán
 Route::post('/vnpay_payment',[PaymentController::class,'vnpay_payment'])->name('pay.vnpay');
+Route::get('/vnpay-return',[PaymentController::class,'showdatavnpay'])->name('vnpay.return');
 
 
 

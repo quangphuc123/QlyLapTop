@@ -1,10 +1,10 @@
 <footer class="footer-area bg-gray pb-30">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-6 col-md-6 ">
                 <div class="contact-info-wrap">
-                    <div class="footer-logo">
-                        <a href="{{ route('trang-chu') }}"><img src="{{ asset('assets/images/logo/logo1.png') }}" style="width: 30%; height: 30%;" alt="logo"></a>
+                    <div class="footer-logo mt-100">
+                        <a href="{{ route('trang-chu') }}"><img src="{{ asset('assets/images/logo/logo1.png') }}" style="width: 30%; height: 30%;margin-top: 20px;" alt="logo"></a>
                     </div>
                     <div class="single-contact-info">
                         <span>Email:</span>
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <div class="footer-right-wrap">
+                <div class="footer-right-wrap" style="margin-top: 20px;">
                     <div class="footer-menu">
                         <nav>
                             <ul>

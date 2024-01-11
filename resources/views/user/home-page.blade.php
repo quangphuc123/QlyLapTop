@@ -6,7 +6,6 @@
 </head>
 
 <body>
-    {{-- @dd($brands) --}}
     <div class="main-wrapper">
         <header class="header-area">
             @include('user.index.component.nav')

@@ -34,9 +34,8 @@ class UserService implements UserServiceInterface
             $this->paginateSelect(),
             $condition,
             $perPage,
-            ['path' => 'user/index'],
+            ['path' => '/user/index'],
             [],
-
         );
         return $users;
     }

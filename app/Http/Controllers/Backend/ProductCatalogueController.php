@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductCatalogueRequest;
 use App\Http\Requests\UpdateProductCatalogueRequest;
 use App\Http\Requests\DeleteProductCatalogueRequest;
+use App\Models\Brand;
 use App\Models\Product;
-
+use App\Models\ProductCatalogue;
 use Illuminate\Http\Request;
 
 use App\Services\Interfaces\ProductCatalogueServiceInterface as ProductCatalogueService;
@@ -154,27 +155,26 @@ class ProductCatalogueController extends Controller
         ];
     }
 
-    public function show_product_catalogue($id){
-        $lsProduct= $this->productRepository->findById($id);
-        $brand = $this->brandRepository->all();
-        $productcatalogue_id = Product::find($id)->join('product_catalogues as tb1',
-        'products.product_catalogue_id','=','tb1.id')->where('products.product_catalogue_id',$id)->get();
-        return view('user.product.show-category',compact(
-            'productcatalogue_id',
-            'lsProduct',
-            'brand',
+    public function show_product_catalogue(ProductCatalogue $cat)
+    {
+        $carts = session()->get(key: 'cart');
+        $products = $cat->products()->paginate(6);
+        return view('user.product.show-category', compact(
+            'cat',
+            'carts',
+            'products'
         ));
     }
 
-    public function show_brand_catalogue($id){
-        $lsProduct= $this->productRepository->findById($id);
-        $productCatalogue = $this->productCatalogueRepository->all();
-        $brand_id = Product::find($id)->join('brands as tb1',
-        'products.brand_id','=','tb1.id')->where('products.brand_id',$id)->get();
-        return view('user.product.show-brand',compact(
-            'productCatalogue',
-            'lsProduct',
-            'brand_id',
+    public function show_brand_catalogue(Brand $bra)
+    {
+        $carts = session()->get(key: 'cart');
+        $products = $bra->products()->paginate(6);
+
+        return view('user.product.show-brand', compact(
+            'bra',
+            'carts',
+            'products',
         ));
     }
 }

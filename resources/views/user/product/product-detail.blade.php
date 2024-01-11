@@ -6,11 +6,11 @@
 </head>
 
 <body>
-    @include('sweetalert::alert')
     <div class="main-wrapper">
         <header class="header-area">
             @include('user.index.component.nav')
         </header>
+        @include('user.cart.mini-cart')
         <div class="breadcrumb-area bg-gray">
             <div class="container">
                 <div class="breadcrumb-content text-center">
@@ -104,12 +104,12 @@
                                     {{ number_format($product->price, $decimal_place, '', $symbol_thousand) . $symbol }}
                                 </span>
                             </div>
-                            <div class="pro-details-quality">
+                            {{-- <div class="pro-details-quality">
                                 <span>Số lượng:</span>
                                 <div class="cart-plus-minus">
                                     <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="product-details-meta">
                                 <ul>
                                     <li>
@@ -122,7 +122,7 @@
                                     <li>
                                         <span>Thương hiệu:</span>
                                         <a href="{{ route('danh-muc-thuong-hieu', $product->brand_id) }}">
-                                            {{ $product->product_catalogues->name }}
+                                            {{ $product->brands->name }}
                                         </a>
 
                                     </li>
@@ -131,7 +131,7 @@
                             <div class="pro-details-action-wrap">
                                 <div class="pro-details-add-to-cart">
                                     <a a href="#" class="add_to_cart"
-                                            data-url="{{ route('cart-add', ['id' => $product['id']]) }}">Add To Cart </a>
+                                            data-url="{{ route('cart-add', ['id' => $product['id']]) }}">Thêm vào giỏ hàng </a>
                                 </div>
                                 {{-- <div class="pro-details-action">
                                     <a title="Add to Wishlist" href="#"><i class="icon-heart"></i></a>

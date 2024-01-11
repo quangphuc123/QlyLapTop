@@ -39,7 +39,7 @@ class ProductCatalogueService implements ProductCatalogueServiceInterface
             $this->paginateSelect(),
             $condition,
             $perPage,
-            ['path' => 'product/catalogue/index'],
+            ['path' => '/product/catalogue/index'],
             ['id','DESC'],
             [],
             ['products'],

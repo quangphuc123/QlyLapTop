@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -17,12 +19,18 @@ use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 
 class ProductController extends Controller
 {
-    public function productDetail($id){
-        $brands=Brand::all();
-        $carts= session()->get(key : 'cart');
+    public function productDetail($id)
+    {
+        $carts = session()->get(key: 'cart');
         $product = $this->productRepository->findById($id);
         $album = json_decode($product->album);
-        return view('user.product.product-detail',compact('album', 'product','carts','brands'));
+        $comments = Comment::orderByDesc('id')->paginate(4);
+        return view('user.product.product-detail', compact(
+            'album',
+            'product',
+            'carts',
+            'comments'
+        ));
     }
 
     protected $productService;
@@ -45,7 +53,7 @@ class ProductController extends Controller
     {
         // $this->authorize('modules', 'post.index');
         $products = $this->productService->paginate($request);
-        $productCatalogue = $this->productRepository->all();
+        $productCatalogues = $this->productCatalogueRepository->all();
         $brands = $this->brandRepository->all();
         $config = [
             'js' => [
@@ -66,8 +74,8 @@ class ProductController extends Controller
                 'template',
                 'config',
                 'products',
-                'productCatalogue',
-                'brand'
+                'productCatalogues',
+                'brands'
 
             )
         );
@@ -170,36 +178,40 @@ class ProductController extends Controller
         ];
     }
 
-    public function addToWishlist(Request $request){
-        $user=auth()->user();
-        if(is_null($user)){
-            return redirect()->route('loginRegister')->with('error','vui long dang nhap');
+    public function addToWishlist($id,Request $request)
+    {
+        $user = auth()->user();
+        if (is_null($user)) {
+            return redirect()->route('loginRegister')->with('error', 'vui long dang nhap');
         }
         $data = [
-            'user_id'=>$request->user_id,
-            'product_id'=>$request->product_id,
+            'user_id' => $request->user_id,
+            'product_id' => $request->product_id,
         ];
+        dd($data);
         $user->wishlist()->attach($data);
-        return back()->with('succes','Đã thích sản phẩm');
+        return back()->with('succes', 'Đã thích sản phẩm');
     }
 
-    public function deleteToWishlist(Request $request){
-        $user=auth()->user();
-        if(is_null($user)){
-            return redirect()->route('loginRegister')->with('error','vui long dang nhap');
+    public function deleteToWishlist($id,Request $request)
+    {
+        $user = auth()->user();
+        if (is_null($user)) {
+            return redirect()->route('loginRegister')->with('error', 'vui long dang nhap');
         }
         $data = [
-            'user_id'=>$request->user_id,
-            'product_id'=>$request->product_id,
+            'user_id' => $request->user_id,
+            'product_id' => $request->product_id,
         ];
         $user->wishlist()->detach($data);
-        return back()->with('succes','Đã bỏ thích sản phẩm');
+        return back()->with('succes', 'Đã bỏ thích sản phẩm');
     }
 
-    public function showWishlist(){
-        $brands=Brand::all();
-        $carts= session()->get(key : 'cart');
-        $user=User::with('wishlist')->find(auth()->id());
-        return view('user.auth.wishlist',compact('user','carts','brands'));
+    public function showWishlist()
+    {
+        $brands = Brand::all();
+        $carts = session()->get(key: 'cart');
+        $user = User::with('wishlist')->find(auth()->id());
+        return view('user.auth.wishlist', compact('user', 'carts', 'brands'));
     }
 }

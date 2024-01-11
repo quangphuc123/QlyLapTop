@@ -10,11 +10,11 @@
                                 <div class="product-img product-img-zoom mb-15">
                                     <a href="{{ route('chi-tiet-san-pham', ['id' => $data->id]) }}">
                                         <img src="{{ asset($data->image) }}" alt=""
-                                            style="width: 270px; height: 320px;">
+                                            style="width: 330px; height: 320px;">
                                     </a>
                                     @auth
                                         @if (Auth::user()->checkWishlist())
-                                            <form action="{{ route('delete-wishlist') }}" method="POST">
+                                            <form action="{{ route('delete-wishlist',['id'=>$data->id]) }}" method="POST">
                                                 @csrf
                                                 <div class="product-action-2 tooltip-style-2">
                                                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
@@ -28,7 +28,7 @@
                                                 </div>
                                             </form>
                                         @else
-                                            <form action="{{ route('add-wishlist') }}" method="POST">
+                                            <form action="{{ route('add-wishlist',['id'=>$data->id]) }}" method="POST">
                                                 @csrf
                                                 <div class="product-action-2 tooltip-style-2">
                                                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
@@ -98,7 +98,7 @@
         </div>
         <style>
             .pagination {
-                margin-left: 190px;
+                justify-content: center;
                 color: red;
             }
         </style>

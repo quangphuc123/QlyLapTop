@@ -39,33 +39,36 @@ class PostService extends BaseService implements PostServiceInterface
         $condition['publish'] = $request->integer('publish');
         $condition['where'] = [
             ['tb2.language_id', '=', $this->language],
+            ['posts.publish', '=', 2],
         ];
         $perPage = $request->integer('perpage');
         $posts = $this->postRepository->pagination(
             $this->paginateSelect(),
             $condition,
             $perPage,
-            ['path' => 'post.index', 'groupBy' => $this->paginateSelect()],
+            ['path' => '/post/index', 'groupBy' => $this->paginateSelect()],
             ['posts.id', 'DESC'],
             [
-                ['post_language as tb2','tb2.post_id', '=','posts.id' ],
-                ['post_catalogue_post as tb3','posts.id', '=','tb3.post_id' ],
+                ['post_language as tb2', 'tb2.post_id', '=', 'posts.id'],
+                ['post_catalogue_post as tb3', 'posts.id', '=', 'tb3.post_id'],
             ],
             ['post_catalogues'],
             $this->whereRaw($request),
         );
         return $posts;
     }
-    public function create($request){
+    public function create($request)
+    {
         DB::beginTransaction();
         try {
             $post = $this->createPost($request);
-            dd($post);
-            if($post->id > 0){
+            if ($post->id > 0) {
                 $this->updateLanguageForPost($post, $request);
                 $this->updateCatalogueForPost($post, $request);
                 $this->createRouter(
-                    $post, $request,$this->controllerName
+                    $post,
+                    $request,
+                    $this->controllerName
                 );
             }
             DB::commit();
@@ -83,11 +86,13 @@ class PostService extends BaseService implements PostServiceInterface
         DB::beginTransaction();
         try {
             $post = $this->postRepository->findById($id);
-            if($this->uploadPost($post, $request)){
+            if ($this->uploadPost($post, $request)) {
                 $this->updateLanguageForPost($post, $request);
                 $this->updateCatalogueForPost($post, $request);
                 $this->updateRouter(
-                    $post, $request,$this->controllerName
+                    $post,
+                    $request,
+                    $this->controllerName
                 );
             }
             DB::commit();
@@ -100,39 +105,44 @@ class PostService extends BaseService implements PostServiceInterface
             return false;
         }
     }
-    private function createPost($request) {
+    private function createPost($request)
+    {
         $payload = $request->only($this->payload());
         $payload['album'] = $this->formatAlbum($request);
         $payload['user_id'] = Auth::id();
         $post = $this->postRepository->create($payload);
-            return $post;
+        return $post;
     }
-    private function uploadPost($post, $request){
+    private function uploadPost($post, $request)
+    {
         $payload = $request->only($this->payload());
         $payload['album'] = $this->formatAlbum($request);
         return $this->postRepository->update($post->id, $payload);
     }
-    private function updateLanguageForPost($post, $request){
+    private function updateLanguageForPost($post, $request)
+    {
         $payload = $request->only($this->payloadLanguage());
         $payload = $this->formatLanguagePayload($payload, $post->id);
         $post->languages()->detach($this->language);
-        return $this->postRepository->createPivot($post, $payload,'languages');
+        return $this->postRepository->createPivot($post, $payload, 'languages');
     }
-    private function updateCatalogueForPost($post, $request){
+    private function updateCatalogueForPost($post, $request)
+    {
         $post->post_catalogues()->sync($this->catalogue($request));
     }
-    private function formatLanguagePayload($payload, $postId){
-        $payload['canonical'] = Str::slug( $payload['canonical']);
+    private function formatLanguagePayload($payload, $postId)
+    {
+        $payload['canonical'] = Str::slug($payload['canonical']);
         $payload['language_id'] = $this->language;
         $payload['post_id'] = $postId;
         return $payload;
     }
-    private function catalogue($request){
-        if($request->input('catalogue') != null){
-            return array_unique(array_merge($request->input('catalogue'),[$request->post_catalogue_id]));
+    private function catalogue($request)
+    {
+        if ($request->input('catalogue') != null) {
+            return array_unique(array_merge($request->input('catalogue'), [$request->post_catalogue_id]));
         }
         return [$request->post_catalogue_id];
-
     }
     public function destroy($id)
     {
@@ -187,9 +197,10 @@ class PostService extends BaseService implements PostServiceInterface
             return false;
         }
     }
-    private function whereRaw($request){
+    private function whereRaw($request)
+    {
         $rawCondition = [];
-        if($request->integer('post_catalogue_id') > 0 ){
+        if ($request->integer('post_catalogue_id') > 0) {
             $rawCondition['whereRaw'] = [
                 [
                     'tb3.post_catalogue_id IN (
@@ -198,7 +209,7 @@ class PostService extends BaseService implements PostServiceInterface
                     WHERE lft >= (SELECT lft FROM post_catalogues as pc WHERE pc.id = ?)
                     AND rgt <= (SELECT rgt FROM post_catalogues as pc WHERE pc.id = ?)
                 )',
-                [$request->integer('post_catalogue_id'), $request->integer('post_catalogue_id')]
+                    [$request->integer('post_catalogue_id'), $request->integer('post_catalogue_id')]
                 ]
             ];
         }
@@ -211,11 +222,13 @@ class PostService extends BaseService implements PostServiceInterface
             'posts.publish',
             'posts.image',
             'posts.oder',
+            'posts.created_at',
             'tb2.name',
             'tb2.canonical',
         ];
     }
-    private function payload(){
+    private function payload()
+    {
         return [
             'follow',
             'publish',
@@ -224,7 +237,8 @@ class PostService extends BaseService implements PostServiceInterface
             'post_catalogue_id',
         ];
     }
-    private function payloadLanguage(){
+    private function payloadLanguage()
+    {
         return [
             'name',
             'description',
@@ -233,7 +247,7 @@ class PostService extends BaseService implements PostServiceInterface
             'meta_keyword',
             'meta_description',
             'canonical',
+            'created_at'
         ];
-
     }
 }

@@ -15,6 +15,7 @@
              </tr>
          </thead>
          <tbody>
+
              @if (@isset($products) && is_object($products))
                  @foreach ($products as $product)
                      <tr>

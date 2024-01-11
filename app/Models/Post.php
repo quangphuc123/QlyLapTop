@@ -20,6 +20,7 @@ class Post extends Model
         'oder',
         'follow',
         'post_catalogue_id',
+        'created_at'
     ];
 
     protected $table = 'posts';

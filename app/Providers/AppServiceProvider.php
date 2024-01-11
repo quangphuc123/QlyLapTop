@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Brand;
+use App\Models\ProductCatalogue;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
 
         'App\Services\Interfaces\OrderServiceInterface' => 'App\Services\OrderService',
         'App\Repositories\Interfaces\OrderRepositoryInterface' => 'App\Repositories\OrderRepository',
+
+        'App\Services\Interfaces\OrderDetailServiceInterface' => 'App\Services\OrderDetailService',
+        'App\Repositories\Interfaces\OrderDetailRepositoryInterface' => 'App\Repositories\OrderDetailRepository',
 
         'App\Services\Interfaces\PermissionServiceInterface' => 'App\Services\PermissionService',
         'App\Repositories\Interfaces\PermissionRepositoryInterface' => 'App\Repositories\PermissionRepository',
@@ -59,6 +64,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        view()->composer('*', function ($view) {
+            $productCatalogue = ProductCatalogue::all();
+            $brands = Brand::all();
+            $view->with(compact('productCatalogue','brands'));
+        });
     }
 }

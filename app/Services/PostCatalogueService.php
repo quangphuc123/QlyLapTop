@@ -55,7 +55,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             $this->paginateSelect(),
             $condition,
             $perPage,
-            ['path' => 'post/catalogue/index'],
+            ['path' => '/post/catalogue/index'],
             ['post_catalogues.lft', 'Asc'],
             [
                 ['post_catalogue_language as tb2','tb2.post_catalogue_id', '=','post_catalogues.id' ]

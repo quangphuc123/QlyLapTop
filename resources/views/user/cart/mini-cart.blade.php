@@ -2,7 +2,7 @@
 <div class="sidebar-cart-active">
     <div class="sidebar-cart-all">
         <a class="cart-close" href="#"><i class="icon_close"></i></a>
-        <div class="cart-content">
+        <div class="cart-content delete_cart_url"  data-url="{{ route('delete-cart') }}">
                 <h3>Giỏ hàng của bạn</h3>
         @if (!is_null($carts))
                 <?php
@@ -25,11 +25,11 @@
                                     </a>
                                 </h4>
                                 <span>
-                                    {{ number_format($cartItem['price'], $decimal_place, '', $symbol_thousand) . $symbol }} 
+                                    {{ number_format($cartItem['price'], $decimal_place, '', $symbol_thousand) . $symbol }}
                                 </span>
                             </div>
                             <div class="cart-delete">
-                                <a href="#">×</a>
+                                <a href="" class="cart_delete" data-id="{{ $id }}">×</a>
                             </div>
                         </li>
                     @endforeach
@@ -47,3 +47,4 @@
         </div>
     </div>
 </div>
+@include('assets.js')

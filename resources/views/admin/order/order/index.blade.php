@@ -13,8 +13,8 @@
                             </div>
 
                             <div class="ibox-content">
-                                @include('admin.order.component.filter')
-                                @include('admin.order.component.table')
+                                @include('admin.order.order.component.filter')
+                                @include('admin.order.order.component.table')
                             </div>
                         </div>
                     </div>

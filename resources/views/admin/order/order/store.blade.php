@@ -10,7 +10,7 @@
 @endif
 
 @php
-    $url = $config['method'] == 'create' ? route('post.store') : route('post.update', $post->id);
+    $url = $config['method'] == 'create' ? route('order.store') : route('order.update', $post->id);
 @endphp
 
 <form action="{{ $url }}" method="post" class="box">
@@ -23,15 +23,15 @@
                         <h5>Thông tin chung</h5>
                     </div>
                     <div class="ibox-content">
-                        @include('admin.post.post.component.general')
+                        @include('admin.order.order.component.general')
                     </div>
                 </div>
                 @include('admin.dashboard.component.album')
-                @include('admin.post.post.component.seo')
+                @include('admin.order.order.component.seo')
             </div>
             {{-- ------------------------------------------------------------------------------------------ --}}
             <div class="col-lg-3">
-                @include('admin.post.post.component.aside')
+                @include('admin.order.order.component.aside')
             </div>
         </div>
 

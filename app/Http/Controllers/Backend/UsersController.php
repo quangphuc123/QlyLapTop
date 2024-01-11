@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\changePassword;
-
+use App\Models\Order;
 
 class UsersController extends Controller
 {
@@ -59,7 +59,7 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
-        // $this->authorize('modules', 'post.index');
+        $this->authorize('modules', 'post.index');
         $users = $this->userService->paginate($request);
         $username = $this->userRepository->all();
         $config = [
@@ -87,7 +87,7 @@ class UsersController extends Controller
     }
     public function create()
     {
-        // $this->authorize('modules', 'post.create');
+        $this->authorize('modules', 'post.create');
         $provinces = $this->provinceRepository->all();
         $config = $config = $this->configData();
         $userCatalogues = $this->userCatalogueRepository->all();
@@ -115,7 +115,7 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        // $this->authorize('modules', 'post.update');
+        $this->authorize('modules', 'post.update');
         $user = $this->userRepository->findById($id);
         $userCatalogues = $this->userCatalogueRepository->all();
         $provinces = $this->provinceRepository->all();
@@ -147,9 +147,8 @@ class UsersController extends Controller
 
     public function delete($id)
     {
-        // $this->authorize('modules', 'post.destroy');
+        $this->authorize('modules', 'post.destroy');
         $config['seo'] = config('apps.user');
-
         $user = $this->userRepository->findById($id);
         $template = 'admin.user.user.delete';
         return view(
@@ -175,12 +174,9 @@ class UsersController extends Controller
     public function homePage()
     {
         //session()->flush('cart');
-        $brands = Brand::all();
         $carts = session()->get(key: 'cart');
-        $productCatalogue = $this->productCatalogueRepository->all();
-        $brand = $this->brandRepository->all();
-        $lsProduct = Product::orderByDesc('id')->paginate(9);
-        return view('user.home-page', compact('lsProduct', 'productCatalogue', 'carts', 'brands'));
+        $lsProduct = Product::orderByDesc('id')->paginate(6);
+        return view('user.home-page', compact('lsProduct', 'carts'));
     }
     public function loginRegister()
     {
@@ -220,11 +216,11 @@ class UsersController extends Controller
             'password' => $request->password,
         ];
         if (Auth::attempt($credentials) && (Auth::user()->user_catalogue_id == 3)) {
-            return redirect()->route('trang-chu')->with('success', 'Đăng nhập vào trang người dùng');
+            return redirect()->route('trang-chu')->with('success', 'Đăng nhập thành công');
         } else if (Auth::attempt($credentials) && (Auth::user()->user_catalogue_id == 1)) {
             return redirect()->route('dashboard.index')->with('success', 'Đăng nhập vào trang Admin');
         }
-        return redirect()->route('loginRegister')->with('success', 'Đăng nhập không thành công!!');
+        return redirect()->route('loginRegister')->with('error', 'Đăng nhập không thành công!!');
     }
 
     //Đăng xuất
@@ -237,10 +233,11 @@ class UsersController extends Controller
     //Thông tin tài khoản
     public function accountDetail(User $user)
     {
+        $order = Order::all();
         $brands = Brand::all();
         $carts = session()->get(key: 'cart');
         $profile = $user::find(Auth::user()->id);
-        return view('user.auth.account-detail', compact('profile', 'carts', 'brands'));
+        return view('user.auth.account-detail', compact('profile', 'carts', 'brands','order'));
     }
 
     //Cập nhật thông tin tài khoản

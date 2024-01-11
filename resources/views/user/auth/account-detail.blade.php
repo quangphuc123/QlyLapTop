@@ -1,8 +1,10 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
+
 <head>
     @include('user.index.component.head')
 </head>
+
 <body>
     @include('sweetalert::alert')
     <div class="main-wrapper">
@@ -66,42 +68,29 @@
                                         <div class="tab-pane fade" id="orders" role="tabpanel">
                                             <div class="myaccount-content">
                                                 <h3>Orders</h3>
+
                                                 <div class="myaccount-table table-responsive text-center">
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>Order</th>
-                                                                <th>Date</th>
-                                                                <th>Status</th>
-                                                                <th>Total</th>
-                                                                <th>Action</th>
+                                                                <th>Hóa đơn</th>
+                                                                <th>Ngày đặt hàng</th>
+                                                                <th>Trạng thái đơn hàng</th>
+                                                                <th>Tổng đơn hàng</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Aug 22, 2018</td>
-                                                                <td>Pending</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="cart.html"
-                                                                        class="check-btn sqr-btn ">View</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>July 22, 2018</td>
-                                                                <td>Approved</td>
-                                                                <td>$200</td>
-                                                                <td><a href="cart.html"
-                                                                        class="check-btn sqr-btn ">View</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>June 12, 2017</td>
-                                                                <td>On Hold</td>
-                                                                <td>$990</td>
-                                                                <td><a href="cart.html"
-                                                                        class="check-btn sqr-btn ">View</a></td>
-                                                            </tr>
+                                                            @foreach ($order as $key => $val)
+                                                                @if ($val->user_id == Auth::user()->id)
+                                                                    <tr>
+                                                                        <td>{{ $val->id }}</td>
+                                                                        <td>{{ $val->created_at->format('d/m/Y') }}</td>
+                                                                        <td>{{ $val->status }}</td>
+                                                                        <td>{{ number_format($val->total) }} đ</td>
+                                                                    </tr>
+                                                                @endif
+                                                            @endforeach
+
                                                         </tbody>
                                                     </table>
                                                 </div>

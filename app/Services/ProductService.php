@@ -35,7 +35,7 @@ class ProductService implements ProductServiceInterface
             $this->paginateSelect(),
             $condition,
             $perPage,
-            ['path' => 'product/index'],
+            ['path' => '/product/index'],
             [],
         );
         return $products;

@@ -26,7 +26,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         array $condition = [],
         int $perpage = 1,
         array $extend = [],
-        array $oderBy = ['id','DESC'],
+        array $oderBy = ['id', 'DESC'],
         array $join = [],
         array $relations = [],
         array $rawWhere = [],
@@ -34,19 +34,10 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
         $query = $this->model->select($column)
             ->where(function ($query) use ($condition) {
                 if (isset($condition['keyword']) && !empty($condition['keyword'])) {
-                    $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('email', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('address', 'LIKE', '%' . $condition['keyword'] . '%')
-                        ->orWhere('phone', 'LIKE', '%' . $condition['keyword'] . '%');
-                }
-                // dd($condition);
-                if (isset($condition['publish']) && $condition['publish'] != 0) {
-                    // dd($condition);
-                    $query->where('publish', '=', $condition['publish']);
+                    $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%');
                 }
                 return $query;
-            })->with('Payment');
-
+            });
         if (!empty($join)) {
             $query->join(...$join);
         }

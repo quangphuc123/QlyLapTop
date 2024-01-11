@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
-use App\Http\Requests\DeleteOrderRequest;
 use Illuminate\Http\Request;
-use App\Classes\Nestedsetbie;
 
 use App\Services\Interfaces\OrderServiceInterface as OrderService;
 use App\Repositories\Interfaces\OrderRepositoryInterface as OrderRepository;
@@ -22,12 +19,11 @@ class OrderController extends Controller
         OrderRepository $orderRepository,
     ) {
         $this->orderService = $orderService;
-        $this->OrderRepository = $orderRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     public function index(Request $request)
     {
-        // $this->authorize('modules', 'order.index');
         $orders = $this->orderService->paginate($request);
         $config = [
             'js' => [
@@ -41,7 +37,7 @@ class OrderController extends Controller
             'model' => 'Order',
         ];
         $config['seo'] = config('apps.order');
-        $template = 'admin.order.index';
+        $template = 'admin.order.order.index';
         return view(
             'admin.dashboard.admin-layout',
             compact(
@@ -51,38 +47,41 @@ class OrderController extends Controller
             )
         );
     }
-    public function create()
+
+    public function edit($id)
     {
-        // $this->authorize('modules', 'order.create');
+        // $this->authorize('modules', 'brand.update');
+        $order = $this->orderRepository->findById($id);
         $config = $this->configData();
         $config['seo'] = config('apps.order');
-        $config['method'] = 'create';
-        $template = 'admin.order.store';
+        $config['method'] = 'edit';
+        $template = 'admin.order.order.store';
         return view(
             'admin.dashboard.admin-layout',
             compact(
                 'template',
                 'config',
+                'order',
             )
         );
     }
-
-    public function store(StoreOrderRequest $request)
+    public function update($id, UpdateOrderRequest $request)
     {
-        if ($this->orderService->create($request)) {
-            return redirect()->route('order.index')->with('success', 'Thêm mới thành công!!');
+        if ($this->orderService->update($id, $request)) {
+            return redirect()->route('brand.index')
+                ->with('success', 'Cập nhật thành công!!');
         }
-        return redirect()->route('dashboard.index')->with('error', 'Thêm mới không thành công!! Vui lòng thử lại');
+        return redirect()->route('dashboard.index')
+            ->with('error', 'Cập nhật không thành công');
     }
-
 
     public function delete($id)
     {
-        // $this->authorize('modules', 'order.destroy');
+        // $this->authorize('modules', 'order.order.destroy');
 
         $config['seo'] = config('apps.order');
         $order = $this->orderRepository->findById($id);
-        $template = 'admin.order.delete';
+        $template = 'admin.order.order.delete';
         return view(
             'admin.dashboard.admin-layout',
             compact(
@@ -96,7 +95,7 @@ class OrderController extends Controller
     public function destroy($id)
     {
         if ($this->orderService->destroy($id)) {
-            return redirect()->route('order.index')
+            return redirect()->route('order.order.index')
                 ->with('success', 'Xóa nhóm bài viết thành công');
         }
         return redirect()->route('dashboard.index')

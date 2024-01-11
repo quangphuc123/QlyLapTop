@@ -20,7 +20,7 @@
                 <div class="breadcrumb-content text-center">
                     <ul>
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="{{ route('trang-chu') }}">Home</a>
                         </li>
                         <li class="active">Thanh Toán </li>
                     </ul>
@@ -83,7 +83,7 @@
                 </div>
                 <?php } ?>
                 @auth
-                    <form action="{{ route('pay.vnpay') }}" name="redirect" method="POST">
+                    <form action="{{ route('pay.method') }}" method="POST">
                         @csrf
                         <div class="checkout-wrap pt-30">
                             <div class="row">
@@ -161,31 +161,47 @@
                                                         <li>Tổng hóa đơn
                                                             <span>{{ number_format($total, $decimal_place, '', $symbol_thousand) . $symbol }}
                                                             </span>
+                                                            <input type="hidden" name="total_cart"
+                                                                value="{{ $total, $decimal_place }}">
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="payment-method">
                                                 <div class="pay-top sin-payment sin-payment-3">
+                                                    <input type="hidden" name="redirect" value="vnpay">
                                                     <input id="payment-method-4" class="input-radio" type="radio"
                                                         name="payment_method" value="1">
                                                     <label for="payment-method-4">VNPay</label>
                                                     <div class="payment-box payment_method_bacs">
-                                                        <p>Bạn sẽ dùng thẻ để thanh toán.</p>
+                                                        <p>Bạn sẽ dùng VNPay để thanh toán.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="payment-method">
+                                                <div class="pay-top sin-payment sin-payment-3">
+                                                    <input type="hidden" name="payUrl" value="momo">
+                                                    <input id="payment-method-4" class="input-radio" type="radio"
+                                                        name="payment_method" value="2">
+                                                    <label for="payment-method-4">MOMO</label>
+                                                    <div class="payment-box payment_method_bacs">
+                                                        <p>Bạn sẽ dùng momo để thanh toán.</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="Place-order">
-                                            <button type="submit" name="redirect" class="btn btn-danger">
+                                            <button type="submit" class="btn btn-danger">
                                                 Thanh Toán Ngay
                                             </button>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
+
                 @endauth
             </div>
         </div>

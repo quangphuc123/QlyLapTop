@@ -30,6 +30,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
                 'posts.publish',
                 'posts.album',
                 'posts.follow',
+                'posts.created_at',
                 'tb2.name',
                 'tb2.description',
                 'tb2.content',
@@ -40,7 +41,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
                 ])
             ->join('post_language as tb2','tb2.post_id','=','posts.id')
             ->with('post_catalogues')
-            ->where('tb2.language_id', '=', $language_id)
+            ->where('tb2.language_id', '=', $language_id)->where('posts.publish', '=',2)
             ->findOrFail($id);
     }
 }

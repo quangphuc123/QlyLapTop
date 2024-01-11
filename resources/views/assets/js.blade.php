@@ -1,6 +1,4 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 <script src="{{ asset('assets/js/vendor/modernizr-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-migrate-3.3.0.min.js') }}"></script>
@@ -32,48 +30,28 @@
         let id = $(this).data('id');
         let quantity = $(this).parents('tr').find('input.quantity').val();
         $.ajax({
-                type: "GET",
-                url: urlUpdateCart,
-                data: {
-                    id: id,
-                    quantity: quantity
-                },
-                success: function(data) {
-                    if (data.code === 200) {
-                        $('.main-wrapper ').html(data.cart);
-                    }
-                }) location.reload();
-        }
-
-        function cartDelete(event) {
-            event.preventDefault();
-            let urlDelete = $('.delete_cart_url').data('url');
-            $.ajax({
-                type: "GET",
-                url: urlDelete,
-                data: {
-                    id: id
-                },
-                success: function(data) {
-                    if (data.code === 200) {
-                        $('.main-wrapper ').html(data.cart);
-                        alert('Sản phẩm đã được xóa khỏi giỏ hàng');
-                    }
-                },
-                error: function() {
-
+            type: "GET",
+            url: urlUpdateCart,
+            data: {
+                id: id,
+                quantity: quantity
+            },
+            success: function(data) {
+                if (data.code === 200) {
+                    $('.cart_component ').html(data.cart_component);
+                    window.location.reload();
                 }
-            })
-        }
-        $(function() {
-            $(document).on('click', '.cart_update', cartUpdate);
-            $(document).on('click', '.cart_delete', cartDelete);
+            },
+            error: function() {
+
+            }
         })
     }
 
     function cartDelete(event) {
         event.preventDefault();
-        let urlDelete = $('.delete_cart_url').data('url');
+        let urlDelete = $('.delete_cart_url').data('url')
+        let id=$(this).data('id')
         $.ajax({
             type: "GET",
             url: urlDelete,
@@ -82,8 +60,8 @@
             },
             success: function(data) {
                 if (data.code === 200) {
-                    $('.main-wrapper ').html(data.cart);
-                    alert('Sản phẩm đã được xóa khỏi giỏ hàng');
+                    $('.cart_component ').html(data.cart_component);
+                    window.location.reload();
                 }
             },
             error: function() {

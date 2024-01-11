@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use App\Models\UserCatalogue;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\BaseRepository;
 
@@ -21,12 +20,12 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $this->model = $model;
     }
 
-    /*public function pagination(
+    public function pagination(
         array $column = ['*'],
         array $condition = [],
         int $perpage = 1,
         array $extend = [],
-        array $oderBy = ['id','DESC'],
+        array $oderBy = ['id', 'DESC'],
         array $join = [],
         array $relations = [],
         array $rawWhere = [],
@@ -51,5 +50,5 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $query->join(...$join);
         }
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
-    }*/
+    }
 }

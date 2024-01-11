@@ -113,23 +113,27 @@
                                 <nav>
                                     <ul>
                                         <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
-                                        <li><a href="">Thương hiệu</a>
+                                        <li><a href="#">Thương hiệu</a>
                                             <ul class="sub-menu-style">
                                                 @if (!empty($brands))
                                                     @foreach ($brands as $key => $val)
+                                                        <li><a href="{{ route('danh-muc-thuong-hieu', $val->id) }}">{{ $val->name }}
+                                                            </a></li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Loại sản phẩm</a>
+                                            <ul class="sub-menu-style">
+                                                @if (!empty($productCatalogue))
+                                                    @foreach ($productCatalogue as $key => $val)
                                                         <li><a href="{{ route('danh-muc-san-pham', $val->id) }}">{{ $val->name }}
                                                             </a></li>
                                                     @endforeach
                                                 @endif
                                             </ul>
                                         </li>
-                                        <li><a href="blog.html">Bài viết</a>
-                                            {{-- <ul class="sub-menu-style">
-                                                <li><a href="blog.html">blog standard </a></li>
-                                                <li><a href="blog-no-sidebar.html">blog no sidebar </a></li>
-                                                <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                <li><a href="blog-details.html">blog details</a></li>
-                                            </ul> --}}
+                                        <li><a href="{{ route('blog') }}">Bài viết</a>
                                         </li>
                                         <li><a href="~/shop/norda/contact.html">Liên hệ </a></li>
                                     </ul>

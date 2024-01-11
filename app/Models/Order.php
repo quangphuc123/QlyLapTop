@@ -18,6 +18,8 @@ class Order extends Model
         'user_id',
         'payment_id',
         'status',
+        'created_at',
+        'total'
     ];
 
     public function user(){

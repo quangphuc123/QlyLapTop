@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashBoardController;
+use App\Http\Controllers\Backend\BlogController;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Backend\LanguageController;
@@ -19,8 +20,10 @@ use App\Http\Controllers\Backend\ProductCatalogueController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PaymentController;
-use App\Http\Controllers\Backend\CheckOutController;
+use App\Http\Controllers\Backend\CommentController;
+use App\Http\Controllers\Backend\CommentPostController;
 use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\OrderDetailController;
 
 
 /*
@@ -35,59 +38,58 @@ use App\Http\Controllers\Backend\OrderController;
 */
 //FONTEND
 
-Route::get('/',[UsersController::class,'homePage'])->name('trang-chu');
-Route::post('/tim-kiem',[UsersController::class,'searchProduct'])->name('user.search');
+Route::get('/', [UsersController::class, 'homePage'])->name('trang-chu');
+Route::post('/tim-kiem', [UsersController::class, 'searchProduct'])->name('user.search');
 
-Route::get('login-register',[UsersController::class,'loginRegister'])->name('loginRegister')->middleware('guest');
-Route::post('xl-dang-ky',[UsersController::class,'xuLyDangKy'])->name('xl-dang-ky')->middleware('guest');
-Route::post('/',[UsersController::class,'xuLyDangNhap'])->name('xl-dang-nhap')->middleware('guest');
-Route::get('dang-xuat',[UsersController::class,'logOut'])->name('logOut')->middleware('auth');
+Route::get('login-register', [UsersController::class, 'loginRegister'])->name('loginRegister')->middleware('guest');
+Route::post('xl-dang-ky', [UsersController::class, 'xuLyDangKy'])->name('xl-dang-ky')->middleware('guest');
+Route::post('/', [UsersController::class, 'xuLyDangNhap'])->name('xl-dang-nhap')->middleware('guest');
+Route::get('dang-xuat', [UsersController::class, 'logOut'])->name('logOut')->middleware('auth');
 
-Route::get('quen-mat-khau',[UsersController::class,'forgotPassword'])->name('forgotPassword');
-Route::post('gui-mail',[UsersController::class,'sendMailForgotPassword'])->name('sendMail');
+Route::get('quen-mat-khau', [UsersController::class, 'forgotPassword'])->name('forgotPassword');
+Route::post('gui-mail', [UsersController::class, 'sendMailForgotPassword'])->name('sendMail');
 
-Route::get('change-password-mail/{id}/{mail}',[UsersController::class,'changePasswordMail'])->name('changePasswordMail');
-Route::post('forgot-password',[UsersController::class,'updateForgotPassword'])->name('xl-forgot-password');
-Route::get('thong-tin-tai-khoan',[UsersController::class,'accountDetail'])->name('accountDetail');
-Route::post('cap-nhat',[UsersController::class,'updateAccount'])->name('xl-cap-nhat');
-Route::post('cap-nhat-mat-khau',[UsersController::class,'changePassword'])->name('xl-cap-nhat-mat-khau');
+Route::get('change-password-mail/{id}/{mail}', [UsersController::class, 'changePasswordMail'])->name('changePasswordMail');
+Route::post('forgot-password', [UsersController::class, 'updateForgotPassword'])->name('xl-forgot-password');
+Route::get('thong-tin-tai-khoan', [UsersController::class, 'accountDetail'])->name('accountDetail');
+Route::post('cap-nhat', [UsersController::class, 'updateAccount'])->name('xl-cap-nhat');
+Route::post('cap-nhat-mat-khau', [UsersController::class, 'changePassword'])->name('xl-cap-nhat-mat-khau');
 
+Route::get('/', [UsersController::class, 'homePage'])->name('trang-chu');
+Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'productDetail'])->name('chi-tiet-san-pham');
 
+Route::get('/danh-muc-san-pham/{cat}', [ProductCatalogueController::class, 'show_product_catalogue'])->name('danh-muc-san-pham');
+Route::get('/danh-muc-thuong-hieu/{bra}', [ProductCatalogueController::class, 'show_brand_catalogue'])->name('danh-muc-thuong-hieu');
 
-Route::get('/',[UsersController::class,'homePage'])->name('trang-chu');
-Route::get('/chi-tiet-san-pham/{id}',[ProductController::class,'productDetail'])->name('chi-tiet-san-pham');
-
-Route::get('/danh-muc-san-pham/{id}',[ProductCatalogueController::class,'show_product_catalogue'])->name('danh-muc-san-pham');
-Route::get('/danh-muc-thuong-hieu/{id}',[ProductCatalogueController::class,'show_brand_catalogue'])->name('danh-muc-thuong-hieu');
-
-Route::get('/cart',[CartController::class,'showCart'])->name('cart-view');
-Route::post('/cart',[CartController::class,'showCart'])->name('cart-view');
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart-view');
+Route::post('/cart', [CartController::class, 'showCart'])->name('cart-view');
 //Route::get('/add/{product}',[CartController::class,'addToCart'])->name('cart-add');
-Route::get('/add/{id}',[CartController::class,'addToCart'])->name('cart-add');
-Route::get('/update-cart',[CartController::class,'updateCart'])->name('update-cart');
-Route::get('/delete-cart',[CartController::class,'deleteCart'])->name('delete-cart');
-Route::get('/delete-cart-all',[CartController::class,'deleteCartAll'])->name('delete-cart-all');
+Route::get('/add/{id}', [CartController::class, 'addToCart'])->name('cart-add');
+Route::get('/update-cart', [CartController::class, 'updateCart'])->name('update-cart');
+Route::get('/delete-cart', [CartController::class, 'deleteCart'])->name('delete-cart');
+Route::get('/delete-cart-all', [CartController::class, 'deleteCartAll'])->name('delete-cart-all');
 
-Route::get('/thanh-toan',[CartController::class,'checkOut'])->name('check-out');
-Route::post('/thanh-toan',[CartController::class,'post_checkOut']);
 
-Route::get('/wishlist',[ProductController::class,'showWishlist'])->name('show-wishlist');
-Route::post('/add-wishlist',[ProductController::class,'addToWishlist'])->name('add-wishlist');
-Route::post('/delete-wishlist',[ProductController::class,'deleteToWishlist'])->name('delete-wishlist');
+Route::get('/wishlist', [ProductController::class, 'showWishlist'])->name('show-wishlist');
+Route::post('/add-wishlist/{id}', [ProductController::class, 'addToWishlist'])->name('add-wishlist');
+Route::post('/delete-wishlist/{id}', [ProductController::class, 'deleteToWishlist'])->name('delete-wishlist');
 
-Route::get('/lien-he',[UsersController::class,'showContact'])->name('contact');
+Route::get('/lien-he', [UsersController::class, 'showContact'])->name('contact');
 
 //cổng thanh toán
-Route::post('/vnpay_payment',[PaymentController::class,'vnpay_payment'])->name('pay.vnpay');
-Route::get('/vnpay-return',[PaymentController::class,'showdatavnpay'])->name('vnpay.return');
+Route::get('/thanh-toan', [PaymentController::class, 'checkOut'])->name('check-out');
+Route::post('/payment_method', [PaymentController::class, 'payment_method'])->name('pay.method');
 
+Route::post('/chi-tiet-san-pham/{id}', [CommentController::class, 'postComment'])->name('comment');
+Route::get('/delete-comment/{id}', [CommentController::class, 'deleteComment'])->name('delete-comment');
 
-
-//Quên mật khẩu
-
+Route::get('/bai-viet', [BlogController::class, 'showBlog'])->name('blog');
+Route::get('/chi-tiet-bai-viet/{id}',[BlogController::class,'blogDetail'])->name('chi-tiet-bai-viet');
+Route::post('/chi-tiet-bai-viet/{id}',[CommentPostController::class,'postComment'])->name('commentPost');
+Route::get('/delete-comment-post/{id}',[CommentPostController::class,'deleteComment'])->name('delete-comment-post');
 
 //BACKEND
-Route::group(['middleware' => ['admin', 'locale']],function () {
+Route::group(['middleware' => ['admin', 'locale']], function () {
 
     Route::get('dashboard/index', [DashboardController::class, 'index'])
         ->name('dashboard.index');
@@ -262,10 +264,6 @@ Route::group(['middleware' => ['admin', 'locale']],function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])
             ->name('order.index');
-        Route::get('create', [OrderController::class, 'create'])
-            ->name('order.create');
-        Route::post('store', [OrderController::class, 'store'])
-            ->name('order.store');
         Route::get('edit/{id}', [OrderController::class, 'edit'])->where(['id' => '[0-9]+'])
             ->name('order.edit');
         Route::post('update/{id}', [OrderController::class, 'update'])->where(['id' => '[0-9]+'])
@@ -274,6 +272,18 @@ Route::group(['middleware' => ['admin', 'locale']],function () {
             ->name('order.delete');
         Route::delete('destroy/{id}', [OrderController::class, 'destroy'])->where(['id' => '[0-9]+'])
             ->name('order.destroy');
+    });
+    Route::group(['prefix' => 'order/detail'], function () {
+        Route::get('index', [OrderDetailController::class, 'index'])
+            ->name('order.detail.index');
+        Route::get('edit/{id}', [OrderDetailController::class, 'edit'])->where(['id' => '[0-9]+'])
+            ->name('order.detail.edit');
+        Route::post('update/{id}', [OrderDetailController::class, 'update'])->where(['id' => '[0-9]+'])
+            ->name('order.detail.update');
+        Route::get('delete/{id}', [OrderDetailController::class, 'delete'])->where(['id' => '[0-9]+'])
+            ->name('order.detail.delete');
+        Route::delete('destroy/{id}', [OrderDetailController::class, 'destroy'])->where(['id' => '[0-9]+'])
+            ->name('order.detail.destroy');
     });
 
     //AJAX

@@ -10,6 +10,7 @@
         <header class="header-area">
             @include('user.index.component.nav')
         </header>
+        @include('user.cart.mini-cart')
         <div class="breadcrumb-area bg-gray">
             <div class="container">
                 <div class="breadcrumb-content text-center">
@@ -17,9 +18,8 @@
                         <li>
                             <a href="{{ route('trang-chu') }}">Home</a>
                         </li>
-                        @foreach ($brand_id as $key => $val)
-                            <li class="active">{{ $val->name }} </li>
-                        @endforeach
+                        <li class="active">{{ $bra->name }} </li>
+
                     </ul>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                             <div class="tab-content jump">
                                 <div id="shop-1" class="tab-pane active">
                                     <div class="row">
-                                        @foreach ($brand_id as $key => $val)
+                                        @foreach ($products as $val)
                                             <!-- start -->
                                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                                                 <div class="single-product-wrap mb-35">
@@ -102,6 +102,16 @@
                                             </div> <!--END -->
                                         @endforeach
                                     </div>
+                                </div>
+                                <style>
+                                    .pagination {
+                                        justify-content: center;
+                                        color: red;
+                                    }
+                                </style>
+
+                                <div class="pagination">
+                                    {{ $products->links('vendor\pagination\bootstrap-4') }}
                                 </div>
                             </div>
                         </div>

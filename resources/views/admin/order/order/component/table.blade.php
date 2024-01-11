@@ -7,7 +7,8 @@
                  </th>
                  <th class="text-center">Tên người đặt</th>
                  <th class="text-center">Địa chỉ</th>
-                 <th class="text-center">Tài khoản</th>
+                 <th class="text-center">Email</th>
+                 <th class="text-center">Tổng tiền</th>
                  <th class="text-center">Trạng thái đơn hàng </th>
                  <th class="text-center">Tùy chỉnh </th>
              </tr>
@@ -34,12 +35,24 @@
                              {{ $order->address }}
                          </td>
                          <td class="text-center">
-                            {{ $order->user->name }}
-                        </td>
-                         <td class="text-center">
-                             <input type="text" value="{{ $order->status }}">
+                             {{ $order->user->email }}
                          </td>
                          <td class="text-center">
+                            {{ number_format($order->total) }} đ
+
+                        </td>
+                         <td class="text-center">
+                             <select name="status" class="form-control">
+                                 <option value="0">{{ $order->status }}</option>
+                                 <option value="1">Đơn hàng đã được nhận</option>
+                                 <option value="2">Đơn hàng đã bị hủy</option>
+                             </select>
+                         </td>
+                         <td class="text-center">
+                            <a href="{{ route('order.detail.index', $order->id) }}" class="btn btn-success"><i
+                                class="fa fa-table"></i></a>
+                             <a href="{{ route('order.update', $order->id) }}" class="btn btn-primary"><i
+                                     class="fa fa-save"></i></a>
                              <a href="{{ route('order.delete', $order->id) }}" class="btn btn-danger"><i
                                      class="fa fa-trash"></i></a>
                          </td>

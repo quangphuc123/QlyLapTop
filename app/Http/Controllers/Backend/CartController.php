@@ -86,6 +86,4 @@ class CartController extends Controller
         $carts = session()->get(key: 'cart');
         return redirect()->route('cart-view', compact('carts'))->with('success', 'Xóa giỏ hàng thành công');
     }
-
-
 }

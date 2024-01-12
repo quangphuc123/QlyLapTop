@@ -75,6 +75,7 @@
                                                             <tr>
                                                                 <th>Hóa đơn</th>
                                                                 <th>Ngày đặt hàng</th>
+                                                                <th>Phương thức thanh toán</th>
                                                                 <th>Trạng thái đơn hàng</th>
                                                                 <th>Tổng đơn hàng</th>
                                                             </tr>
@@ -85,8 +86,9 @@
                                                                     <tr>
                                                                         <td>{{ $val->id }}</td>
                                                                         <td>{{ $val->created_at->format('d/m/Y') }}</td>
-                                                                        <td>{{ $val->status }}</td>
-                                                                        <td>{{ number_format($val->total) }} đ</td>
+                                                                        <td>{{ $val->payment->payment_method }}</td>
+                                                                        <td>{{ $val->order_status }}</td>
+                                                                        <td>{{ number_format($val->order_total) }} đ</td>
                                                                     </tr>
                                                                 @endif
                                                             @endforeach

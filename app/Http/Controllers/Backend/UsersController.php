@@ -180,9 +180,8 @@ class UsersController extends Controller
     }
     public function loginRegister()
     {
-        $brands = Brand::all();
         $carts = session()->get(key: 'cart');
-        return view('user.auth.login-register', compact('carts', 'brands'));
+        return view('user.auth.login-register', compact('carts'));
     }
 
     //Xử lý đăng ký
@@ -212,12 +211,13 @@ class UsersController extends Controller
     public function xuLyDangNhap(LoginRequest $request)
     {
         $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'publish' => 2
         ];
-        if (Auth::attempt($credentials) && (Auth::user()->user_catalogue_id == 3)) {
+        if (Auth::attempt($credentials) && Auth::user()->user_catalogue_id == 3 && Auth::user()->publish == 2) {
             return redirect()->route('trang-chu')->with('success', 'Đăng nhập thành công');
-        } else if (Auth::attempt($credentials) && (Auth::user()->user_catalogue_id == 1)) {
+        } else if (Auth::attempt($credentials) && Auth::user()->user_catalogue_id == 1 && Auth::user()->publish == 2) {
             return redirect()->route('dashboard.index')->with('success', 'Đăng nhập vào trang Admin');
         }
         return redirect()->route('loginRegister')->with('error', 'Đăng nhập không thành công!!');
@@ -234,10 +234,17 @@ class UsersController extends Controller
     public function accountDetail(User $user)
     {
         $order = Order::all();
-        $brands = Brand::all();
+        // $userCatalogues = $this->userCatalogueRepository->all();
+        // $provinces = $this->provinceRepository->all();
         $carts = session()->get(key: 'cart');
         $profile = $user::find(Auth::user()->id);
-        return view('user.auth.account-detail', compact('profile', 'carts', 'brands','order'));
+        return view('user.auth.account-detail', compact(
+            'profile',
+            'carts',
+            'order',
+            // 'userCatalogues',
+            // 'provinces'
+        ));
     }
 
     //Cập nhật thông tin tài khoản
@@ -341,6 +348,23 @@ class UsersController extends Controller
             'carts',
             'brands'
         ]));
+    }
+
+    public function autocomple_ajax(Request $request)
+    {
+        $data = $request->all();
+        if ($data['query']) {
+            $product = Product::where('name', 'LIKE', '%' . $data['query'] . '%')->get();
+            $output = '
+            <ul class="dropdown-menu" style="display:block; position:relative">';
+            foreach ($product as $key => $val) {
+                $output .= '
+                <li class="li_search"><a href="#">' . $val->name . '</a></li>
+                ';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
     }
 
     private function configData()

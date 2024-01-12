@@ -10,6 +10,7 @@
                  <th class="text-center">Email</th>
                  <th class="text-center">Tổng tiền</th>
                  <th class="text-center">Trạng thái đơn hàng </th>
+                 <th class="text-center">Trạng thái thanh toán </th>
                  <th class="text-center">Tùy chỉnh </th>
              </tr>
          </thead>
@@ -25,32 +26,39 @@
 
                                  <div class="main-info">
                                      <div class="name">
-                                         <span href="" class="main-title"> {{ $order->name }}
+                                         <span href="" class="main-title"> {{ $order->user->name }}
                                          </span>
                                      </div>
                                  </div>
                              </div>
                          </td>
                          <td class="text-center">
-                             {{ $order->address }}
+                             {{ $order->shipping->shipping_address }}
                          </td>
                          <td class="text-center">
-                             {{ $order->user->email }}
+                             {{ $order->shipping->shipping_email }}
                          </td>
-                         <td class="text-center">
-                            {{ number_format($order->total) }} đ
 
-                        </td>
                          <td class="text-center">
-                             <select name="status" class="form-control">
-                                 <option value="0">{{ $order->status }}</option>
+                             <select name="order_status" class="form-control">
+                                 <option value="0">{{ $order->order_status }}</option>
                                  <option value="1">Đơn hàng đã được nhận</option>
                                  <option value="2">Đơn hàng đã bị hủy</option>
                              </select>
                          </td>
                          <td class="text-center">
-                            <a href="{{ route('order.detail.index', $order->id) }}" class="btn btn-success"><i
-                                class="fa fa-table"></i></a>
+                             <select name="payment_status" class="form-control">
+                                 <option value="0">{{ $order->payment->payment_status }}</option>
+                                 <option value="1">Đã được thanh toán</option>
+                                 <option value="2">Chưa thanh toán</option>
+                             </select>
+                         </td>
+                         <td class="text-center">
+                             {{ number_format($order->order_total) }} đ
+                         </td>
+                         <td class="text-center">
+                             <a href="{{ route('order.detail.index', $order->id) }}" class="btn btn-success"><i
+                                     class="fa fa-eye"></i></a>
                              <a href="{{ route('order.update', $order->id) }}" class="btn btn-primary"><i
                                      class="fa fa-save"></i></a>
                              <a href="{{ route('order.delete', $order->id) }}" class="btn btn-danger"><i

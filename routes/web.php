@@ -40,6 +40,7 @@ use App\Http\Controllers\Backend\OrderDetailController;
 
 Route::get('/', [UsersController::class, 'homePage'])->name('trang-chu');
 Route::post('/tim-kiem', [UsersController::class, 'searchProduct'])->name('user.search');
+Route::post('/tim-kiem-goi-y', [UsersController::class, 'autocomple_ajax'])->name('user.search.ajax');
 
 Route::get('login-register', [UsersController::class, 'loginRegister'])->name('loginRegister')->middleware('guest');
 Route::post('xl-dang-ky', [UsersController::class, 'xuLyDangKy'])->name('xl-dang-ky')->middleware('guest');
@@ -79,6 +80,8 @@ Route::get('/lien-he', [UsersController::class, 'showContact'])->name('contact')
 //cổng thanh toán
 Route::get('/thanh-toan', [PaymentController::class, 'checkOut'])->name('check-out');
 Route::post('/payment_method', [PaymentController::class, 'payment_method'])->name('pay.method');
+Route::get('/cam-on', [PaymentController::class, 'show_cam_on'])->name('show.thanks');
+
 
 Route::post('/chi-tiet-san-pham/{id}', [CommentController::class, 'postComment'])->name('comment');
 Route::get('/delete-comment/{id}', [CommentController::class, 'deleteComment'])->name('delete-comment');
@@ -274,16 +277,8 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
             ->name('order.destroy');
     });
     Route::group(['prefix' => 'order/detail'], function () {
-        Route::get('index', [OrderDetailController::class, 'index'])
+        Route::get('index/{id}', [OrderDetailController::class, 'index'])
             ->name('order.detail.index');
-        Route::get('edit/{id}', [OrderDetailController::class, 'edit'])->where(['id' => '[0-9]+'])
-            ->name('order.detail.edit');
-        Route::post('update/{id}', [OrderDetailController::class, 'update'])->where(['id' => '[0-9]+'])
-            ->name('order.detail.update');
-        Route::get('delete/{id}', [OrderDetailController::class, 'delete'])->where(['id' => '[0-9]+'])
-            ->name('order.detail.delete');
-        Route::delete('destroy/{id}', [OrderDetailController::class, 'destroy'])->where(['id' => '[0-9]+'])
-            ->name('order.detail.destroy');
     });
 
     //AJAX
@@ -298,5 +293,5 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
 
 
 Route::get('admin', [AuthController::class, 'Index'])->name('auth.admin')->middleware('login');
-Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+// Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::post('login', [AuthController::class, 'Login'])->name('auth.login');

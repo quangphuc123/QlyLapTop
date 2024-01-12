@@ -83,7 +83,7 @@
                 </div>
                 <?php } ?>
                 @auth
-                    <form action="{{ route('pay.method') }}" method="POST">
+                    <form action="{{ route('pay.method') }}" name="payUrl" method="POST">
                         @csrf
                         <div class="checkout-wrap pt-30">
                             <div class="row">
@@ -94,7 +94,8 @@
                                             <div class="col-lg-12">
                                                 <div class="billing-info mb-20">
                                                     <label>Họ tên<abbr class="required" title="required">*</abbr></label>
-                                                    <input type="text" name="name" value="{{ Auth::user()->name }}">
+                                                    <input type="text" name="shipping_name"
+                                                        value="{{ Auth::user()->name }}">
                                                 </div>
                                             </div>
                                             <div>
@@ -106,21 +107,28 @@
                                                 <div class="billing-info mb-20">
                                                     <label>Số điện thoại<abbr class="required"
                                                             title="required">*</abbr></label>
-                                                    <input type="number" name="phone" value="{{ Auth::user()->phone }}">
+                                                    <input type="number" name="shipping_phone"
+                                                        value="{{ Auth::user()->phone }}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="billing-info mb-20">
                                                     <label>Email<abbr class="required" title="required">*</abbr></label>
-                                                    <input type="email" name="email" value="{{ Auth::user()->email }}">
+                                                    <input type="email" name="shipping_email"
+                                                        value="{{ Auth::user()->email }}">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="billing-info mb-20">
                                                     <label>Địa chỉ <abbr class="required" title="required">*</abbr></label>
-                                                    <input class="billing-address"
-                                                        placeholder="House number and street name" type="text"
-                                                        name="address" value="{{ Auth::user()->address }}">
+                                                    <input class="billing-address" type="text" name="shipping_address"
+                                                        value="{{ Auth::user()->address }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="billing-info mb-20">
+                                                    <label>Ghi chú</label>
+                                                    <input class="billing-address" type="text" name="shipping_note">
                                                 </div>
                                             </div>
                                         </div>
@@ -169,9 +177,20 @@
                                             </div>
                                             <div class="payment-method">
                                                 <div class="pay-top sin-payment sin-payment-3">
+                                                    <input type="hidden" name="COD" value="cod">
+                                                    <input id="payment-method-4" class="input-radio" type="radio"
+                                                        name="payment_method" value="Thanh toán khi nhận hàng">
+                                                    <label for="payment-method-4">COD</label>
+                                                    <div class="payment-box payment_method_bacs">
+                                                        <p>Bạn sẽ dùng nhận được hàng và thanh toán</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="payment-method">
+                                                <div class="pay-top sin-payment sin-payment-3">
                                                     <input type="hidden" name="redirect" value="vnpay">
                                                     <input id="payment-method-4" class="input-radio" type="radio"
-                                                        name="payment_method" value="1">
+                                                        name="payment_method" value="Thanh toán bằng VNPay">
                                                     <label for="payment-method-4">VNPay</label>
                                                     <div class="payment-box payment_method_bacs">
                                                         <p>Bạn sẽ dùng VNPay để thanh toán.</p>
@@ -182,7 +201,7 @@
                                                 <div class="pay-top sin-payment sin-payment-3">
                                                     <input type="hidden" name="payUrl" value="momo">
                                                     <input id="payment-method-4" class="input-radio" type="radio"
-                                                        name="payment_method" value="2">
+                                                        name="payment_method" value="Thanh toán bằng momo">
                                                     <label for="payment-method-4">MOMO</label>
                                                     <div class="payment-box payment_method_bacs">
                                                         <p>Bạn sẽ dùng momo để thanh toán.</p>

@@ -115,7 +115,7 @@
             </ul>
         </li> --}}
         <li>
-            <a href="{{ route('auth.logout') }}">
+            <a href="{{ route('logOut') }}">
                 <i class="fa fa-sign-out"></i> Log out
             </a>
         </li>

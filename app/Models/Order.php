@@ -10,24 +10,24 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
-        'name',
-        'address',
-        'email',
-        'phone',
         'user_id',
         'payment_id',
-        'status',
+        'order_status',
+        'order_total',
         'created_at',
-        'total'
+        'shipping_id'
     ];
 
     public function user(){
         return $this->hasOne(User::class,'id','user_id');
     }
 
-    public function detail(){
-        return $this->hasMany(OrderDetail::class,'order_id','id');
+    public function shipping(){
+        return $this->hasOne(Shipping::class,'id','shipping_id');
+    }
+
+    public function details(){
+        return $this->belongsToMany(OrderDetail::class,'order_id','id');
     }
 
     public function payment(){

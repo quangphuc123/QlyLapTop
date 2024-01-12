@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Http\Request;
 
 use App\Services\Interfaces\OrderServiceInterface as OrderService;
@@ -65,7 +64,7 @@ class OrderController extends Controller
             )
         );
     }
-    public function update($id, UpdateOrderRequest $request)
+    public function update($id, Request $request)
     {
         if ($this->orderService->update($id, $request)) {
             return redirect()->route('brand.index')

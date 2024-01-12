@@ -43,8 +43,9 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
-
-
+    public function detail(){
+        return $this->hasMany(OrderDetail::class, 'product_id', 'id');
+    }
     public function wishlist1(){
         return $this->belongsToMany(User::class,'wishlist','product_id','user_id')->count();
     }

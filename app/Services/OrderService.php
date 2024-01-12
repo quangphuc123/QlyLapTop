@@ -32,6 +32,9 @@ class OrderService extends BaseService implements OrderServiceInterface
             $condition,
             $perPage,
             ['path' => '/order/index'],
+            [
+                'users as tb2', 'tb2.id', '=', 'orders.user_id'
+            ],
             [],
         );
         return $orders;
@@ -41,7 +44,7 @@ class OrderService extends BaseService implements OrderServiceInterface
         DB::beginTransaction();
         try {
             $order = $this->orderRepository->findById($id);
-            if($this->uploadOrder($order, $request)){
+            if ($this->uploadOrder($order, $request)) {
                 $this->updateCatalogueForOrder($order, $request);
             }
             DB::commit();
@@ -54,7 +57,8 @@ class OrderService extends BaseService implements OrderServiceInterface
             return false;
         }
     }
-    private function uploadOrder($order, $request){
+    private function uploadOrder($order, $request)
+    {
         $payload = $request->only($this->payload());
         return $this->orderRepository->update($order->id, $payload);
     }
@@ -77,14 +81,11 @@ class OrderService extends BaseService implements OrderServiceInterface
     {
         return [
             'id',
-            'name',
-            'address',
-            'email',
-            'phone',
-            'status',
+            'shipping_id',
+            'order_status',
             'user_id',
             'payment_id',
-            'total',
+            'order_total',
         ];
     }
 }

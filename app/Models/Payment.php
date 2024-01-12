@@ -11,7 +11,7 @@ class Payment extends Model
 
     protected $fillable = [
         'payment_method',
-        'status'
+        'payment_status'
     ];
 
 }

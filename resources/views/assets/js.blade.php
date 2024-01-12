@@ -51,7 +51,7 @@
     function cartDelete(event) {
         event.preventDefault();
         let urlDelete = $('.delete_cart_url').data('url')
-        let id=$(this).data('id')
+        let id = $(this).data('id')
         $.ajax({
             type: "GET",
             url: urlDelete,
@@ -74,3 +74,5 @@
         $(document).on('click', '.cart_delete', cartDelete);
     })
 </script>
+
+

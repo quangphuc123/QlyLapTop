@@ -22,10 +22,11 @@
                                     </select>
                                 </div> --}}
                                 <div class="search-wrap-3">
-                                    <form action="{{ route('user.search') }}" method="POST">
+                                    <form action="{{ route('user.search') }}" autocomplete="off" method="POST">
                                         @csrf
-                                        <input name="keyword" placeholder="Bạn muốn tìm kiếm sản phẩm gì?......."
-                                            type="text">
+                                        <input type="text" name="keyword" id="keyword-autocomple"
+                                            placeholder="Bạn muốn tìm kiếm sản phẩm gì?.......">
+                                        <div id="search-ajax"></div>
                                         <button><i class="lnr lnr-magnifier"></i></button>
                                     </form>
                                 </div>
@@ -62,17 +63,18 @@
                                         $symbol_thousand = '.';
                                         $decimal_place = 0;
                                         $stt = 0;
-                                        $x=0;
+                                        $x = 0;
                                         ?>
 
                                         @if (!is_null($carts))
                                             @foreach ($carts as $id => $cartItem)
-                                            <?php $x=$x+$cartItem['quantity']?>
+                                                <?php $x = $x + $cartItem['quantity']; ?>
                                             @endforeach
                                         @endif
                                         <div class="same-style-2 header-cart">
                                             <a class="cart-active" href="#">
-                                                <i class="icon-basket-loaded"></i><span class="pro-count red">{{$x}}</span>
+                                                <i class="icon-basket-loaded"></i><span
+                                                    class="pro-count red">{{ $x }}</span>
                                             </a>
                                         </div>
                                         <span class="cart-amount white">
@@ -217,3 +219,30 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#keyword-autocomple').keyup(function() {
+        var query = $(this).val();
+        if (query != '') {
+            var _token = $('input[name = "_token"]').val();
+            $.ajax({
+                url: "{{ url('/tim-kiem-goi-y') }}",
+                method: "POST",
+                data: {
+                    query: query,
+                    _token: _token
+                },
+                success: function(data) {
+                    $('#search-ajax').fadeIn();
+                    $('#search-ajax').html(data);
+                }
+            });
+        } else {
+            $('#search-ajax').fadeOut();
+        }
+    });
+    $(document).on('click', '.li_search', function() {
+        $('#keyword-autocomple').val($(this).text());
+        $('#search-ajax').fadeOut();
+    });
+</script>

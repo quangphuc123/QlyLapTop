@@ -24,17 +24,12 @@ class AuthController extends Controller
     {
         $credentials = [
             'email' => $request->input('email'),
-            'password' => $request->input('password')
+            'password' => $request->input('password'),
+            'publish' => 2
         ];
-        // if (Auth::attempt($credentials)) {
-        //     return redirect()->route('dashboard.index')->with('success', 'Đã đăng nhập thành công!!');
-        // }
-        // return redirect()->route('auth.admin')
-        //     ->with('error', 'Thông tin của bạn nhập chưa chính xác, Vui lòng thử lại!');
-        if(Auth::attempt($credentials)&&(Auth::user()->user_catalogue_id==3)){
-            return redirect()->route('trang-chu')->with('success', 'Đăng nhập vào trang người dùng');
-        }
-        else if(Auth::attempt($credentials)&&(Auth::user()->user_catalogue_id==1)){
+        if (Auth::attempt($credentials) && Auth::user()->user_catalogue_id == 3 && Auth::user()->publish == 2) {
+            return redirect()->route('trang-chu')->with('success', 'Đăng nhập thành công');
+        } else if (Auth::attempt($credentials) && Auth::user()->user_catalogue_id == 1 && Auth::user()->publish == 2) {
             return redirect()->route('dashboard.index')->with('success', 'Đăng nhập vào trang Admin');
         }
         return redirect()->route('auth.admin')->with('error', 'Đăng nhập không thành công!!');

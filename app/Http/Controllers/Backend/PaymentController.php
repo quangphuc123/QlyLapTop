@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Payment;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +17,9 @@ class PaymentController extends Controller
         $payment_method = $request->payment_method;
         $payment_name = $request->redirect;
         $payment_name1 = $request->payUrl;
-        if ($payment_method == 1 && $payment_name == "vnpay") {
-            $this->create_payment($request);
+        $payment_name2 = $request->COD;
+        $this->create_order($request);
+        if ($payment_method == "Thanh toán bằng VNPay" && $payment_name == "vnpay") {
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             session()->flush('cart');
@@ -78,8 +79,7 @@ class PaymentController extends Controller
             } else {
                 echo json_encode($returnData);
             }
-        } elseif ($payment_method == 2 && $payment_name1 == "momo") {
-            $this->create_payment($request);
+        } elseif ($payment_method == "Thanh toán bằng momo" && $payment_name1 == "momo") {
             $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
             $partnerCode = 'MOMOBKUN20180529';
             $accessKey = 'klm05TvNBzhg7h7j';
@@ -116,6 +116,10 @@ class PaymentController extends Controller
             session()->flush('cart');
             $carts = session()->get(key: 'cart');
             return redirect()->to($jsonResult['payUrl']);
+        } elseif ($payment_method == "Thanh toán khi nhận hàng" && $payment_name2 == "cod") {
+            session()->flush('cart');
+            $carts = session()->get(key: 'cart');
+            return redirect()->route('show.thanks')->with('success', 'Đặt hàng thành công');
         }
     }
     public function execPostRequest($url, $data)
@@ -140,6 +144,7 @@ class PaymentController extends Controller
         curl_close($ch);
         return $result;
     }
+
     public function checkOut()
     {
         $carts = session()->get(key: 'cart');
@@ -150,40 +155,51 @@ class PaymentController extends Controller
         }
     }
 
+    public function show_cam_on()
+    {
+        $carts = session()->get(key: 'cart');
 
-    private function create_payment(Request $request)
+        return view('user.checkout.show_hash_cash', compact('carts'));
+    }
+    private function create_order(Request $request)
     {
         $carts = session()->get(key: 'cart');
         $request->validate([
-            'name',
-            'email',
-            'phone',
-            'address',
+            'shipping_email',
+            'shipping_name',
+            'shipping_note',
+            'shipping_address',
+            'shipping_phone',
         ]);
+        $data_shipping = $request->only(
+            'shipping_email',
+            'shipping_name',
+            'shipping_note',
+            'shipping_address',
+            'shipping_phone',
+        );
+        $shipping = Shipping::create($data_shipping);
         $paymet = array();
         $paymet['payment_method'] = $request->payment_method;
-        $paymet['status'] = 'Đang chờ xử lý';
+        $paymet['payment_status'] = 'Đang được xử lý';
         $paymets = Payment::create($paymet);
-        $data = $request->only(
-            'name',
-            'email',
-            'phone',
-            'address',
+        $data_order = $request->only(
             'order_id',
             'payment_method',
         );
-        $data['user_id'] = Auth::user()->id;
-        $data['status'] = 'Đang chờ xử lý';
-        $data['payment_id'] = $paymets->id;
-        $data['total'] = $request->total_cart;
-        $order = Order::create($data);
+        $data_order['user_id'] = Auth::user()->id;
+        $data_order['shipping_id'] = $shipping->id;
+        $data_order['order_status'] = 'Đang được vận chuyển';
+        $data_order['payment_id'] = $paymets->id;
+        $data_order['order_total'] = $request->total_cart;
+        $order = Order::create($data_order);
         if ($order) {
             foreach ($carts as $id => $car) {
                 $data1 = [
                     'order_id' => $order->id,
                     'product_id' => $id,
                     'price' => $car['price'],
-                    'name' => $car['name'],
+                    'product_name' => $car['name'],
                     'quantity' => $car['quantity'],
                 ];
                 OrderDetail::create($data1);

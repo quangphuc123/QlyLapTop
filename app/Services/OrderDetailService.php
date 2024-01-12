@@ -24,13 +24,18 @@ class OrderDetailService extends BaseService implements OrderDetailServiceInterf
     }
     public function paginate($request)
     {
-        $condition['keyword'] = addslashes($request->input('keyword'));
-        $perPage = $request->integer('perpage');
+        // $condition['where'] = [
+        //     // ['order_details.order_id ', '=', 'orders.id'],
+        // ];
         $orderdetails = $this->orderDetailRepository->pagination(
             $this->paginateSelect(),
-            $condition,
-            $perPage,
+            // $condition,
             ['path' => '/order/detail/index'],
+            [
+                ['users as tb2', 'orders.user_id', '=', 'tb2.id',],
+                ['shippings as tb3', 'orders.id', '=', 'tb3.id',],
+                ['order_details as tb4', 'orders.id', '=', 'tb4.order_id',]
+            ],
             [],
         );
         return $orderdetails;
@@ -69,10 +74,26 @@ class OrderDetailService extends BaseService implements OrderDetailServiceInterf
     private function paginateSelect()
     {
         return [
-            'quantity',
-            'price',
-            'order_id',
-            'product_id',
+            'ordes.id',
+            'ordes.order_total',
+            'ordes.order_status',
+            'ordes.user_id',
+            'ordes.shipping_id',
+            'orders.payment_id',
+            'tb2.name',
+            'tb2.phone',
+            'tb2.address',
+            'tb2.email ',
+            'tb3.shipping_name ',
+            'tb3.shipping_address ',
+            'tb3.shipping_phone ',
+            'tb3.shipping_email ',
+            'tb3.shipping_note ',
+            'tb4.order_id ',
+            'tb4.product_id  ',
+            'tb4.product_name ',
+            'tb4.price ',
+            'tb4.quantity ',
         ];
     }
 }

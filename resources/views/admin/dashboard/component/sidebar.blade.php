@@ -17,7 +17,7 @@
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="{{ route('user.edit', Auth::user()->id) }}">Profile</a></li>
                         <li class="divider"></li>
-                        <li><a href="{{ route('auth.logout') }}">Logout</a></li>
+                        <li><a href="{{ route('logOut') }}">Logout</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">

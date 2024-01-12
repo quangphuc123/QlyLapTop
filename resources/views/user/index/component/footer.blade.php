@@ -27,7 +27,6 @@
                         <nav>
                             <ul>
                                 <li><a href="{{ route('trang-chu') }}">Trang chủ </a></li>
-                                <li><a href="#">Thương hiệu</a></li>
                                 <li><a href="{{ route('blog') }}">Bài viết</a></li>
                                 <li><a href="~/shop/norda/contact.html">Liên hệ </a></li>
                             </ul>

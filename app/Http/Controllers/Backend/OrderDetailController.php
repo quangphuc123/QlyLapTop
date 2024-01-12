@@ -3,28 +3,43 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreOrderRequest;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Shipping;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Services\Interfaces\OrderDetailServiceInterface as OrderDetailService;
+use App\Services\Interfaces\OrderServiceInterface as OrderService;
 use App\Repositories\Interfaces\OrderDetailRepositoryInterface as OrderDetailRepository;
 
 class OrderDetailController extends Controller
 {
     protected $orderDetailService;
+    protected $orderService;
     protected $orderDetailRepository;
 
     public function __construct(
         OrderDetailService $orderDetailService,
+        OrderService $orderService,
         OrderDetailRepository $orderDetailRepository,
     ) {
         $this->orderDetailService = $orderDetailService;
+        $this->orderService = $orderService;
         $this->orderDetailRepository = $orderDetailRepository;
     }
 
-    public function index(Request $request)
+    public function index($id)
     {
-        $orderdetails = $this->orderDetailService->paginate($request);
+        $order_detail = OrderDetail::where('order_id', $id)->get();
+        $order = Order::where('id', $id)->get();
+        foreach ($order as $key => $val) {
+            $user_id = $val->user_id;
+            $shipping_id = $val->shipping_id;
+        }
+        $user = User::where('id', $user_id)->first();
+        $shipping = Shipping::where('id', $shipping_id)->first();
+        $order_de = OrderDetail::with('products')->where('order_id', $id)->get();
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',
@@ -43,78 +58,11 @@ class OrderDetailController extends Controller
             compact(
                 'template',
                 'config',
-                'orderdetails',
+                'order_detail',
+                'user',
+                'shipping',
+                'order_de'
             )
         );
-    }
-
-    public function edit($id)
-    {
-        // $this->authorize('modules', 'brand.update');
-        $orderDetail = $this->orderDetailRepository->findById($id);
-        $config = $this->configData();
-        $config['seo'] = config('apps.order');
-        $config['method'] = 'edit';
-        $template = 'admin.order.detail.store';
-        return view(
-            'admin.dashboard.admin-layout',
-            compact(
-                'template',
-                'config',
-                'orderDetail',
-            )
-        );
-    }
-    public function update($id, UpdateOrderDetailRequest $request)
-    {
-        if ($this->orderDetailService->update($id, $request)) {
-            return redirect()->route('brand.index')
-                ->with('success', 'Cập nhật thành công!!');
-        }
-        return redirect()->route('dashboard.index')
-            ->with('error', 'Cập nhật không thành công');
-    }
-
-    public function delete($id)
-    {
-        // $this->authorize('modules', 'order.detail.destroy');
-
-        $config['seo'] = config('apps.order');
-        $orderDetail = $this->orderDetailRepository->findById($id);
-        $template = 'admin.order.detail.delete';
-        return view(
-            'admin.dashboard.admin-layout',
-            compact(
-                'template',
-                'config',
-                'orderDetail',
-            )
-        );
-    }
-
-    public function destroy($id)
-    {
-        if ($this->orderDetailService->destroy($id)) {
-            return redirect()->route('order.detail.index')
-                ->with('success', 'Xóa nhóm bài viết thành công');
-        }
-        return redirect()->route('dashboard.index')
-            ->with('error', 'Xóa nhóm bài viết không thành công');
-    }
-
-    private function configData()
-    {
-        return [
-            'js' => [
-                'backend/plugins/ckeditor/ckeditor.js',
-                'backend/plugins/ckfinder_2/ckfinder.js',
-                'backend/library/finder.js',
-                'backend/library/seo.js',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-            ],
-            'css' => [
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
-            ]
-        ];
     }
 }

@@ -30,13 +30,8 @@ class OrderDetailRepository extends BaseRepository implements OrderDetailReposit
         array $relations = [],
         array $rawWhere = [],
     ) {
-        $query = $this->model->select($column)
-            ->where(function ($query) use ($condition) {
-                if (isset($condition['keyword']) && !empty($condition['keyword'])) {
-                    $query->where('name', 'LIKE', '%' . $condition['keyword'] . '%');
-                }
-                return $query;
-            });
+        $query = $this->model->select($column)->first()
+            ->where($condition);
         if (!empty($join)) {
             $query->join(...$join);
         }

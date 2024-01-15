@@ -1,66 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Giới thiệu website bán laptop HandSome Shop
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Đây là dự án Website Ecommerce PHP laravel nơi mà mọi người có thể tìm ra thứ mọi người muốn mua.
+- Một trang web Ecommerce là một nền tảng trực tuyến được thiết kế để thực hiện giao dịch mua bán hàng hóa và dịch vụ. Đây là một không gian kinh doanh trực tuyến nơi người mua và người bán có thể tương tác và thực hiện các giao dịch mua sắm. Trang web Ecommerce thường cung cấp một giao diện dễ sử dụng, hiển thị sản phẩm và thông tin chi tiết, cho phép người dùng thêm vào giỏ hàng và tiến hành thanh toán trực tuyến.
 
-## About Laravel
+- Các tính năng chung của một trang web Ecommerce bao gồm hệ thống thanh toán an toàn, quản lý đơn hàng, tìm kiếm sản phẩm, đánh giá của khách hàng. Ngoài ra, có thể có các tính năng bổ sung như quản lý tài khoản cá nhân. Mục tiêu chính của một trang web Ecommerce là tối ưu hóa trải nghiệm mua sắm trực tuyến và thuận tiện cho cả người mua và người bán.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Sơ lược về hệ thống
+- Admin
+- Khách hàng
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Chức năng chính 
+- Đăng nhập - Đăng ký - Đăng xuất
+- Quản lý thông tin cá nhân
+- Quản lý bài viết
+- Quản lý đơn hàng
+- Quản lý sản phẩm
+- Quản lý đơn hàng
+- Thanh toán
+- Bình luận sản phẩm
+- Bình luận bài viết
+- Thêm sửa xóa 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tác giả 
+#### Trần Quang Phúc - Trương Đức Quyền
+##### Mọi ý kiến thắc mắc bạn có thể liên hệ chúng tôi qua Email: quangphuc1311@gmail.com
 
-## Learning Laravel
+## Cấu hình dự án
+- PHP/Laravel Framework
+- Visual Studio Code (1.85), XAMPP 3.3
+- MySQL
+## Bắt Đầu
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Hướng dẫn này sẽ giúp bạn bắt đầu với dự án của mình. Để có được một bản sao của dự án trên máy cục bộ của bạn, hãy thực hiện các bước sau:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Yêu Cầu Tiên Quyết
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Cài đặt các phần mềm và công cụ sau:
 
-## Laravel Sponsors
+- [Xampp](https://www.apachefriends.org/download.html)
+- [Composer](https://getcomposer.org/)
+- [Visualcode](https://code.visualstudio.com/download)
+- [Git](https://git-scm.com/)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Cài Đặt
 
-### Premium Partners
+1. Clone dự án về máy cục bộ của bạn:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```bash
+git clone https://github.com/quangphuc123/QlyLapTop.git
+```
+```bash
+cd QlyLapTop
+```
 
-## Contributing
+2. Thiết lập .env
+```bash
+Tạo thêm file .env sau đó copy nội dung file .env.example vào file .env 
+Rồi vào terminal nhập lệnh : composer install
+```
+3. Generate key
+```bash
+php artisan key:generate
+```
+4. Config env và cache
+```bash
+php artisan config
+```
+5. Khởi tạo Database
+```bash
+php artisan migrate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Tài khoản đăng nhập
+1. Chạy lệnh
+```bash
+php artisan db:seed --class=UserSeeder
+```
+2. Tài khoản
+- Email: handsome1805@gmail.com
+- Mật khẩu: password

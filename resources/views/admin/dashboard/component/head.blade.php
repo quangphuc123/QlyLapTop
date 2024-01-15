@@ -9,6 +9,7 @@
 <link href="backend/css/animate.css" rel="stylesheet">
 <link rel="" href="backend/plugins/jquery-ui.css">
 
+
 @if (isset($config['css']) && is_array($config['css']))
     @foreach ($config['css'] as $key => $val)
         {!! '<link href="' . $val . '" rel="stylesheet" >' !!}

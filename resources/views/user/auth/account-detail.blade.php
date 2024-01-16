@@ -67,7 +67,7 @@
                                         <!-- Single Tab Content Start -->
                                         <div class="tab-pane fade" id="orders" role="tabpanel">
                                             <div class="myaccount-content">
-                                                <h3>Orders</h3>
+                                                <h3>Lịch sử mua hàng</h3>
 
                                                 <div class="myaccount-table table-responsive text-center">
                                                     <table class="table table-bordered">
@@ -77,7 +77,7 @@
                                                                 <th>Ngày đặt hàng</th>
                                                                 <th>Phương thức thanh toán</th>
                                                                 <th>Trạng thái đơn hàng</th>
-                                                                <th>Tổng đơn hàng</th>
+                                                                <th>Tổng hóa đơn</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

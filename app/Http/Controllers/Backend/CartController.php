@@ -82,7 +82,7 @@ class CartController extends Controller
 
     public function deleteCartAll()
     {
-        session()->flush('cart');
+        session()->forget('cart');
         $carts = session()->get(key: 'cart');
         return redirect()->route('cart-view', compact('carts'))->with('success', 'Xóa giỏ hàng thành công');
     }

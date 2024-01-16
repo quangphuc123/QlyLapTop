@@ -18,18 +18,17 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateChangPassWordRequest;
 use App\Http\Requests\ForgotPassWord;
+use App\Http\Requests\ReportRequest;
 use App\Http\Requests\SendMailFogotRequest;
-use App\Http\Requests\StoreForgotRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Brand;
-use RealRashid\SweetAlert\Facades\Aler;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\changePassword;
 use App\Models\Order;
+use App\Models\Report;
 
 class UsersController extends Controller
 {
@@ -115,7 +114,7 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $this->authorize('modules', 'post.update');
+        $this->authorize('modules', 'user.update');
         $user = $this->userRepository->findById($id);
         $userCatalogues = $this->userCatalogueRepository->all();
         $provinces = $this->provinceRepository->all();
@@ -187,10 +186,6 @@ class UsersController extends Controller
     //Xử lý đăng ký
     public function xuLyDangKy(RegisterRequest $request)
     {
-        $usernameExist = User::where('name', $request->name)->count();
-        if ($usernameExist > 0) {
-            return redirect()->route('loginRegister')->with(['message' => "Tên tài khoản {$request->name} đã tồn tại"]);
-        }
         $emailExist = User::where('email', $request->email)->count();
         if ($emailExist > 0) {
             return redirect()->route('loginRegister')->with(['message1' => "Email {$request->email} đã được sử dụng"]);
@@ -198,7 +193,8 @@ class UsersController extends Controller
         $taiKhoan = User::create([
             'name' => $request->name,
             'password' => Hash::make($request->password),
-            'user_catalogue_id' => '3',
+            'user_catalogue_id' => 3,
+            'publish' => 2,
             'email' => $request->email,
         ]);
         if (!empty($taiKhoan)) {
@@ -331,22 +327,18 @@ class UsersController extends Controller
 
     public function showContact()
     {
-        $brands = Brand::all();
         $carts = session()->get(key: 'cart');
-        return view('user.auth.contact', compact('carts', 'brands'));
+        return view('user.auth.contact', compact('carts'));
     }
+
     public function searchProduct(Request $req)
     {
         $keywords = $req->keyword;
         $carts = session()->get(key: 'cart');
-        $productCatalogue = $this->productCatalogueRepository->all();
-        $brands = $this->brandRepository->all();
         $search_product = Product::where('name', 'like', '%' . $keywords . '%')->get();
         return view('user.product.search', compact([
             'search_product',
-            'productCatalogue',
             'carts',
-            'brands'
         ]));
     }
 
@@ -365,6 +357,20 @@ class UsersController extends Controller
             $output .= '</ul>';
             echo $output;
         }
+    }
+    public function sendReport(ReportRequest $request)
+    {
+        if (is_null(Auth::user())) {
+            return redirect()->route('loginRegister')->with('error', 'Vui lòng đăng nhập');
+        }
+        $report = Report::create([
+            'user_id' => Auth::user()->id,
+            'name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'tieu_de_report' => $request->tieu_de,
+            'noi_dung_report' => $request->noi_dung_report,
+        ]);
+        return back()->with('success', 'Phản hồi của bạn đã được nhận');
     }
 
     private function configData()

@@ -83,7 +83,7 @@
                 </div>
                 <?php } ?>
                 @auth
-                    <form action="{{ route('pay.method') }}" name="payUrl" method="POST">
+                    <form action="{{ route('payUrl') }}" method="POST">
                         @csrf
                         <div class="checkout-wrap pt-30">
                             <div class="row">
@@ -107,8 +107,13 @@
                                                 <div class="billing-info mb-20">
                                                     <label>Số điện thoại<abbr class="required"
                                                             title="required">*</abbr></label>
-                                                    <input type="number" name="shipping_phone"
+                                                    <input type="text" name="shipping_phone"
                                                         value="{{ Auth::user()->phone }}">
+                                                    @if ($errors->has('shipping_phone'))
+                                                        <div class="alert alert-danger mt-10">
+                                                            {{ $errors->first('shipping_phone') }}
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-lg-12 col-md-12">
@@ -119,10 +124,15 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
-                                                <div class="billing-info mb-20">
+                                                <div class="billing-info mb-10">
                                                     <label>Địa chỉ <abbr class="required" title="required">*</abbr></label>
                                                     <input class="billing-address" type="text" name="shipping_address"
                                                         value="{{ Auth::user()->address }}">
+                                                    @if ($errors->has('shipping_address'))
+                                                        <div class="alert alert-danger">
+                                                            {{ $errors->first('shipping_address') }}
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
@@ -177,7 +187,7 @@
                                             </div>
                                             <div class="payment-method">
                                                 <div class="pay-top sin-payment sin-payment-3">
-                                                    <input type="hidden" name="COD" value="cod">
+                                                    <input type="hidden" name="COD">
                                                     <input id="payment-method-4" class="input-radio" type="radio"
                                                         name="payment_method" value="Thanh toán khi nhận hàng">
                                                     <label for="payment-method-4">COD</label>
@@ -186,20 +196,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="payment-method">
                                                 <div class="pay-top sin-payment sin-payment-3">
-                                                    <input type="hidden" name="redirect" value="vnpay">
-                                                    <input id="payment-method-4" class="input-radio" type="radio"
-                                                        name="payment_method" value="Thanh toán bằng VNPay">
-                                                    <label for="payment-method-4">VNPay</label>
-                                                    <div class="payment-box payment_method_bacs">
-                                                        <p>Bạn sẽ dùng VNPay để thanh toán.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="payment-method">
-                                                <div class="pay-top sin-payment sin-payment-3">
-                                                    <input type="hidden" name="payUrl" value="momo">
+                                                    <input type="hidden" name="payUrl">
                                                     <input id="payment-method-4" class="input-radio" type="radio"
                                                         name="payment_method" value="Thanh toán bằng momo">
                                                     <label for="payment-method-4">MOMO</label>
@@ -214,7 +214,6 @@
                                                 Thanh Toán Ngay
                                             </button>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

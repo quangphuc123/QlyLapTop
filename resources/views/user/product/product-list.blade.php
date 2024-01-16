@@ -13,7 +13,7 @@
                                             style="width: 330px; height: 320px;">
                                     </a>
                                     @auth
-                                        @if (Auth::user()->checkWishlist())
+                                        @if (Auth::user()->checkWishlist($data->id))
                                             <form action="{{ route('delete-wishlist',['id'=>$data->id]) }}" method="POST">
                                                 @csrf
                                                 <div class="product-action-2 tooltip-style-2">
@@ -40,20 +40,12 @@
                                     @endauth
                                 </div>
                                 <div class="product-content-wrap-2 text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
+
                                     <h3><a
                                             href="{{ route('chi-tiet-san-pham', ['id' => $data->id]) }}">{{ $data->name }}</a>
                                     </h3>
                                     <div class="product-price-2">
+
                                         <span>
                                             <?php
                                             $symbol = 'đ';
@@ -65,16 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="product-content-wrap-2 product-content-position text-center">
-                                    <div class="product-rating-wrap">
-                                        <div class="product-rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star gray"></i>
-                                        </div>
-                                        <span>(2)</span>
-                                    </div>
+
                                     <h3><a
                                             href="{{ route('chi-tiet-san-pham', ['id' => $data->id]) }}">{{ $data->SKU }}</a>
                                     </h3>

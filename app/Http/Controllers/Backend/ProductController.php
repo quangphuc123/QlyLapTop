@@ -178,22 +178,17 @@ class ProductController extends Controller
         ];
     }
 
-    public function addToWishlist($id,Request $request)
+    public function addToWishlist(Request $request)
     {
         $user = auth()->user();
         if (is_null($user)) {
             return redirect()->route('loginRegister')->with('error', 'vui long dang nhap');
         }
-        $data = [
-            'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
-        ];
-        dd($data);
-        $user->wishlist()->attach($data);
-        return back()->with('succes', 'Đã thích sản phẩm');
+        $user->wishlist()->attach($request->product_id);
+        return back()->with('success', 'Đã thích sản phẩm');
     }
 
-    public function deleteToWishlist($id,Request $request)
+    public function deleteToWishlist(Request $request)
     {
         $user = auth()->user();
         if (is_null($user)) {
@@ -204,7 +199,7 @@ class ProductController extends Controller
             'product_id' => $request->product_id,
         ];
         $user->wishlist()->detach($data);
-        return back()->with('succes', 'Đã bỏ thích sản phẩm');
+        return back()->with('success', 'Đã bỏ thích sản phẩm');
     }
 
     public function showWishlist()

@@ -39,11 +39,11 @@
                         <span>{{ number_format($total, $decimal_place, '', $symbol_thousand) . $symbol }}</span>
                     </h4>
                 </div>
-                <div class="cart-checkout-btn">
-                    <a class="btn-hover cart-btn-style" href="{{ route('cart-view') }}">Giỏ hàng</a>
-                    <a class="no-mrg btn-hover cart-btn-style" href="{{ route('check-out') }}">Thanh toán</a>
-                </div>
         @endif
+        <div class="cart-checkout-btn">
+            <a class="btn-hover cart-btn-style" href="{{ route('cart-view') }}">Giỏ hàng</a>
+            <a class="no-mrg btn-hover cart-btn-style" href="{{ route('check-out') }}">Thanh toán</a>
+        </div>
         </div>
     </div>
 </div>

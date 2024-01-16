@@ -24,7 +24,7 @@ use App\Http\Controllers\Backend\CommentController;
 use App\Http\Controllers\Backend\CommentPostController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\OrderDetailController;
-
+use App\Http\Controllers\backend\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +59,9 @@ Route::post('cap-nhat-mat-khau', [UsersController::class, 'changePassword'])->na
 Route::get('/', [UsersController::class, 'homePage'])->name('trang-chu');
 Route::get('/chi-tiet-san-pham/{id}', [ProductController::class, 'productDetail'])->name('chi-tiet-san-pham');
 
+Route::get('/lien-he', [UsersController::class, 'showContact'])->name('contact');
+Route::post('/report', [UsersController::class, 'sendReport'])->name('report');
+
 Route::get('/danh-muc-san-pham/{cat}', [ProductCatalogueController::class, 'show_product_catalogue'])->name('danh-muc-san-pham');
 Route::get('/danh-muc-thuong-hieu/{bra}', [ProductCatalogueController::class, 'show_brand_catalogue'])->name('danh-muc-thuong-hieu');
 
@@ -72,14 +75,13 @@ Route::get('/delete-cart-all', [CartController::class, 'deleteCartAll'])->name('
 
 
 Route::get('/wishlist', [ProductController::class, 'showWishlist'])->name('show-wishlist');
-Route::post('/add-wishlist/{id}', [ProductController::class, 'addToWishlist'])->name('add-wishlist');
-Route::post('/delete-wishlist/{id}', [ProductController::class, 'deleteToWishlist'])->name('delete-wishlist');
+Route::post('/add-wishlist', [ProductController::class, 'addToWishlist'])->name('add-wishlist');
+Route::post('/delete-wishlist', [ProductController::class, 'deleteToWishlist'])->name('delete-wishlist');
 
-Route::get('/lien-he', [UsersController::class, 'showContact'])->name('contact');
 
 //cổng thanh toán
 Route::get('/thanh-toan', [PaymentController::class, 'checkOut'])->name('check-out');
-Route::post('/payment_method', [PaymentController::class, 'payment_method'])->name('pay.method');
+Route::post('/payment_method', [PaymentController::class, 'payment_method'])->name('payUrl');
 Route::get('/cam-on', [PaymentController::class, 'show_cam_on'])->name('show.thanks');
 
 
@@ -87,9 +89,9 @@ Route::post('/chi-tiet-san-pham/{id}', [CommentController::class, 'postComment']
 Route::get('/delete-comment/{id}', [CommentController::class, 'deleteComment'])->name('delete-comment');
 
 Route::get('/bai-viet', [BlogController::class, 'showBlog'])->name('blog');
-Route::get('/chi-tiet-bai-viet/{id}',[BlogController::class,'blogDetail'])->name('chi-tiet-bai-viet');
-Route::post('/chi-tiet-bai-viet/{id}',[CommentPostController::class,'postComment'])->name('commentPost');
-Route::get('/delete-comment-post/{id}',[CommentPostController::class,'deleteComment'])->name('delete-comment-post');
+Route::get('/chi-tiet-bai-viet/{id}', [BlogController::class, 'blogDetail'])->name('chi-tiet-bai-viet');
+Route::post('/chi-tiet-bai-viet/{id}', [CommentPostController::class, 'postComment'])->name('commentPost');
+Route::get('/delete-comment-post/{id}', [CommentPostController::class, 'deleteComment'])->name('delete-comment-post');
 
 //BACKEND
 Route::group(['middleware' => ['admin', 'locale']], function () {
@@ -267,10 +269,10 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('index', [OrderController::class, 'index'])
             ->name('order.index');
-        Route::get('edit/{id}', [OrderController::class, 'edit'])->where(['id' => '[0-9]+'])
-            ->name('order.edit');
+
         Route::post('update/{id}', [OrderController::class, 'update'])->where(['id' => '[0-9]+'])
             ->name('order.update');
+
         Route::get('delete/{id}', [OrderController::class, 'delete'])->where(['id' => '[0-9]+'])
             ->name('order.delete');
         Route::delete('destroy/{id}', [OrderController::class, 'destroy'])->where(['id' => '[0-9]+'])
@@ -279,6 +281,11 @@ Route::group(['middleware' => ['admin', 'locale']], function () {
     Route::group(['prefix' => 'order/detail'], function () {
         Route::get('index/{id}', [OrderDetailController::class, 'index'])
             ->name('order.detail.index');
+    });
+
+    Route::group(['prefix' => 'report'], function () {
+        Route::get('index', [ReportController::class, 'index'])
+            ->name('report.index');
     });
 
     //AJAX

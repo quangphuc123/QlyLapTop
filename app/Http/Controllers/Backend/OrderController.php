@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
 use App\Services\Interfaces\OrderServiceInterface as OrderService;
@@ -47,31 +49,15 @@ class OrderController extends Controller
         );
     }
 
-    public function edit($id)
-    {
-        // $this->authorize('modules', 'brand.update');
-        $order = $this->orderRepository->findById($id);
-        $config = $this->configData();
-        $config['seo'] = config('apps.order');
-        $config['method'] = 'edit';
-        $template = 'admin.order.order.store';
-        return view(
-            'admin.dashboard.admin-layout',
-            compact(
-                'template',
-                'config',
-                'order',
-            )
-        );
-    }
     public function update($id, Request $request)
     {
-        if ($this->orderService->update($id, $request)) {
-            return redirect()->route('brand.index')
-                ->with('success', 'Cập nhật thành công!!');
-        }
-        return redirect()->route('dashboard.index')
-            ->with('error', 'Cập nhật không thành công');
+        $update_order = Order::find($id);
+        $update_payment = Payment::find($update_order->payment_id);
+        $update_order->order_status = $request->order_status;
+        $update_payment->payment_status = $request->payment_status;
+        $update_order->save();
+        $update_payment->save();
+        return back()->with('success', 'Đơn hàng cập nhật thành công');
     }
 
     public function delete($id)

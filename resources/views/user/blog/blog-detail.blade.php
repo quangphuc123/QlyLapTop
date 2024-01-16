@@ -74,7 +74,7 @@
                                     @if ($comment->post_id === $blog->id)
                                         <div class="review-wrapper card card1 mt-20">
                                             <div class="single-review pt-5 pr-5">
-                                                <div class="review-content">
+                                                <div class="review-content ml-10">
                                                     <div class="review-top-wrap">
                                                         <div class="review-name">
                                                             <h5>

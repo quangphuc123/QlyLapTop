@@ -82,8 +82,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class,'wishlist','user_id','product_id');
     }
 
-    public function checkWishlist(){
-        return $this->wishlist()->where('user_id',auth()->id())->exists();
+    public function checkWishlist($product_id){
+        return $this->wishlist()->where('product_id',$product_id)->exists();
     }
 
     public function countWishlist(){

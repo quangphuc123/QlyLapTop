@@ -9,10 +9,9 @@
     </div>
     <div class="single-input-item">
         <label for="birthday" class="required">Ngày sinh</label>
-        <input type="date" name="birthday" class="inputstyle" <?php
-                                                                    if(Auth::user()->birthday==null){
-                                                                ?> placeholder="Chưa cập nhật"
-            <?php } else ?> placeholder="{{ Auth::user()->birthday }} " />
+        <input type="date" name="birthday" class="inputstyle"
+            value="{{ old('birthday', isset(Auth::user()->birthday) ? date('Y-m-d', strtotime(Auth::user()->birthday)) : '') }}"
+            class="form-control" placeholder="" autocomplete="off">
     </div>
     <div class="single-input-item">
         <label for="phone" class="required">Số điện
@@ -30,12 +29,8 @@
             <?php } else ?> placeholder="{{ Auth::user()->address }}" />
     </div>
     <div class="single-input-item">
-        <label for="email" class="required">Email
-            Addres</label>
-        <input type="email" name="email" class="inputstyle" <?php
-                                                                    if(Auth::user()->email==null){
-                                                                ?> placeholder="Chưa cập nhật"
-            <?php } else ?> placeholder="{{ Auth::user()->email }}" />
+        <label for="email" class="required">Địa chỉ Email</label>
+        <input type="email" name="email" class="inputstyle" disabled placeholder="{{ Auth::user()->email }}" />
     </div>
     {{-- <div class="col-lg-7">
         <div class="ibox">

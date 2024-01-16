@@ -14,72 +14,8 @@ class PaymentController extends Controller
 {
     public function payment_method(Request $request)
     {
-        $payment_method = $request->payment_method;
-        $payment_name = $request->redirect;
-        $payment_name1 = $request->payUrl;
-        $payment_name2 = $request->COD;
-        $this->create_order($request);
-        if ($payment_method == "Thanh toán bằng VNPay" && $payment_name == "vnpay") {
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-            session()->flush('cart');
-            $carts = session()->get(key: 'cart');
-            $vnp_Returnurl = "http://127.0.0.1:8000/thanh-toan";
-            $vnp_TmnCode = "PVFRY0FG"; //Mã website tại VNPAY
-            $vnp_HashSecret = "ZZEKHACYBSPXBGTWBDSGCILRHXSGIZHH"; //Chuỗi bí mật
-            $vnp_TxnRef = rand(0, 9999999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-            $vnp_OrderInfo = "Thanh Toán HandSome Store";
-            $vnp_OrderType = "billpayment";
-            $total = $request->total_cart;
-            $vnp_Amount = $total * 100;
-            $vnp_Locale = "vn";
-            $vnp_BankCode = "NCB";
-            $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-            $inputData = array(
-                "vnp_Version" => "2.1.0",
-                "vnp_TmnCode" => $vnp_TmnCode,
-                "vnp_Amount" => $vnp_Amount,
-                "vnp_Command" => "pay",
-                "vnp_CreateDate" => date('YmdHis'),
-                "vnp_CurrCode" => "VND",
-                "vnp_IpAddr" => $vnp_IpAddr,
-                "vnp_Locale" => $vnp_Locale,
-                "vnp_OrderInfo" => $vnp_OrderInfo,
-                "vnp_OrderType" => $vnp_OrderType,
-                "vnp_ReturnUrl" => $vnp_Returnurl,
-                "vnp_TxnRef" => $vnp_TxnRef
-            );
-            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-                $inputData['vnp_BankCode'] = $vnp_BankCode;
-            }
-            ksort($inputData);
-            $query = "";
-            $i = 0;
-            $hashdata = "";
-            foreach ($inputData as $key => $value) {
-                if ($i == 1) {
-                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-                } else {
-                    $hashdata .= urlencode($key) . "=" . urlencode($value);
-                    $i = 1;
-                }
-                $query .= urlencode($key) . "=" . urlencode($value) . '&';
-            }
-            $vnp_Url = $vnp_Url . "?" . $query;
-            if (isset($vnp_HashSecret)) {
-                $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
-                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-            }
-            $returnData = array(
-                'code' => '00', 'message' => 'success', 'data' => $vnp_Url,
-            );
-            if (isset($_POST['redirect'])) {
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
-        } elseif ($payment_method == "Thanh toán bằng momo" && $payment_name1 == "momo") {
+        if (isset($_POST['payUrl'])) {
+            $this->create_order($request);
             $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
             $partnerCode = 'MOMOBKUN20180529';
             $accessKey = 'klm05TvNBzhg7h7j';
@@ -88,7 +24,7 @@ class PaymentController extends Controller
             $total = $request->total_cart;
             $amount = "$total";
             $orderId = time() . "";
-            $redirectUrl = "http://127.0.0.1:8000/thanh-toan";
+            $redirectUrl = "http://127.0.0.1:8000/cart";
             $ipnUrl = "http://127.0.0.1:8000/thanh-toan";
             $extraData = "";
             $requestId = time() . "";
@@ -112,12 +48,16 @@ class PaymentController extends Controller
                 'signature' => $signature
             );
             $result = $this->execPostRequest($endpoint, json_encode($data));
+
             $jsonResult = json_decode($result, true);  // decode json
-            session()->flush('cart');
+
+            session()->forget('cart');
             $carts = session()->get(key: 'cart');
-            return redirect()->to($jsonResult['payUrl']);
-        } elseif ($payment_method == "Thanh toán khi nhận hàng" && $payment_name2 == "cod") {
-            session()->flush('cart');
+
+            return redirect($jsonResult['payUrl']);
+        } elseif (isset($_POST['COD'])) {
+            $this->create_order($request);
+            session()->forget('cart');
             $carts = session()->get(key: 'cart');
             return redirect()->route('show.thanks')->with('success', 'Đặt hàng thành công');
         }
@@ -168,8 +108,11 @@ class PaymentController extends Controller
             'shipping_email',
             'shipping_name',
             'shipping_note',
-            'shipping_address',
-            'shipping_phone',
+            'shipping_address' => 'required',
+            'shipping_phone' => 'required',
+        ], [
+            'shipping_address.required' => 'Vui lòng nhập địa chỉ',
+            'shipping_phone.required' => 'Vui lòng nhập số điện thoại'
         ]);
         $data_shipping = $request->only(
             'shipping_email',
@@ -178,10 +121,11 @@ class PaymentController extends Controller
             'shipping_address',
             'shipping_phone',
         );
+
         $shipping = Shipping::create($data_shipping);
         $paymet = array();
         $paymet['payment_method'] = $request->payment_method;
-        $paymet['payment_status'] = 'Đang được xử lý';
+        $paymet['payment_status'] = 'Chưa thanh toán';
         $paymets = Payment::create($paymet);
         $data_order = $request->only(
             'order_id',
@@ -189,7 +133,7 @@ class PaymentController extends Controller
         );
         $data_order['user_id'] = Auth::user()->id;
         $data_order['shipping_id'] = $shipping->id;
-        $data_order['order_status'] = 'Đang được vận chuyển';
+        $data_order['order_status'] = 'Đang xử lý';
         $data_order['payment_id'] = $paymets->id;
         $data_order['order_total'] = $request->total_cart;
         $order = Order::create($data_order);

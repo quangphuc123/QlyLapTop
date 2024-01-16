@@ -51,10 +51,11 @@
                                 @auth <div class="same-style-2 same-style-2-white same-style-2-font-dec">
                                         <a href="{{ route('show-wishlist') }}">
                                             <i class="icon-heart"></i>
-                                            <span class="pro-count red">{{ Auth::user()->wishlist()->count() / 2 }}
+                                            <span class="pro-count red">{{ Auth::user()->wishlist()->count() }}
                                             </span>
                                         </a>
-                                </div>@endauth
+                                    </div>
+                                @endauth
                                 <div class="same-style-2 same-style-2-white same-style-2-font-inc header-cart">
                                     <a class="cart-active" href="#">
                                         <?php
@@ -137,7 +138,7 @@
                                         </li>
                                         <li><a href="{{ route('blog') }}">Bài viết</a>
                                         </li>
-                                        <li><a href="~/shop/norda/contact.html">Liên hệ </a></li>
+                                        <li><a href="{{ route('contact') }}">Liên hệ </a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -187,38 +188,7 @@
         </div>
     </header>
 </div>
-<div class="header-small-device small-device-ptb-1">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-5">
-                <div class="mobile-logo">
-                    <a href="index.html">
-                        <img alt="" src="~/shop/norda/assets/images/logo/logo.png">
-                    </a>
-                </div>
-            </div>
-            <div class="col-7">
-                <div class="header-action header-action-flex">
-                    <div class="same-style-2 same-style-2-font-inc">
-                        <a href="login-register.html"><i class="icon-user"></i></a>
-                    </div>
-                    <div class="same-style-2 same-style-2-font-inc">
-                        <a href="wishlist.html"><i class="icon-heart"></i><span class="pro-count red">03</span></a>
-                    </div>
-                    <div class="same-style-2 same-style-2-font-inc header-cart">
-                        <a class="cart-active" href="#">
-                            <i class="icon-basket-loaded"></i><span class="pro-count red">02</span>
-                        </a>
-                    </div>
-                    <div class="same-style-2 main-menu-icon">
-                        <a class="mobile-header-button-active" href="#"><i class="icon-menu"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script type="text/javascript">
     $('#keyword-autocomple').keyup(function() {

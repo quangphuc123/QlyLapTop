@@ -23,7 +23,7 @@ return [
         [
             'title' => 'Quản lý loại sản phẩm',
             'icon' => 'fa fa-archive',
-            'name' => ['product','brand'],
+            'name' => ['product', 'brand'],
             'subModule' =>
             [
                 [
@@ -56,7 +56,7 @@ return [
         [
             'title' => 'Qlý nhóm tài khoản',
             'icon' => 'fa fa-user',
-            'name' => ['user','permission'],
+            'name' => ['user', 'permission'],
             'subModule' =>
             [
                 [
@@ -83,6 +83,18 @@ return [
                 [
                     'title' => 'Quản lý ngôn ngữ ',
                     'route' => 'language/index',
+                ],
+            ],
+        ],
+        [
+            'title' => 'Quản lý Report',
+            'icon' => 'fa fa-comments',
+            'name' => ['report'],
+            'subModule' =>
+            [
+                [
+                    'title' => 'Quản lý phản hồi',
+                    'route' => 'report/index',
                 ],
             ],
         ],

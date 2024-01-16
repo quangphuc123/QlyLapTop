@@ -27,13 +27,19 @@ class DashboardController extends Controller
         $User = new User();
         $tableColumnUsers = $User->getConnection()->getSchemaBuilder()->getColumnListing($User->getTable());
 
-        $resultUser = DB::table('user_catalogues')
-            ->select('user_catalogues.*', DB::raw('COUNT(users.user_catalogue_id) AS number_user'))
-            ->join('users', 'user_catalogues.id', '=', 'users.user_catalogue_id')
-            ->groupBy(array_merge(['user_catalogues.id'], $tableColumnUsers))
+        $resultAccountCount = DB::table('user_catalogues')
+            ->select('user_catalogues.name', DB::raw('COUNT(users.id) as so_luong_tai_khoan'))
+            ->leftJoin('users', 'user_catalogues.id', '=', 'users.user_catalogue_id')
+            ->groupBy('user_catalogues.name')
             ->get();
+
         $totalOrders = Order::count();
         $totalUsers = User::count();
+        $resultRevenue = DB::table('orders')
+            ->select(DB::raw('DAY(created_at) as ngay, MONTH(created_at) as thang'), DB::raw('SUM(order_total) as doanh_so'))
+            ->where('order_status', '=', 'Đơn hàng đã được nhận')
+            ->groupBy('ngay', 'thang')
+            ->get();
         $orders = Order::latest()->limit(5)->get();
         $totalIncome = Order::sum('order_total');
         $template = 'admin.dashboard.home.index';
@@ -43,11 +49,12 @@ class DashboardController extends Controller
                 'template',
                 'config',
                 'result',
-                'resultUser',
+                'resultAccountCount',
                 'totalOrders',
                 'totalUsers',
                 'orders',
-                'totalIncome'
+                'totalIncome',
+                'resultRevenue'
             )
         );
     }

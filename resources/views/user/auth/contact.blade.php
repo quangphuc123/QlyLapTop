@@ -17,7 +17,7 @@
                 <div class="breadcrumb-content text-center">
                     <ul>
                         <li>
-                            <a href="{{route('trang-chu')}}">Home</a>
+                            <a href="{{ route('trang-chu') }}">Home</a>
                         </li>
                         <li class="active">Thông tin liên hệ </li>
                     </ul>
@@ -40,38 +40,43 @@
                             <div class="single-contact-info-3 extra-contact-info text-center mb-30">
                                 <ul>
                                     <li><i class="icon-screen-smartphone"></i> (+035) 252 4200</li>
-                                    <li><i class="icon-envelope "></i> <a href="#">HandSomeStore@gmail.com</a></li>
+                                    <li><i class="icon-envelope "></i> <a href="#">HandSomeStore@gmail.com</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="single-contact-info-3 text-center mb-30">
                                 <i class="icon-clock "></i>
-                                <h4>openning hour</h4>
-                                <p>Monday - Friday. 9:00am - 5:00pm </p>
+                                <h4>Hỗ trợ 24/7</h4>
+                                <p>Sẵn sàng phục vụ quý khách</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="get-in-touch-wrap">
-                    <h3>Get In Touch</h3>
+                    <h3>LIÊN HỆ VỚI CHÚNG TÔI</h3>
                     <div class="contact-from contact-shadow">
-                        <form id="contact-form" action="assets/mail-php/mail.php" method="post">
+                        <form action="{{ route('report') }}" method="post">
+                            @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <input name="name" type="text" placeholder="Name">
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <input name="email" type="email" placeholder="Email">
+                                <div class="col-lg-12 col-md-12">
+                                    <input name="tieu_de" type="text" placeholder="Tiêu đề">
                                 </div>
                                 <div class="col-lg-12 col-md-12">
-                                    <input name="subject" type="text" placeholder="Subject">
+                                    <textarea name="noi_dung_report" placeholder="Nội dung"></textarea>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
-                                    <textarea name="message" placeholder="Your Message"></textarea>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <button class="submit" type="submit">Send Message</button>
+                                    <button class="submit" type="submit">GỬI</button>
                                 </div>
                             </div>
                         </form>
@@ -79,7 +84,7 @@
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
 
         @include('user.index.component.footer')
     </div>
